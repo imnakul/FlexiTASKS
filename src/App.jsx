@@ -79,11 +79,9 @@ function App() {
             <Navbar />
 
             <div className='w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white bg-secondary'>
-               <div className='flex flex-grow gap-8 self-center'>
-                  <h1 className='text-3xl font-bold text-center mb-8 mt-2 text-primary-content'>
-                     Manage Todo's
-                  </h1>
-               </div>
+               <h1 className='text-5xl mb-8 mt-2 text-primary-content font-black text-center'>
+                  <u>Manage Todo's</u>
+               </h1>
 
                <div className='mb-4 text-primary-content'>
                   <TodoForm />

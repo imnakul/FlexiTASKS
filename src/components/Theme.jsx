@@ -39,7 +39,8 @@ function Theme() {
                <MenuItem>
                   <button
                      onClick={() => setThemeName("aqua")}
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-blue-400 data-[hover]:bg-blue-500 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-blue-600 via-purple-700 to-blue-400 
+                     data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
                      Aqua
                   </button>
@@ -48,7 +49,7 @@ function Theme() {
                <MenuItem>
                   <button
                      onClick={() => setThemeName("retro")}
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-orange-300 data-[hover]:bg-orange-300 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-yellow-200  via-green-200 to-pink-300 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
                      Retro
                   </button>
@@ -56,25 +57,53 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "luxury")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-red-900 data-[hover]:bg-red-900 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     onClick={() => setThemeName("coffee")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-gray-800  via-teal-900 to-yellow-600 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
-                     Luxury
+                     Coffee
                   </button>
                </MenuItem>
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "valentine")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-pink-400 data-[hover]:bg-pink-400 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     onClick={() => setThemeName("cupcake")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-white via-pink-400 to-teal-600 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                  >
+                     Cupcake
+                  </button>
+               </MenuItem>
+
+               <MenuItem>
+                  <button
+                     onClick={() => setThemeName("halloween")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-gray-800 via-purple-700 to-orange-400 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                  >
+                     Halloween
+                  </button>
+               </MenuItem>
+
+               <MenuItem>
+                  <button
+                     onClick={() => setThemeName("bumblebee")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-white via-orange-400 to-yellow-300 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                  >
+                     BumbleBee
+                  </button>
+               </MenuItem>
+
+               <MenuItem>
+                  <button
+                     onClick={() => setThemeName("corporate")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-white via-gray-500 to-blue-600 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                  >
+                     Corporate
+                  </button>
+               </MenuItem>
+
+               <MenuItem>
+                  <button
+                     onClick={() => setThemeName("valentine")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-white via-purple-400 to-pink-400 hover:shadow-lg rounded-sm'
                   >
                      Valentine
                   </button>
@@ -82,12 +111,8 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "lemonade")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-yellow-200 data-[hover]:bg-yellow-200 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     onClick={() => setThemeName("lemonade")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-white via-yellow-300 to-green-700 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
                      Lemonade
                   </button>
@@ -95,12 +120,8 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "dim")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-blue-800 data-[hover]:bg-blue-800 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     onClick={() => setThemeName("dim")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-black data-[focus]:bg-gradient-to-r from-gray-800 via-orange-300 to-green-300 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
                      Dim
                   </button>
@@ -108,12 +129,8 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "light")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-white data-[hover]:bg-white hover:text-black data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     onClick={() => setThemeName("light")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-white via-blue-600 to-pink-700 hover:text-black data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
                      Light
                   </button>
@@ -121,12 +138,8 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "dark")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gray-700 [hover]:bg-gray-700 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
+                     onClick={() => setThemeName("dark")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-black data-[focus]:bg-gradient-to-r from-gray-800 via-pink-500 to-purple-400 data-[focus]:text-gray-900 hover:shadow-lg rounded-sm'
                   >
                      Dark
                   </button>
@@ -134,24 +147,16 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "synthwave")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-blue-700 data-[hover]:to-blue-950 data-[focus]:text-gray-900 rounded-sm'
+                     onClick={() => setThemeName("synthwave")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-blue-950 via-blue-400 to-pink-400 data-[focus]:text-gray-900 rounded-sm'
                   >
                      Synthwave
                   </button>
                </MenuItem>
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "forest")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-green-700 data-[hover]:bg-green-700 data-[focus]:text-gray-900 rounded-sm'
+                     onClick={() => setThemeName("forest")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-gray-700 via-teal-500 to-green-600 data-[focus]:text-gray-900 rounded-sm'
                   >
                      Forest
                   </button>
@@ -159,12 +164,8 @@ function Theme() {
 
                <MenuItem>
                   <button
-                     onClick={() =>
-                        document
-                           .querySelector("html")
-                           .setAttribute("data-theme", "cyberpunk")
-                     }
-                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-yellow-300 data-[hover]:bg-yellow-300 data-[focus]:text-gray-900 rounded-sm'
+                     onClick={() => setThemeName("cyberpunk")}
+                     className='block w-full text-center text-lg font-semibold px-3 py-2 text-gray-700 data-[focus]:bg-gradient-to-r from-yellow-300 via-blue-500 to-pink-400 data-[focus]:text-gray-900 rounded-sm'
                   >
                      Cyberpunk
                   </button>
