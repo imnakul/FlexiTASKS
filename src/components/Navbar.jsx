@@ -4,7 +4,7 @@ function Navbar() {
    return (
       <div className='navbar bg-primary p-8 mb-4 mt-3'>
          <div className='flex-none'>
-            <button className='btn btn-square btn-outline btn-lg mr-3 hover:ring-secondary hover:ring-2'>
+            <button className='btn btn-square btn-outline btn-lg mr-3 hover:ring-base-100 hover:ring-2 rounded-none'>
                <img
                   style={{ width: "auto", height: "auto" }}
                   src='/checklist.gif'
