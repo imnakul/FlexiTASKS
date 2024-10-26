@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { TodoProvider } from "./contexts/ToDoContext";
 import Navbar from "./components/Navbar";
-import TodoForm from "./components/TodoForm";
-import TodoItem from "./components/TodoItem";
+import { TodoForm, TodoItem } from "./components/index";
 
 function App() {
    const [todos, setTodos] = useState([]);
@@ -47,6 +46,7 @@ function App() {
    useEffect(() => {
       const todos = JSON.parse(localStorage.getItem("todos"));
       if (todos && todos.length > 0) {
+         // <button onClick={() => setTodos([])}>Clear All</button>;
          setTodos(todos);
       }
    }, []);
@@ -60,10 +60,6 @@ function App() {
       <TodoProvider
          value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
       >
-         {/* {document
-            .querySelector("html")
-            .setAttribute("data-theme", "")} */}
-
          <div
             className='min-h-screen'
             // style={{
@@ -79,9 +75,80 @@ function App() {
             <Navbar />
 
             <div className='w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white bg-secondary'>
-               <h1 className='text-5xl mb-8 mt-2 text-primary-content font-black text-center'>
-                  <u>Manage Todo's</u>
+               <h1 className='text-6xl mb-2 mt-2 text-primary-content font-semibold font-sans text-start'>
+                  Manage Todo's
                </h1>
+
+               {/* Divider */}
+               <div className='flex w-full flex-col'>
+                  <div className='divider divider-primary mt-0 mb-2'></div>
+               </div>
+
+               {/* Sorting functionality */}
+               <div className='flex justify-end'>
+                  <label className='swap swap-flip text-9xl'>
+                     {/* this hidden checkbox controls the state */}
+                     <input
+                        type='checkbox'
+                        onClick={(e) => {
+                           if (e.target.checked) {
+                              const todos = JSON.parse(
+                                 localStorage.getItem("todos")
+                              );
+                              todos.sort((a, b) => a.id - b.id);
+                              <div className='toast toast-end'>
+                                 <div className='alert alert-info'>
+                                    <span>New mail arrived.</span>
+                                 </div>
+                                 <div className='alert alert-success'>
+                                    <span>Message sent successfully.</span>
+                                 </div>
+                              </div>;
+                              setTodos(todos);
+                              <div className='toast toast-end'>
+                                 <div className='alert alert-info'>
+                                    <span>New mail arrived.</span>
+                                 </div>
+                                 <div className='alert alert-success'>
+                                    <span>Message sent successfully.</span>
+                                 </div>
+                              </div>;
+                           } else {
+                              const todos = JSON.parse(
+                                 localStorage.getItem("todos")
+                              );
+                              todos.sort((a, b) => b.id - a.id);
+                              setTodos(todos);
+                              <div className='toast toast-end'>
+                                 <div className='alert alert-success'>
+                                    <span>Oldest first - Sorting Applied!</span>
+                                 </div>
+                              </div>;
+                           }
+                        }}
+                     />
+
+                     <div className='swap-on btn btn-square btn-outline btn-sm ml-50 bg-white hover:ring-2 rounded-none mb-5 p-1'>
+                        <img
+                           src='./filter.png'
+                           alt='green'
+                           style={{
+                              width: "auto",
+                              height: "auto",
+                              paddding: 2,
+                           }}
+                        />
+                     </div>
+                     <div className='swap-off btn btn-square btn-outline btn-sm mr-3 bg-white hover:ring-2 rounded-none mb-5 p-1'>
+                        <img
+                           src='./filter2.png'
+                           alt='red'
+                           style={{ width: "auto", height: "auto" }}
+                        />
+                     </div>
+                  </label>
+               </div>
+               {/* Sorting Ends here*/}
 
                <div className='mb-4 text-primary-content'>
                   <TodoForm />
