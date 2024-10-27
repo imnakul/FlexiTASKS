@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { TodoProvider } from "./contexts/ToDoContext";
 import Navbar from "./components/Navbar";
 import { TodoForm, TodoItem } from "./components/index";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
    const [todos, setTodos] = useState([]);
@@ -23,7 +26,10 @@ function App() {
    //const updatedTodo = (id, todo) , here todo , is the new todo which we have entered
 
    const deleteTodo = (id) => {
-      setTodos((prev) => prev.filter((singleTodo) => singleTodo.id !== id));
+      if (window.confirm("Are you sure, you want to Delete ?")) {
+         setTodos((prev) => prev.filter((singleTodo) => singleTodo.id !== id));
+         toast("Todo Deleted!");
+      }
    };
 
    const toggleComplete = (id) => {
@@ -46,7 +52,6 @@ function App() {
    useEffect(() => {
       const todos = JSON.parse(localStorage.getItem("todos"));
       if (todos && todos.length > 0) {
-         // <button onClick={() => setTodos([])}>Clear All</button>;
          setTodos(todos);
       }
    }, []);
@@ -84,8 +89,8 @@ function App() {
                   <div className='divider divider-primary mt-0 mb-2'></div>
                </div>
 
-               {/* Sorting functionality */}
-               <div className='flex justify-end'>
+               <div className='flex flex-row gap-3 justify-end'>
+                  {/* Sorting functionality */}
                   <label className='swap swap-flip text-9xl'>
                      {/* this hidden checkbox controls the state */}
                      <input
@@ -96,39 +101,18 @@ function App() {
                                  localStorage.getItem("todos")
                               );
                               todos.sort((a, b) => a.id - b.id);
-                              <div className='toast toast-end'>
-                                 <div className='alert alert-info'>
-                                    <span>New mail arrived.</span>
-                                 </div>
-                                 <div className='alert alert-success'>
-                                    <span>Message sent successfully.</span>
-                                 </div>
-                              </div>;
                               setTodos(todos);
-                              <div className='toast toast-end'>
-                                 <div className='alert alert-info'>
-                                    <span>New mail arrived.</span>
-                                 </div>
-                                 <div className='alert alert-success'>
-                                    <span>Message sent successfully.</span>
-                                 </div>
-                              </div>;
                            } else {
                               const todos = JSON.parse(
                                  localStorage.getItem("todos")
                               );
                               todos.sort((a, b) => b.id - a.id);
                               setTodos(todos);
-                              <div className='toast toast-end'>
-                                 <div className='alert alert-success'>
-                                    <span>Oldest first - Sorting Applied!</span>
-                                 </div>
-                              </div>;
                            }
                         }}
                      />
 
-                     <div className='swap-on btn btn-square btn-outline btn-sm ml-50 bg-white hover:ring-2 rounded-none mb-5 p-1'>
+                     <div className='swap-on btn btn-square btn-outline btn-md ml-50 bg-white hover:ring-2 rounded-none mb-5 p-1'>
                         <img
                            src='./filter.png'
                            alt='green'
@@ -139,7 +123,7 @@ function App() {
                            }}
                         />
                      </div>
-                     <div className='swap-off btn btn-square btn-outline btn-sm mr-3 bg-white hover:ring-2 rounded-none mb-5 p-1'>
+                     <div className='swap-off btn btn-square btn-outline btn-md mr-3 bg-white hover:ring-2 rounded-none mb-5 p-1'>
                         <img
                            src='./filter2.png'
                            alt='red'
@@ -147,8 +131,33 @@ function App() {
                         />
                      </div>
                   </label>
+                  {/* Sorting Ends HEre*/}
+
+                  {/* Clear All Button */}
+                  <button
+                     className='btn btn-square btn-outline btn-md ml-50 bg-white hover:ring-2 rounded-none mb-5 p-1 mr-2'
+                     onClick={() => {
+                        if (
+                           window.confirm(
+                              "Are you sure, you want to Clear All Tasks?"
+                           )
+                        ) {
+                           setTodos([]);
+                           toast.success("Todos List Cleared!");
+                        }
+                     }}
+                  >
+                     <img
+                        src='./clear.png'
+                        alt='green'
+                        style={{
+                           width: "auto",
+                           height: "auto",
+                           paddding: 2,
+                        }}
+                     />
+                  </button>
                </div>
-               {/* Sorting Ends here*/}
 
                <div className='mb-4 text-primary-content'>
                   <TodoForm />
@@ -163,6 +172,7 @@ function App() {
                </div>
             </div>
          </div>
+         <ToastContainer />
       </TodoProvider>
    );
 }

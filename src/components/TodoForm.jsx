@@ -21,7 +21,7 @@ function TodoForm() {
          <input
             type='text'
             placeholder='Write Todo...'
-            className='w-full border border-black/10 rounded-md px-3 duration-150  bg-base-100 text-primary-content py-1.5 font-medium text-lg hover:ring-primary hover:ring-2'
+            className='w-full border border-black/10 rounded-md px-3 duration-150  bg-base-100 text-primary font-bold py-1.5 font-medium text-lg hover:ring-primary hover:ring-2'
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
          />
