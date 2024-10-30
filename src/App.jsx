@@ -27,7 +27,7 @@ function App() {
    //const updatedTodo = (id, todo) , here todo , is the new todo which we have entered
 
    const deleteTodo = (id) => {
-      if (window.confirm("Are you sure, you want to Delete ?")) {
+      if (window.confirm("Are you sure, you want to Delete this Task ?")) {
          setTodos((prev) => prev.filter((singleTodo) => singleTodo.id !== id));
          toast("Task Deleted!");
       }
