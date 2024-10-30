@@ -5,12 +5,13 @@ import { TodoForm, TodoItem } from "./components/index";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Sorting, ClearTodos } from "./functionalities/index.js";
 
 function App() {
    const [todos, setTodos] = useState([]);
 
    const addTodo = (todo) => {
-      setTodos((prev) => [{ id: DataTransfer.now, ...todo }, ...prev]);
+      setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev]);
    };
 
    const updateTodo = (id, todo) => {
@@ -28,12 +29,12 @@ function App() {
    const deleteTodo = (id) => {
       if (window.confirm("Are you sure, you want to Delete ?")) {
          setTodos((prev) => prev.filter((singleTodo) => singleTodo.id !== id));
-         toast("Todo Deleted!");
+         toast("Task Deleted!");
       }
    };
 
    const toggleComplete = (id) => {
-      console.log(id);
+      // console.log(id);
       setTodos((prev) =>
          prev.map((prevTodo) =>
             prevTodo.id === id
@@ -65,98 +66,26 @@ function App() {
       <TodoProvider
          value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
       >
-         <div
-            className='min-h-screen'
-            // style={{
-            //    backgroundImage: 'url("./public/done-clipart-md.png")',
-            //    backgroundSize: "55vh 25vw",
-            //    backgroundPosition: "97% 65%",
-            //    backgroundRepeat: "no-repeat",
-            //    "@media (maxWidth: 992px)": {
-            //       display: "none",
-            //    },
-            // }}
-         >
+         <div className='min-h-screen'>
+            {/* Navigation Bar */}
             <Navbar />
 
-            <div className='w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white bg-secondary'>
-               <h1 className='text-6xl mb-2 mt-2 text-primary-content font-semibold font-sans text-start'>
+            <div className='xl:w-full xl:max-w-4xl max-w-sm sm:mx-auto mx-4 shadow-md rounded-lg px-4 xl:py-4 py-2 text-white bg-secondary'>
+               <h1 className='xl:text-6xl text-2xl xl:mb-2 xl:mt-2 text-primary-content font-semibold font-sans text-center'>
                   Manage Todo's
                </h1>
 
                {/* Divider */}
                <div className='flex w-full flex-col'>
-                  <div className='divider divider-primary mt-0 mb-2'></div>
+                  <div className='divider divider-primary mt-0 xl:mb-2 mb-1'></div>
                </div>
 
-               <div className='flex flex-row gap-3 justify-end'>
-                  {/* Sorting functionality */}
-                  <label className='swap swap-flip text-9xl'>
-                     {/* this hidden checkbox controls the state */}
-                     <input
-                        type='checkbox'
-                        onClick={(e) => {
-                           if (e.target.checked) {
-                              const todos = JSON.parse(
-                                 localStorage.getItem("todos")
-                              );
-                              todos.sort((a, b) => a.id - b.id);
-                              setTodos(todos);
-                           } else {
-                              const todos = JSON.parse(
-                                 localStorage.getItem("todos")
-                              );
-                              todos.sort((a, b) => b.id - a.id);
-                              setTodos(todos);
-                           }
-                        }}
-                     />
-
-                     <div className='swap-on btn btn-square btn-outline btn-md ml-50 bg-white hover:ring-2 rounded-none mb-5 p-1'>
-                        <img
-                           src='./filter.png'
-                           alt='green'
-                           style={{
-                              width: "auto",
-                              height: "auto",
-                              paddding: 2,
-                           }}
-                        />
-                     </div>
-                     <div className='swap-off btn btn-square btn-outline btn-md mr-3 bg-white hover:ring-2 rounded-none mb-5 p-1'>
-                        <img
-                           src='./filter2.png'
-                           alt='red'
-                           style={{ width: "auto", height: "auto" }}
-                        />
-                     </div>
-                  </label>
-                  {/* Sorting Ends HEre*/}
+               <div className='flex flex-row gap-3 justify-end mb-0'>
+                  {/* Sorting Functionality */}
+                  <Sorting todos={todos} setTodos={setTodos} />
 
                   {/* Clear All Button */}
-                  <button
-                     className='btn btn-square btn-outline btn-md ml-50 bg-white hover:ring-2 rounded-none mb-5 p-1 mr-2'
-                     onClick={() => {
-                        if (
-                           window.confirm(
-                              "Are you sure, you want to Clear All Tasks?"
-                           )
-                        ) {
-                           setTodos([]);
-                           toast.success("Todos List Cleared!");
-                        }
-                     }}
-                  >
-                     <img
-                        src='./clear.png'
-                        alt='green'
-                        style={{
-                           width: "auto",
-                           height: "auto",
-                           paddding: 2,
-                        }}
-                     />
-                  </button>
+                  <ClearTodos todos={todos} setTodos={setTodos} />
                </div>
 
                <div className='mb-4 text-primary-content'>
@@ -172,7 +101,8 @@ function App() {
                </div>
             </div>
          </div>
-         <ToastContainer />
+
+         <ToastContainer position='bottom-right' autoClose={1500} />
       </TodoProvider>
    );
 }

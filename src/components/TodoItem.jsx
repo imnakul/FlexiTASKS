@@ -31,16 +31,17 @@ function TodoItem({ todo }) {
          />
          <input
             type='text'
-            className={`border outline-none w-full bg-transparent rounded-lg text-xl font-semibold font-mono ${
+            className={`border outline-none w-full bg-transparent rounded-lg text-xs xl:text-xl  font-semibold font-mono ${
                isTodoEditable ? "border-black/10 px-2" : "border-transparent"
             } ${todo.completed ? "line-through" : ""}`}
             value={todoMsg}
             onChange={(e) => setTodoMsg(e.target.value)}
             readOnly={!isTodoEditable}
          />
+
          {/* Edit, Save Button */}
          <button
-            className='inline-flex w-8 h-8 rounded-lg text-lg border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50'
+            className='inline-flex xl:w-8 xl:h-8 w-6 h-6 rounded-lg text-lg border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-300 shrink-0 disabled:opacity-50'
             onClick={() => {
                if (todo.completed) return;
 
@@ -55,7 +56,7 @@ function TodoItem({ todo }) {
 
          {/* Delete Todo Button */}
          <button
-            className='inline-flex w-8 h-8 rounded-lg text-lg border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0'
+            className='inline-flex xl:w-8 xl:h-8 w-6 h-6 rounded-lg text-lg border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-300 shrink-0'
             onClick={() => deleteTodo(todo.id)}
          >
             🗑️
