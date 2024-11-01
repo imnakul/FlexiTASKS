@@ -2,7 +2,7 @@ import Theme from "./Theme";
 
 function Navbar() {
    return (
-      <div className='navbar bg-primary xl:p-8 xl:mb-4 xl:mt-3 mb-2 mt-2 flex flex-wrap justify-between'>
+      <div className='navbar bg-primary xl:p-6 xl:mb-6 xl:mt-3 mb-2 mt-2 flex flex-wrap justify-between'>
          {/* <div className='flex-none'> */}
          <button
             className='btn btn-square btn-outline xl:btn-lg
@@ -16,7 +16,7 @@ function Navbar() {
          </button>
          {/* </div> */}
          {/* <div className='flex-1'> */}
-         <a className='m-2 xl:text-7xl text-3xl font-serif text-primary-content font-bold text-center'>
+         <a className='m-2 xl:text-7xl text-3xl font-serif text-primary-content font-bold text-center flex flex-shrink-4'>
             To-Do App
          </a>
          {/* </div> */}

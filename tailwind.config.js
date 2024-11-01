@@ -7,15 +7,24 @@ export default {
    plugins: [require("daisyui")],
    daisyui: {
       themes: [
+         "cyberpunk",
          "light",
-         "dark",
+         {
+            dark: {
+               ...require("daisyui/src/theming/themes")["dark"],
+               primary: "#13eddb",
+               secondary: "#f5bb58",
+               accent: "#37cdbe",
+               neutral: "#3d4451",
+               "base-100": "#1d2630",
+            },
+         },
          "cupcake",
          "bumblebee",
          "emerald",
          "corporate",
          "synthwave",
          "retro",
-         "cyberpunk",
          "valentine",
          "halloween",
          "garden",

@@ -66,6 +66,7 @@ function App() {
       <TodoProvider
          value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
       >
+         {/* {localStorage.clear()} */}
          <div className='min-h-screen'>
             {/* Navigation Bar */}
             <Navbar />
@@ -80,7 +81,7 @@ function App() {
                   <div className='divider divider-primary mt-0 xl:mb-2 mb-1'></div>
                </div>
 
-               <div className='flex flex-row gap-3 justify-end mb-0'>
+               <div className='flex flex-wrap gap-3 justify-end mb-0'>
                   {/* Sorting Functionality */}
                   <Sorting todos={todos} setTodos={setTodos} />
 
@@ -101,7 +102,6 @@ function App() {
                </div>
             </div>
          </div>
-
          <ToastContainer position='bottom-right' autoClose={1500} />
       </TodoProvider>
    );
