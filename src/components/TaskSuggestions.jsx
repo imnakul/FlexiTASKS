@@ -1,37 +1,45 @@
 import { useState, useEffect } from 'react'
 
 const GENERAL_SUGGESTIONS = [
-   'Go for a haircut',
-   'Schedule dentist appointment',
+   'Go for a walk',
+   'Read a book',
+   'Meditate',
+   'Exercise',
+   'Take a shower',
+   'Make breakfast',
+   'Check emails',
+   'Go for haircut',
    'Buy groceries',
-   'Call mom',
-   'Pay utility bills',
-   'Review project timeline',
-   'Update resume',
-   'Plan weekend activities',
-   'Clean the house',
-   'Organize workspace',
+   'Call family',
+   'Pay bills',
+   'Clean room',
+   'Do laundry',
+   'Study',
+   'Practice coding',
+   'Attend meeting',
+   'Review project',
+   'Take notes',
+   'Plan weekend',
+   'Set goals',
 ]
 
 function TaskSuggestions({ input, onSelect, todos }) {
    const [suggestions, setSuggestions] = useState([])
 
    useEffect(() => {
-      if (!input) {
+      if (!input.trim()) {
          setSuggestions([])
          return
       }
 
       // Filter past todos that match the input
       const pastTodos = todos
-         .filter(
-            (todo) =>
-               todo.todo.toLowerCase().includes(input.toLowerCase()) &&
-               !todo.todo.toLowerCase().startsWith(input.toLowerCase())
+         .filter((todo) =>
+            todo.todo.toLowerCase().includes(input.toLowerCase())
          )
          .map((todo) => todo.todo)
 
-      // Filter general suggestions that match the input
+      // Filter general suggestions that don't start with the current input
       const generalSuggestions = GENERAL_SUGGESTIONS.filter(
          (suggestion) =>
             suggestion.toLowerCase().includes(input.toLowerCase()) &&
@@ -39,38 +47,25 @@ function TaskSuggestions({ input, onSelect, todos }) {
       )
 
       // Combine and deduplicate suggestions
-      const allSuggestions = [
+      const combinedSuggestions = [
          ...new Set([...pastTodos, ...generalSuggestions]),
-      ].slice(0, 5) // Limit to 5 suggestions
-
-      setSuggestions(allSuggestions)
+      ]
+      setSuggestions(combinedSuggestions.slice(0, 5))
    }, [input, todos])
 
-   if (!suggestions.length) return null
+   if (suggestions.length === 0) return null
 
    return (
-      <div className='absolute z-50 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-100 overflow-hidden'>
+      <div className='absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50'>
          <ul className='py-1'>
             {suggestions.map((suggestion, index) => (
-               <li
-                  key={index}
-                  className='px-4 py-2 hover:bg-indigo-50 cursor-pointer transition-colors duration-200 flex items-center gap-2'
-                  onClick={() => onSelect(suggestion)}
-               >
-                  <svg
-                     className='w-4 h-4 text-indigo-500'
-                     fill='none'
-                     stroke='currentColor'
-                     viewBox='0 0 24 24'
+               <li key={index}>
+                  <button
+                     className='w-full px-4 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200'
+                     onClick={() => onSelect(suggestion)}
                   >
-                     <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M13 7l5 5m0 0l-5 5m5-5H6'
-                     />
-                  </svg>
-                  <span className='text-gray-700'>{suggestion}</span>
+                     {suggestion}
+                  </button>
                </li>
             ))}
          </ul>

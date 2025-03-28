@@ -8,16 +8,17 @@ function Navbar() {
    }
 
    return (
-      <div className='navbar bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg mb-6 py-4'>
+      <div className='navbar bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg mb-6 py-4 relative z-50'>
          <div className='container mx-auto px-4'>
-            <div className='flex items-center justify-between w-full'>
+            <div className='flex justify-between items-center w-full'>
                <div className='flex items-center'>
-                  <button className='btn btn-ghost text-white hover:bg-white/10'>
+                  <button className='btn btn-ghost btn-sm hover:bg-white/10 rounded-lg'>
                      <svg
-                        className='w-8 h-8'
+                        xmlns='http://www.w3.org/2000/svg'
+                        className='h-8 w-8 text-white'
                         fill='none'
-                        stroke='currentColor'
                         viewBox='0 0 24 24'
+                        stroke='currentColor'
                      >
                         <path
                            strokeLinecap='round'
@@ -28,23 +29,21 @@ function Navbar() {
                      </svg>
                   </button>
                </div>
-
                <div className='flex items-center'>
                   <h1 className='text-2xl font-bold text-white'>Task Master</h1>
                </div>
-
                <div className='flex items-center'>
                   <button
                      onClick={handleThemeToggle}
-                     className='btn btn-ghost text-white hover:bg-white/10'
-                     aria-label='Toggle theme'
+                     className='btn btn-ghost btn-sm hover:bg-white/10 rounded-lg'
                   >
                      {isDarkMode ? (
                         <svg
-                           className='w-6 h-6'
+                           xmlns='http://www.w3.org/2000/svg'
+                           className='h-6 w-6 text-white'
                            fill='none'
-                           stroke='currentColor'
                            viewBox='0 0 24 24'
+                           stroke='currentColor'
                         >
                            <path
                               strokeLinecap='round'
@@ -55,10 +54,11 @@ function Navbar() {
                         </svg>
                      ) : (
                         <svg
-                           className='w-6 h-6'
+                           xmlns='http://www.w3.org/2000/svg'
+                           className='h-6 w-6 text-white'
                            fill='none'
-                           stroke='currentColor'
                            viewBox='0 0 24 24'
+                           stroke='currentColor'
                         >
                            <path
                               strokeLinecap='round'

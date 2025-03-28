@@ -55,7 +55,7 @@ function TodoForm() {
    const today = new Date().toISOString().split('T')[0]
 
    return (
-      <form onSubmit={add} className='flex flex-col gap-3'>
+      <form onSubmit={add} className='flex flex-col gap-3 relative z-10'>
          <div className='flex flex-wrap gap-3 items-center'>
             <div className='w-[300px] relative' ref={inputRef}>
                <input
