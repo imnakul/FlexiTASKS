@@ -107,7 +107,7 @@ function TodoItem({ todo }) {
 
    if (isEditing) {
       return (
-         <div className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700'>
+         <div className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4'>
             <TodoForm
                editingTodo={todo}
                onCancelEdit={() => setIsEditing(false)}
@@ -117,7 +117,7 @@ function TodoItem({ todo }) {
    }
 
    return (
-      <div className='group relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500'>
+      <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700'>
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 min-w-0'>
