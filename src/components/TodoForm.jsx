@@ -94,136 +94,119 @@ function TodoForm() {
    const today = new Date().toISOString().split('T')[0]
 
    return (
-      <form onSubmit={add} className='flex flex-col gap-3'>
-         <div className='flex flex-wrap gap-3 items-center'>
-            <div className='w-[300px] relative' ref={inputRef}>
-               <input
-                  type='text'
-                  placeholder='Add a new task...'
-                  className='w-full input input-bordered bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 py-2 px-3'
-                  value={todo}
-                  onChange={handleInputChange}
-                  onFocus={() => setShowSuggestions(true)}
-               />
-               {showSuggestions && (
-                  <TaskSuggestions
-                     input={todo}
-                     onSelect={handleSuggestionSelect}
-                     todos={todos}
+      <form onSubmit={add} className='space-y-4'>
+         <div className='flex flex-col sm:flex-row gap-4'>
+            {/* Task Input */}
+            <input
+               type='text'
+               placeholder='What needs to be done?'
+               value={todo}
+               onChange={(e) => setTodo(e.target.value)}
+               className='flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+            />
+
+            {/* Priority Select */}
+            <select
+               value={priority}
+               onChange={(e) => setPriority(e.target.value)}
+               className='px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+            >
+               <option value='low'>Low Priority</option>
+               <option value='medium'>Medium Priority</option>
+               <option value='high'>High Priority</option>
+            </select>
+
+            {/* Category Select */}
+            <select
+               value={category}
+               onChange={(e) => setCategory(e.target.value)}
+               className='px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+            >
+               <option value='personal'>Personal</option>
+               <option value='work'>Work</option>
+               <option value='shopping'>Shopping</option>
+               <option value='other'>Other</option>
+            </select>
+         </div>
+
+         {/* Subtasks Section */}
+         <div className='space-y-3'>
+            {subtasks.map((subtask, index) => (
+               <div key={index} className='flex gap-2'>
+                  <input
+                     type='text'
+                     value={subtask}
+                     onChange={(e) =>
+                        handleSubtaskChange(index, e.target.value)
+                     }
+                     placeholder='Add a subtask...'
+                     className='flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
                   />
-               )}
-            </div>
-            <div className='flex gap-3 items-center'>
+                  <button
+                     type='button'
+                     onClick={() => removeSubtask(index)}
+                     className='px-3 py-1.5 rounded-lg text-sm font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-800/30 transition-all duration-200'
+                  >
+                     Remove
+                  </button>
+               </div>
+            ))}
+         </div>
+
+         {/* Action Buttons */}
+         <div className='flex flex-wrap gap-3 items-center'>
+            <button
+               type='button'
+               onClick={addSubtask}
+               className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200'
+            >
+               Add Subtask
+            </button>
+
+            <div className='flex items-center gap-3'>
                <input
                   type='date'
-                  min={today}
-                  className='input input-bordered bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 text-gray-900 dark:text-gray-100 py-2 px-3'
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
+                  className='px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
                />
-               <select
-                  className='select select-bordered bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 text-gray-900 dark:text-gray-100 py-2 px-3'
-                  value={priority}
-                  onChange={(e) => setPriority(e.target.value)}
-               >
-                  <option value='low'>Low Priority</option>
-                  <option value='medium'>Medium Priority</option>
-                  <option value='high'>High Priority</option>
-               </select>
-               <select
-                  className='select select-bordered bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 text-gray-900 dark:text-gray-100 py-2 px-3'
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-               >
-                  <option value='work'>Work</option>
-                  <option value='personal'>Personal</option>
-                  <option value='learning'>Learning</option>
-               </select>
+
+               <div className='flex items-center gap-2'>
+                  <input
+                     type='checkbox'
+                     id='recurring'
+                     checked={isRecurring}
+                     onChange={(e) => setIsRecurring(e.target.checked)}
+                     className='rounded border-gray-300 text-purple-500 focus:ring-purple-500'
+                  />
+                  <label
+                     htmlFor='recurring'
+                     className='text-sm text-gray-600 dark:text-gray-400'
+                  >
+                     Recurring
+                  </label>
+               </div>
+
+               {isRecurring && (
+                  <select
+                     value={recurringInterval}
+                     onChange={(e) => setRecurringInterval(e.target.value)}
+                     className='px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+                  >
+                     <option value='daily'>Daily</option>
+                     <option value='weekly'>Weekly</option>
+                     <option value='monthly'>Monthly</option>
+                  </select>
+               )}
             </div>
+
             <button
                type='submit'
-               disabled={!todo}
-               className='btn bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed px-6 py-2'
+               className='ml-auto px-4 py-2 rounded-lg text-sm font-medium bg-purple-500 text-white hover:bg-purple-600 transition-all duration-200'
             >
                Add Task
             </button>
          </div>
-
-         <div className='flex flex-wrap gap-4 items-center'>
-            <div className='flex items-center gap-2'>
-               <input
-                  type='checkbox'
-                  id='recurring'
-                  className='checkbox checkbox-sm'
-                  checked={isRecurring}
-                  onChange={(e) => setIsRecurring(e.target.checked)}
-               />
-               <label
-                  htmlFor='recurring'
-                  className='text-sm text-gray-600 dark:text-gray-300'
-               >
-                  Recurring Task
-               </label>
-            </div>
-
-            {isRecurring && (
-               <select
-                  className='select select-bordered select-sm bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 text-gray-900 dark:text-gray-100'
-                  value={recurringInterval}
-                  onChange={(e) => setRecurringInterval(e.target.value)}
-               >
-                  <option value='daily'>Daily</option>
-                  <option value='weekly'>Weekly</option>
-                  <option value='monthly'>Monthly</option>
-               </select>
-            )}
-
-            <button
-               type='button'
-               onClick={() => setShowSubtaskInput(!showSubtaskInput)}
-               className='btn btn-sm btn-ghost text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-            >
-               {showSubtaskInput ? 'Cancel Subtasks' : 'Add Subtasks'}
-            </button>
-         </div>
-
-         {showSubtaskInput && (
-            <div className='space-y-2'>
-               <form onSubmit={addSubtask} className='flex gap-2'>
-                  <input
-                     type='text'
-                     placeholder='Add a subtask...'
-                     className='input input-bordered input-sm bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300 text-gray-900 dark:text-gray-100'
-                     value={newSubtask}
-                     onChange={(e) => setNewSubtask(e.target.value)}
-                  />
-                  <button
-                     type='submit'
-                     className='btn btn-sm bg-purple-500 text-white hover:bg-purple-600'
-                  >
-                     Add
-                  </button>
-               </form>
-               <div className='space-y-1'>
-                  {subtasks.map((subtask, index) => (
-                     <div
-                        key={index}
-                        className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300'
-                     >
-                        <span>•</span>
-                        <span>{subtask}</span>
-                        <button
-                           type='button'
-                           onClick={() => removeSubtask(index)}
-                           className='text-red-500 hover:text-red-600'
-                        >
-                           ×
-                        </button>
-                     </div>
-                  ))}
-               </div>
-            </div>
-         )}
       </form>
    )
 }
