@@ -8,6 +8,7 @@ import {
    FaTags,
    FaList,
 } from 'react-icons/fa'
+import TodoForm from './TodoForm'
 
 function TodoItem({ todo }) {
    const {
@@ -46,7 +47,7 @@ function TodoItem({ todo }) {
    }
 
    const handleToggleComplete = () => {
-      toggleComplete(todo.id)
+      toggleComplete(todo.id, new Date().toISOString())
    }
 
    const handleToggleSubtask = (subtaskId) => {
@@ -104,6 +105,17 @@ function TodoItem({ todo }) {
       todo.subtasks?.filter((subtask) => subtask.completed).length || 0
    const totalSubtasks = todo.subtasks?.length || 0
 
+   if (isEditing) {
+      return (
+         <div className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700'>
+            <TodoForm
+               editingTodo={todo}
+               onCancelEdit={() => setIsEditing(false)}
+            />
+         </div>
+      )
+   }
+
    return (
       <div className='group relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500'>
          <div className='flex items-start gap-4'>
@@ -113,28 +125,18 @@ function TodoItem({ todo }) {
                   <input
                      type='checkbox'
                      checked={todo.completed}
-                     onChange={() =>
-                        toggleComplete(todo.id, new Date().toISOString())
-                     }
+                     onChange={handleToggleComplete}
                      className='w-5 h-5 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
                   />
-                  {isEditing ? (
-                     <input
-                        type='text'
-                        value={editedTodo}
-                        onChange={(e) => setEditedTodo(e.target.value)}
-                        className='flex-1 px-3 py-1 rounded border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-purple-500'
-                        autoFocus
-                     />
-                  ) : (
-                     <span
-                        className={`text-gray-900 dark:text-gray-100 ${
-                           todo.completed ? 'line-through text-gray-500' : ''
-                        }`}
-                     >
-                        {todo.todo}
-                     </span>
-                  )}
+                  <div
+                     className={`text-gray-900 dark:text-gray-100 break-words ${
+                        todo.completed
+                           ? 'line-through text-gray-500 dark:text-gray-400'
+                           : ''
+                     }`}
+                  >
+                     {todo.todo}
+                  </div>
                </div>
 
                {/* Mobile-friendly metadata */}
@@ -175,7 +177,7 @@ function TodoItem({ todo }) {
                </select>
 
                <button
-                  onClick={handleEdit}
+                  onClick={() => setIsEditing(true)}
                   className='p-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
                >
                   <FaEdit className='w-4 h-4' />
