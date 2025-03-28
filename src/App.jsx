@@ -3,6 +3,11 @@ import { TodoProvider } from './contexts/ToDoContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Navbar from './components/Navbar'
 import { TodoForm, TodoItem, Achievements } from './components/index'
+import ViewModeSelector from './components/ViewModeSelector'
+import KanbanView from './components/views/KanbanView'
+import MatrixView from './components/views/MatrixView'
+import TimelineView from './components/views/TimelineView'
+import CalendarView from './components/views/CalendarView'
 import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -13,6 +18,7 @@ function App() {
    const [todos, setTodos] = useState([])
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
+   const [viewMode, setViewMode] = useState('list')
 
    const addTodo = (todo) => {
       setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev])
@@ -153,10 +159,23 @@ function App() {
                            </select>
                         </div>
 
+                        <ViewModeSelector
+                           viewMode={viewMode}
+                           setViewMode={setViewMode}
+                        />
+
                         <div className='space-y-3'>
-                           {displayTodos.map((todo) => (
-                              <TodoItem key={todo.id} todo={todo} />
-                           ))}
+                           {viewMode === 'list' && (
+                              <div className='space-y-3'>
+                                 {displayTodos.map((todo) => (
+                                    <TodoItem key={todo.id} todo={todo} />
+                                 ))}
+                              </div>
+                           )}
+                           {viewMode === 'kanban' && <KanbanView />}
+                           {viewMode === 'matrix' && <MatrixView />}
+                           {viewMode === 'timeline' && <TimelineView />}
+                           {viewMode === 'calendar' && <CalendarView />}
                         </div>
                      </div>
 
