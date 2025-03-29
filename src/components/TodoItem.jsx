@@ -10,6 +10,7 @@ import {
    FaStickyNote,
    FaChevronDown,
    FaChevronRight,
+   FaLayerGroup,
 } from 'react-icons/fa'
 import TodoForm from './TodoForm'
 
@@ -88,13 +89,26 @@ function TodoItem({ todo }) {
    const getStageColor = (stage) => {
       switch (stage) {
          case 'notStarted':
-            return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded'
+            return 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300'
          case 'inProgress':
-            return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 px-2 py-1 rounded'
+            return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300'
          case 'completed':
-            return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 px-2 py-1 rounded'
+            return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300'
          default:
-            return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded'
+            return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+      }
+   }
+
+   const getStageName = (stage) => {
+      switch (stage) {
+         case 'notStarted':
+            return 'Not Started'
+         case 'inProgress':
+            return 'In Progress'
+         case 'completed':
+            return 'Completed'
+         default:
+            return 'Unknown'
       }
    }
 
@@ -151,7 +165,7 @@ function TodoItem({ todo }) {
    }
 
    return (
-      <div className='group bg-purple-200 dark:bg-purple-900/20 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-700 dark:hover:border-purple-500 transition-all duration-300 '>
+      <div className='group bg-purple-200 dark:bg-purple-900/20 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-300'>
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 min-w-0'>
@@ -187,6 +201,45 @@ function TodoItem({ todo }) {
                      <FaTags className='w-3 h-3' />
                      {todo.category}
                   </span>
+                  {/* Stage Status */}
+                  <span className='text-gray-400'>•</span>
+                  <div className='relative group/stage'>
+                     <span
+                        className={`flex items-center gap-1 px-2 py-1 rounded-md ${
+                           todo.completed
+                              ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300'
+                              : getStageColor(todo.stage)
+                        } ${
+                           !todo.completed ? 'group-hover/stage:opacity-0' : ''
+                        }`}
+                     >
+                        <FaLayerGroup className='w-3 h-3' />
+                        {todo.completed
+                           ? 'Completed'
+                           : getStageName(todo.stage)}
+                     </span>
+                     {!todo.completed && (
+                        <select
+                           value={todo.stage || 'notStarted'}
+                           onChange={(e) => handleStageChange(e.target.value)}
+                           className='absolute left-0 top-0 w-full h-full opacity-0 group-hover/stage:opacity-100 cursor-pointer disabled:cursor-not-allowed bg-transparent dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 appearance-none px-2 py-1'
+                           disabled={todo.completed}
+                        >
+                           <option
+                              value='notStarted'
+                              className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                           >
+                              Not Started
+                           </option>
+                           <option
+                              value='inProgress'
+                              className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                           >
+                              In Progress
+                           </option>
+                        </select>
+                     )}
+                  </div>
                   {todo.dueDate && (
                      <>
                         <span className='text-gray-400'>•</span>
@@ -215,16 +268,6 @@ function TodoItem({ todo }) {
             <div className='flex items-center gap-3 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
                {!todo.completed && (
                   <>
-                     <select
-                        value={todo.stage || 'notStarted'}
-                        onChange={(e) => handleStageChange(e.target.value)}
-                        className='px-2 py-1 text-sm rounded bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-purple-500'
-                        disabled={todo.completed}
-                     >
-                        <option value='notStarted'>Not Started</option>
-                        <option value='inProgress'>In Progress</option>
-                     </select>
-
                      {todo.note && (
                         <div className='relative' ref={noteRef}>
                            <button
