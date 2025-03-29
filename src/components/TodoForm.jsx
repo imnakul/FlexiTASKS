@@ -128,7 +128,8 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
 
    const isOverdue =
       editingTodo?.dueDate &&
-      new Date(editingTodo.dueDate) < new Date() &&
+      new Date(editingTodo.dueDate).setHours(0, 0, 0, 0) <
+         new Date().setHours(0, 0, 0, 0) &&
       !editingTodo.completed
 
    return (
@@ -181,11 +182,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                <input
                   type='date'
                   value={dueDate}
-                  min={
-                     editingTodo
-                        ? undefined
-                        : new Date().toISOString().split('T')[0]
-                  }
+                  min={new Date().toISOString().split('T')[0]}
                   onChange={(e) => setDueDate(e.target.value)}
                   className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 ${
                      isOverdue

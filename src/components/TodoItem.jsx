@@ -106,7 +106,15 @@ function TodoItem({ todo }) {
    const totalSubtasks = todo.subtasks?.length || 0
 
    const isOverdue =
-      todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed
+      todo.dueDate &&
+      new Date(todo.dueDate).setHours(0, 0, 0, 0) <
+         new Date().setHours(0, 0, 0, 0) &&
+      !todo.completed
+   const isDueToday =
+      todo.dueDate &&
+      new Date(todo.dueDate).setHours(0, 0, 0, 0) ===
+         new Date().setHours(0, 0, 0, 0) &&
+      !todo.completed
 
    if (isEditing) {
       return (
@@ -164,6 +172,10 @@ function TodoItem({ todo }) {
                            {isOverdue ? (
                               <span className='px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
                                  Due Date Passed
+                              </span>
+                           ) : isDueToday ? (
+                              <span className='px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-md'>
+                                 Due Today
                               </span>
                            ) : (
                               <span className='text-gray-600 dark:text-gray-400'>
