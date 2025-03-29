@@ -117,7 +117,7 @@ function TodoItem({ todo }) {
    }
 
    return (
-      <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700'>
+      <div className='group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-300'>
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 min-w-0'>
@@ -166,7 +166,7 @@ function TodoItem({ todo }) {
             </div>
 
             {/* Action Buttons */}
-            <div className='flex items-center gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
+            <div className='flex items-center gap-3 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
                <select
                   value={todo.stage || 'notStarted'}
                   onChange={(e) => handleStageChange(e.target.value)}
@@ -178,13 +178,13 @@ function TodoItem({ todo }) {
 
                <button
                   onClick={() => setIsEditing(true)}
-                  className='p-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
                >
                   <FaEdit className='w-4 h-4' />
                </button>
                <button
                   onClick={handleDelete}
-                  className='p-1.5 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20'
+                  className='p-2 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-red-900/30'
                >
                   <FaTrash className='w-4 h-4' />
                </button>
