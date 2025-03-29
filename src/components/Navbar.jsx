@@ -150,15 +150,15 @@ function Navbar() {
             <div className='fixed inset-0 z-50 overflow-y-auto'>
                <div
                   className='fixed inset-0 bg-black bg-opacity-50 transition-opacity'
-                  onClick={() => setShowModal(false)}
+                  // onClick={() => setShowModal(false)}
                />
                <div className='flex min-h-full min-w-xl items-center justify-center p-4'>
-                  <div className='relative transform overflow-hidden rounded-lg bg-purple-500 dark:bg-purple-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl sm:p-6'>
+                  <div className='relative transform overflow-hidden rounded-lg bg-purple-500 dark:bg-purple-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-1.5 sm:w-full sm:max-w-xl sm:p-6'>
                      {/* Modal Content */}
                      <div className='absolute right-0 top-0 pr-4 pt-4'>
                         <button
                            onClick={() => setShowModal(false)}
-                           className='rounded-md text-gray-400 hover:text-gray-500'
+                           className='rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-800 p-1'
                         >
                            <span className='sr-only'>Close</span>
                            <svg
