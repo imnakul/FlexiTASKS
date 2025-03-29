@@ -10,7 +10,7 @@ function KanbanView() {
    }
 
    return (
-      <div className='grid grid-cols-2 gap-8 p-6 max-w-[1400px] mx-auto'>
+      <div className='grid grid-cols-2 gap-4 p-4 max-w-[1400px] mx-auto'>
          {/* Not Started Column */}
          <div className='bg-gray-50 dark:bg-gray-800 rounded-xl p-6 min-h-[600px] flex flex-col'>
             <h3 className='text-xl font-semibold text-gray-700 dark:text-gray-300 mb-6'>

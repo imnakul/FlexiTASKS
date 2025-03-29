@@ -151,7 +151,7 @@ function TodoItem({ todo }) {
    }
 
    return (
-      <div className='group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-300'>
+      <div className='group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-300 filter-glow'>
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 min-w-0'>
@@ -212,7 +212,7 @@ function TodoItem({ todo }) {
             </div>
 
             {/* Action Buttons */}
-            <div className='flex items-center gap-3 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
+            <div className='flex items-center gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
                <select
                   value={todo.stage || 'notStarted'}
                   onChange={(e) => handleStageChange(e.target.value)}
