@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTodo } from '../contexts/ToDoContext'
 import {
    FaEdit,
@@ -7,6 +7,9 @@ import {
    FaClock,
    FaTags,
    FaList,
+   FaStickyNote,
+   FaChevronDown,
+   FaChevronRight,
 } from 'react-icons/fa'
 import TodoForm from './TodoForm'
 
@@ -21,6 +24,8 @@ function TodoItem({ todo }) {
    const [isEditing, setIsEditing] = useState(false)
    const [editedTodo, setEditedTodo] = useState(todo.todo)
    const [showSubtasks, setShowSubtasks] = useState(false)
+   const [showNote, setShowNote] = useState(false)
+   const noteRef = useRef(null)
 
    const handleEdit = () => {
       if (isEditing) {
@@ -51,7 +56,12 @@ function TodoItem({ todo }) {
    }
 
    const handleToggleSubtask = (subtaskId) => {
-      toggleSubtask(todo.id, subtaskId)
+      const updatedSubtasks = todo.subtasks.map((subtask) =>
+         subtask.id === subtaskId
+            ? { ...subtask, completed: !subtask.completed }
+            : subtask
+      )
+      updateTodo(todo.id, { ...todo, subtasks: updatedSubtasks })
    }
 
    const handleDeleteSubtask = (subtaskId) => {
@@ -115,6 +125,19 @@ function TodoItem({ todo }) {
       new Date(todo.dueDate).setHours(0, 0, 0, 0) ===
          new Date().setHours(0, 0, 0, 0) &&
       !todo.completed
+
+   useEffect(() => {
+      const handleClickOutside = (e) => {
+         if (noteRef.current && !noteRef.current.contains(e.target)) {
+            setShowNote(false)
+         }
+      }
+
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => {
+         document.removeEventListener('mousedown', handleClickOutside)
+      }
+   }, [])
 
    if (isEditing) {
       return (
@@ -199,6 +222,23 @@ function TodoItem({ todo }) {
                   <option value='inProgress'>In Progress</option>
                </select>
 
+               {todo.note && (
+                  <div className='relative' ref={noteRef}>
+                     <button
+                        onClick={() => setShowNote(!showNote)}
+                        className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
+                     >
+                        <FaStickyNote className='w-4 h-4' />
+                     </button>
+                     {showNote && (
+                        <div className='absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-10'>
+                           <p className='text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap'>
+                              {todo.note}
+                           </p>
+                        </div>
+                     )}
+                  </div>
+               )}
                <button
                   onClick={() => setIsEditing(true)}
                   className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
@@ -214,29 +254,50 @@ function TodoItem({ todo }) {
             </div>
          </div>
 
-         {/* Subtasks - Collapsible on mobile */}
+         {/* Subtasks Section */}
          {todo.subtasks && todo.subtasks.length > 0 && (
-            <div className='mt-3 pl-7 space-y-2'>
-               <div className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'>
+            <div className='mt-3 pl-7'>
+               <button
+                  onClick={() => setShowSubtasks(!showSubtasks)}
+                  className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors duration-200'
+               >
+                  {showSubtasks ? (
+                     <FaChevronDown className='w-3 h-3' />
+                  ) : (
+                     <FaChevronRight className='w-3 h-3' />
+                  )}
                   <FaList className='w-3 h-3' />
-                  <span>Subtasks ({todo.subtasks.length})</span>
-               </div>
-               {todo.subtasks.map((subtask) => (
-                  <div
-                     key={subtask.id}
-                     className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'
-                  >
-                     <input
-                        type='checkbox'
-                        checked={subtask.completed}
-                        onChange={() => toggleSubtask(todo.id, subtask.id)}
-                        className='w-4 h-4 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
-                     />
-                     <span className={subtask.completed ? 'line-through' : ''}>
-                        {subtask.text}
-                     </span>
+                  <span>
+                     Subtasks (
+                     {todo.subtasks.filter((st) => st.completed).length}/
+                     {todo.subtasks.length})
+                  </span>
+               </button>
+
+               {showSubtasks && (
+                  <div className='mt-2 space-y-2'>
+                     {todo.subtasks.map((subtask) => (
+                        <div
+                           key={subtask.id}
+                           className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'
+                        >
+                           <input
+                              type='checkbox'
+                              checked={subtask.completed}
+                              onChange={() => handleToggleSubtask(subtask.id)}
+                              className='w-4 h-4 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
+                           />
+                           <span
+                              className={
+                                 subtask.completed ? 'line-through' : ''
+                              }
+                           >
+                              {subtask.text}
+                           </span>
+                        </div>
+                     ))}
                   </div>
-               ))}
+               )}
             </div>
          )}
       </div>

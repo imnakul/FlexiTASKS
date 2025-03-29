@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTodo } from '../contexts/ToDoContext'
 import TaskSuggestions from './TaskSuggestions'
+import { FaStickyNote } from 'react-icons/fa'
 
 function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [todo, setTodo] = useState('')
@@ -13,6 +14,8 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [subtasks, setSubtasks] = useState([])
    const [newSubtask, setNewSubtask] = useState('')
    const [showSubtaskInput, setShowSubtaskInput] = useState(false)
+   const [note, setNote] = useState('')
+   const [showNoteInput, setShowNoteInput] = useState(false)
    const inputRef = useRef(null)
    const { addTodo, todos, updateTodo } = useTodo()
 
@@ -25,7 +28,8 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
          setCategory(editingTodo.category)
          setIsRecurring(editingTodo.isRecurring || false)
          setRecurringInterval(editingTodo.recurringInterval || 'daily')
-         setSubtasks(editingTodo.subtasks?.map((st) => st.text) || [])
+         setSubtasks(editingTodo.subtasks?.map((st) => ({ ...st })) || [])
+         setNote(editingTodo.note || '')
       }
    }, [editingTodo])
 
@@ -66,11 +70,12 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
          recurringInterval: isRecurring ? recurringInterval : null,
          stage: editingTodo ? editingTodo.stage : 'notStarted',
          subtasks: subtasks.map((subtask) => ({
-            id: Date.now() + Math.random(),
-            text: subtask,
-            completed: false,
-            createdAt: new Date().toISOString(),
+            id: subtask.id || Date.now() + Math.random(),
+            text: subtask.text,
+            completed: subtask.completed || false,
+            createdAt: subtask.createdAt || new Date().toISOString(),
          })),
+         note: note || null,
       }
 
       if (editingTodo) {
@@ -92,6 +97,8 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
       setSubtasks([])
       setNewSubtask('')
       setShowSubtaskInput(false)
+      setNote('')
+      setShowNoteInput(false)
       setShowSuggestions(false)
    }
 
@@ -110,7 +117,15 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    const handleAddSubtask = (e) => {
       e.preventDefault()
       if (newSubtask.trim()) {
-         setSubtasks([...subtasks, newSubtask.trim()])
+         setSubtasks([
+            ...subtasks,
+            {
+               id: Date.now() + Math.random(),
+               text: newSubtask.trim(),
+               completed: false,
+               createdAt: new Date().toISOString(),
+            },
+         ])
          setNewSubtask('')
          setShowSubtaskInput(false)
       }
@@ -118,7 +133,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
 
    const handleSubtaskChange = (index, value) => {
       const newSubtasks = [...subtasks]
-      newSubtasks[index] = value
+      newSubtasks[index].text = value
       setSubtasks(newSubtasks)
    }
 
@@ -234,6 +249,14 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                </button>
             )}
 
+            <button
+               type='button'
+               onClick={() => setShowNoteInput(!showNoteInput)}
+               className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200'
+            >
+               {showNoteInput ? 'Hide Note' : 'Add Note'}
+            </button>
+
             <div className='flex items-center gap-2'>
                <input
                   type='checkbox'
@@ -270,13 +293,26 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
             </button>
          </div>
 
+         {/* Note Input */}
+         {showNoteInput && (
+            <div className='space-y-2'>
+               <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder='Add a note...'
+                  rows={3}
+                  className='w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+               />
+            </div>
+         )}
+
          {/* Subtasks Section */}
          <div className='space-y-2'>
             {subtasks.map((subtask, index) => (
-               <div key={index} className='flex gap-2'>
+               <div key={subtask.id || index} className='flex gap-2'>
                   <input
                      type='text'
-                     value={subtask}
+                     value={subtask.text}
                      onChange={(e) =>
                         handleSubtaskChange(index, e.target.value)
                      }
