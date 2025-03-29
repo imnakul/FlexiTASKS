@@ -105,6 +105,9 @@ function TodoItem({ todo }) {
       todo.subtasks?.filter((subtask) => subtask.completed).length || 0
    const totalSubtasks = todo.subtasks?.length || 0
 
+   const isOverdue =
+      todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed
+
    if (isEditing) {
       return (
          <div className='bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4'>
@@ -156,9 +159,17 @@ function TodoItem({ todo }) {
                   {todo.dueDate && (
                      <>
                         <span className='text-gray-400'>•</span>
-                        <span className='text-gray-600 dark:text-gray-400 flex items-center gap-1'>
-                           <FaClock className='w-3 h-3' />
-                           {new Date(todo.dueDate).toLocaleDateString()}
+                        <span className='flex items-center gap-1'>
+                           <FaClock className='w-3 h-3 flex-shrink-0' />
+                           {isOverdue ? (
+                              <span className='px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
+                                 Due Date Passed
+                              </span>
+                           ) : (
+                              <span className='text-gray-600 dark:text-gray-400'>
+                                 {new Date(todo.dueDate).toLocaleDateString()}
+                              </span>
+                           )}
                         </span>
                      </>
                   )}

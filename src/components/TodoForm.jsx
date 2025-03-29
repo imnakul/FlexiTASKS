@@ -126,6 +126,11 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
       setSubtasks(subtasks.filter((_, i) => i !== index))
    }
 
+   const isOverdue =
+      editingTodo?.dueDate &&
+      new Date(editingTodo.dueDate) < new Date() &&
+      !editingTodo.completed
+
    return (
       <form onSubmit={handleSubmit} className='space-y-4'>
          {/* Main Task Input Row */}
@@ -172,13 +177,28 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                <option value='other'>Other</option>
             </select>
 
-            <input
-               type='date'
-               value={dueDate}
-               min={new Date().toISOString().split('T')[0]}
-               onChange={(e) => setDueDate(e.target.value)}
-               className='px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
-            />
+            <div className='relative'>
+               <input
+                  type='date'
+                  value={dueDate}
+                  min={
+                     editingTodo
+                        ? undefined
+                        : new Date().toISOString().split('T')[0]
+                  }
+                  onChange={(e) => setDueDate(e.target.value)}
+                  className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 ${
+                     isOverdue
+                        ? 'border-red-300 dark:border-red-500'
+                        : 'border-gray-200 dark:border-gray-700'
+                  }`}
+               />
+               {isOverdue && (
+                  <div className='absolute -top-2 right-0 px-2 py-0.5 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
+                     Overdue
+                  </div>
+               )}
+            </div>
          </div>
 
          {/* Additional Options Row */}
