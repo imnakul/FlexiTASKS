@@ -151,7 +151,7 @@ function TodoItem({ todo }) {
    }
 
    return (
-      <div className='group bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-300 filter-glow'>
+      <div className='group bg-purple-200 dark:bg-purple-900/20 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-700 dark:hover:border-purple-500 transition-all duration-300 '>
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 min-w-0'>
@@ -212,39 +212,46 @@ function TodoItem({ todo }) {
             </div>
 
             {/* Action Buttons */}
-            <div className='flex items-center gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
-               <select
-                  value={todo.stage || 'notStarted'}
-                  onChange={(e) => handleStageChange(e.target.value)}
-                  className='px-2 py-1 text-sm rounded bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-purple-500'
-               >
-                  <option value='notStarted'>Not Started</option>
-                  <option value='inProgress'>In Progress</option>
-               </select>
-
-               {todo.note && (
-                  <div className='relative' ref={noteRef}>
-                     <button
-                        onClick={() => setShowNote(!showNote)}
-                        className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
+            <div className='flex items-center gap-3 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
+               {!todo.completed && (
+                  <>
+                     <select
+                        value={todo.stage || 'notStarted'}
+                        onChange={(e) => handleStageChange(e.target.value)}
+                        className='px-2 py-1 text-sm rounded bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-purple-500'
+                        disabled={todo.completed}
                      >
-                        <FaStickyNote className='w-4 h-4' />
-                     </button>
-                     {showNote && (
-                        <div className='absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-10'>
-                           <p className='text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap'>
-                              {todo.note}
-                           </p>
+                        <option value='notStarted'>Not Started</option>
+                        <option value='inProgress'>In Progress</option>
+                     </select>
+
+                     {todo.note && (
+                        <div className='relative' ref={noteRef}>
+                           <button
+                              onClick={() => setShowNote(!showNote)}
+                              className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
+                           >
+                              <FaStickyNote className='w-4 h-4' />
+                           </button>
+                           {showNote && (
+                              <div className='absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-10'>
+                                 <p className='text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap'>
+                                    {todo.note}
+                                 </p>
+                              </div>
+                           )}
                         </div>
                      )}
-                  </div>
+
+                     <button
+                        onClick={() => setIsEditing(true)}
+                        className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
+                     >
+                        <FaEdit className='w-4 h-4' />
+                     </button>
+                  </>
                )}
-               <button
-                  onClick={() => setIsEditing(true)}
-                  className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
-               >
-                  <FaEdit className='w-4 h-4' />
-               </button>
+
                <button
                   onClick={handleDelete}
                   className='p-2 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-red-900/30'
@@ -255,7 +262,7 @@ function TodoItem({ todo }) {
          </div>
 
          {/* Subtasks Section */}
-         {todo.subtasks && todo.subtasks.length > 0 && (
+         {todo.subtasks && todo.subtasks.length > 0 && !todo.completed && (
             <div className='mt-3 pl-7'>
                <button
                   onClick={() => setShowSubtasks(!showSubtasks)}
@@ -286,6 +293,7 @@ function TodoItem({ todo }) {
                               checked={subtask.completed}
                               onChange={() => handleToggleSubtask(subtask.id)}
                               className='w-4 h-4 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
+                              disabled={todo.completed}
                            />
                            <span
                               className={

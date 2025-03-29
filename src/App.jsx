@@ -21,20 +21,55 @@ function App() {
    const [viewMode, setViewMode] = useState('list')
 
    const addTodo = (todo) => {
-      setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev])
+      const newTodo = {
+         id: Date.now(),
+         todo: todo.todo,
+         completed: false,
+         createdAt: new Date().toISOString(),
+         completedAt: null,
+         priority: todo.priority || 'medium',
+         category: todo.category || 'personal',
+         dueDate: todo.dueDate || null,
+         stage: todo.stage || 'notStarted',
+         isRecurring: todo.isRecurring || false,
+         recurringInterval: todo.recurringInterval || null,
+         subtasks: (todo.subtasks || []).map((subtask) => ({
+            id: subtask.id || Date.now() + Math.random(),
+            text: subtask.text,
+            completed: false,
+            createdAt: new Date().toISOString(),
+            completedAt: null,
+         })),
+         note: todo.note || null,
+      }
+      setTodos((prev) => [newTodo, ...prev])
    }
 
    const updateTodo = (id, todo) => {
       setTodos((prev) =>
          prev.map((todoInstance) =>
-            todoInstance.id === id ? todo : todoInstance
+            todoInstance.id === id
+               ? {
+                    ...todoInstance,
+                    ...todo,
+                    subtasks:
+                       todo.subtasks?.map((subtask) => ({
+                          id: subtask.id || Date.now() + Math.random(),
+                          text: subtask.text,
+                          completed: subtask.completed || false,
+                          createdAt:
+                             subtask.createdAt || new Date().toISOString(),
+                          completedAt: subtask.completedAt || null,
+                       })) || [],
+                 }
+               : todoInstance
          )
       )
    }
 
    const deleteTodo = (id) => {
-      if (window.confirm('Are you sure, you want to Delete this Task ?')) {
-         setTodos((prev) => prev.filter((singleTodo) => singleTodo.id !== id))
+      if (window.confirm('Are you sure you want to delete this task?')) {
+         setTodos((prev) => prev.filter((todo) => todo.id !== id))
          toast('Task Deleted!')
       }
    }
@@ -46,7 +81,14 @@ function App() {
                ? {
                     ...prevTodo,
                     completed: !prevTodo.completed,
-                    completedAt: completedAt,
+                    completedAt: !prevTodo.completed ? completedAt : null,
+                    // Also update subtasks when main task is completed
+                    subtasks:
+                       prevTodo.subtasks?.map((subtask) => ({
+                          ...subtask,
+                          completed: !prevTodo.completed,
+                          completedAt: !prevTodo.completed ? completedAt : null,
+                       })) || [],
                  }
                : prevTodo
          )
@@ -94,7 +136,13 @@ function App() {
    return (
       <ThemeProvider>
          <TodoProvider
-            value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
+            value={{
+               todos,
+               addTodo,
+               updateTodo,
+               deleteTodo,
+               toggleComplete,
+            }}
          >
             <ParticleBackground particleCount={80} />
             <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
