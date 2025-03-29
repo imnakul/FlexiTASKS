@@ -30,7 +30,7 @@ function Navbar() {
                   </button>
                </div>
                <div className='flex items-center'>
-                  <h1 className='text-2xl font-bold text-white'>Task Master</h1>
+                  <h1 className='text-3xl font-bold text-white'>Task Master</h1>
                </div>
                <div className='flex items-center'>
                   <button

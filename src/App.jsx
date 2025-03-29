@@ -102,14 +102,14 @@ function App() {
 
                <div className='container mx-auto px-4 py-8'>
                   <div className='max-w-7xl mx-auto space-y-8'>
-                     <div className='text-center space-y-4'>
+                     {/* <div className='text-center space-y-4'>
                         <h1 className='text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'>
                            Task Master
                         </h1>
                         <p className='text-gray-600 dark:text-gray-300'>
                            Organize your tasks with style and efficiency
                         </p>
-                     </div>
+                     </div> */}
 
                      <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors duration-300 relative z-10 overflow-hidden'>
                         <div className='p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700'>
