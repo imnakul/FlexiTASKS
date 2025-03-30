@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
    FaPalette,
    FaCheck,
@@ -7,76 +6,17 @@ import {
    FaTabletAlt,
 } from 'react-icons/fa'
 import { toast } from 'react-toastify'
+import { useAppTheme } from '../contexts/AppThemeContext'
 
 function ThemeSettings({ onClose }) {
-   const [designBasis, setDesignBasis] = useState('text') // 'text' or 'icon'
-   const [taskInterface, setTaskInterface] = useState('minimal') // 'minimal', 'maximal', 'custom'
-   const [background, setBackground] = useState('particle') // 'particle', 'rain', 'wave', 'others'
-   const [selectedColor, setSelectedColor] = useState('purple')
-
-   // Feature toggles - default states for different interfaces
-   const defaultFeatures = {
-      minimal: {
-         subtasks: false,
-         notes: false,
-         priority: true,
-         dueDate: true,
-         achievement: false,
-         viewModes: true,
-         category: true,
-      },
-      maximal: {
-         subtasks: true,
-         notes: true,
-         priority: true,
-         dueDate: true,
-         achievement: true,
-         viewModes: true,
-         category: true,
-      },
-      custom: {
-         subtasks: true,
-         notes: true,
-         priority: true,
-         dueDate: true,
-         achievement: true,
-         viewModes: true,
-         category: true,
-      },
-   }
-
-   const [features, setFeatures] = useState(defaultFeatures.minimal)
-
-   const handleInterfaceChange = (newInterface) => {
-      setTaskInterface(newInterface)
-      setFeatures(defaultFeatures[newInterface])
-   }
-
-   const toggleFeature = (feature) => {
-      if (taskInterface !== 'custom') return
-      setFeatures((prev) => ({
-         ...prev,
-         [feature]: !prev[feature],
-      }))
-   }
-
-   const handleSaveSettings = () => {
-      try {
-         const settings = {
-            designBasis,
-            taskInterface,
-            background,
-            selectedColor,
-            features,
-         }
-         localStorage.setItem('themeSettings', JSON.stringify(settings))
-         toast.success('Theme settings saved successfully!')
-         onClose?.()
-      } catch (error) {
-         console.error('Error saving theme settings:', error)
-         toast.error('Failed to save theme settings')
-      }
-   }
+   const {
+      appTheme,
+      setDesignBasis,
+      setColorTheme,
+      setBackground,
+      setTaskInterface,
+      updateTaskFeatures,
+   } = useAppTheme()
 
    const colorOptions = [
       { name: 'red', class: 'bg-red-500' },
@@ -93,6 +33,29 @@ function ThemeSettings({ onClose }) {
       { name: 'wave', icon: '🌊' },
       { name: 'others', icon: '🎨' },
    ]
+
+   const handleInterfaceChange = (mode) => {
+      setTaskInterface(mode)
+   }
+
+   const toggleFeature = (feature) => {
+      if (appTheme.taskInterface.mode !== 'custom') return
+      updateTaskFeatures({
+         ...appTheme.taskInterface.features,
+         [feature]: !appTheme.taskInterface.features[feature],
+      })
+   }
+
+   const handleSaveSettings = () => {
+      try {
+         // Save all current settings to localStorage through AppThemeContext
+         toast.success('Theme settings saved successfully!')
+         onClose?.()
+      } catch (error) {
+         console.error('Error saving theme settings:', error)
+         toast.error('Failed to save theme settings')
+      }
+   }
 
    return (
       <div className='bg-gray-900 dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700'>
@@ -119,7 +82,7 @@ function ThemeSettings({ onClose }) {
                         onClick={() => setDesignBasis('text')}
                         className={`flex-1 px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                            ${
-                              designBasis === 'text'
+                              appTheme.designBasis === 'text'
                                  ? 'bg-purple-600 text-white'
                                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                            }`}
@@ -130,7 +93,7 @@ function ThemeSettings({ onClose }) {
                         onClick={() => setDesignBasis('icon')}
                         className={`flex-1 px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                            ${
-                              designBasis === 'icon'
+                              appTheme.designBasis === 'icon'
                                  ? 'bg-purple-600 text-white'
                                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                            }`}
@@ -152,7 +115,7 @@ function ThemeSettings({ onClose }) {
                            onClick={() => handleInterfaceChange(option)}
                            className={`w-full px-3 py-1.5 rounded-md transition-all duration-200 flex items-center gap-2 text-sm
                               ${
-                                 taskInterface === option
+                                 appTheme.taskInterface.mode === option
                                     ? 'bg-purple-600 text-white'
                                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                               }`}
@@ -173,34 +136,36 @@ function ThemeSettings({ onClose }) {
                </div>
 
                {/* Feature Toggles - Only show if custom interface is selected */}
-               {taskInterface === 'custom' && (
+               {appTheme.taskInterface.mode === 'custom' && (
                   <div>
                      <h3 className='text-base font-medium text-white mb-2'>
                         Features
                      </h3>
                      <div className='space-y-1.5 bg-gray-800/50 rounded-md p-3'>
-                        {Object.entries(features).map(([feature, enabled]) => (
-                           <div
-                              key={feature}
-                              className='flex items-center justify-between'
-                           >
-                              <span className='text-gray-300 text-sm'>
-                                 {feature.charAt(0).toUpperCase() +
-                                    feature.slice(1)}
-                              </span>
-                              <button
-                                 onClick={() => toggleFeature(feature)}
-                                 className={`px-3 py-1 rounded-md transition-all duration-200 text-sm
+                        {Object.entries(appTheme.taskInterface.features).map(
+                           ([feature, enabled]) => (
+                              <div
+                                 key={feature}
+                                 className='flex items-center justify-between'
+                              >
+                                 <span className='text-gray-300 text-sm'>
+                                    {feature.charAt(0).toUpperCase() +
+                                       feature.slice(1)}
+                                 </span>
+                                 <button
+                                    onClick={() => toggleFeature(feature)}
+                                    className={`px-3 py-1 rounded-md transition-all duration-200 text-sm
                                     ${
                                        enabled
                                           ? 'bg-purple-600 text-white'
                                           : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
                                     }`}
-                              >
-                                 {enabled ? 'Enable' : 'Disable'}
-                              </button>
-                           </div>
-                        ))}
+                                 >
+                                    {enabled ? 'Enable' : 'Disable'}
+                                 </button>
+                              </div>
+                           )
+                        )}
                      </div>
                   </div>
                )}
@@ -220,7 +185,7 @@ function ThemeSettings({ onClose }) {
                            onClick={() => setBackground(option.name)}
                            className={`px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                               ${
-                                 background === option.name
+                                 appTheme.background === option.name
                                     ? 'bg-purple-600 text-white'
                                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                               }`}
@@ -243,17 +208,17 @@ function ThemeSettings({ onClose }) {
                         {colorOptions.map((color) => (
                            <button
                               key={color.name}
-                              onClick={() => setSelectedColor(color.name)}
+                              onClick={() => setColorTheme(color.name)}
                               className={`aspect-square rounded-md size-10 ${
                                  color.class
                               } transition-all duration-200 flex items-center justify-center
                                  ${
-                                    selectedColor === color.name
+                                    appTheme.colorTheme === color.name
                                        ? 'ring-2 ring-white scale-95'
                                        : 'hover:scale-95'
                                  }`}
                            >
-                              {selectedColor === color.name && (
+                              {appTheme.colorTheme === color.name && (
                                  <FaCheck className='w-3.5 h-3.5 text-white' />
                               )}
                            </button>
