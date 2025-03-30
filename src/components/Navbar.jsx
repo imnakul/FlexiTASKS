@@ -5,15 +5,16 @@ import {
    FaMoon,
    FaCog,
    FaComments,
-   FaPalette,
    FaChevronDown,
    FaTasks,
+   FaEllipsisV,
+   FaPalette,
 } from 'react-icons/fa'
 import { MdOutlineBackup } from 'react-icons/md'
 
 import ContactForm from './ContactForm'
 import TaskBackups from './TaskBackups'
-import VisualSettings from './VisualSettings'
+import ThemeSettings from './ThemeSettings'
 
 function Navbar() {
    const { isDarkMode, toggleTheme } = useTheme()
@@ -94,7 +95,7 @@ function Navbar() {
                         {showDropdown && (
                            <div className='absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50 transform opacity-100 scale-100 transition-all duration-200 origin-top-right'>
                               <button
-                                 onClick={() => handleOpenModal('colors')}
+                                 onClick={() => handleOpenModal('theme')}
                                  className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
                               >
                                  <FaPalette className='w-4 h-4 text-green-500' />
@@ -150,10 +151,7 @@ function Navbar() {
          {/* Modal */}
          {showModal && (
             <div className='fixed inset-0 z-50 overflow-y-auto'>
-               <div
-                  className='fixed inset-0 bg-black bg-opacity-50 transition-opacity'
-                  // onClick={() => setShowModal(false)}
-               />
+               <div className='fixed inset-0 bg-black bg-opacity-50 transition-opacity' />
                <div className='flex min-h-full min-w-xl items-center justify-center p-4'>
                   <div className='relative transform overflow-hidden rounded-lg bg-purple-500 dark:bg-purple-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-1.5 sm:w-full sm:max-w-xl sm:p-6'>
                      {/* Modal Content */}
@@ -182,25 +180,22 @@ function Navbar() {
                      {/* Dynamic Modal Content */}
                      <div className='mt-3 text-center sm:mt-0 sm:text-left'>
                         <h3 className='text-lg font-semibold leading-6 text-gray-900 dark:text-gray-100'>
-                           {modalContent === 'colors' && 'Color Settings'}
+                           {modalContent === 'theme' && 'Theme Settings'}
                            {modalContent === 'feedback' && 'Feedback & Contact'}
                            {modalContent === 'backup' && 'Tasks Backup'}
                         </h3>
                         <div className='mt-4'>
-                           {/* Add your Aceternity UI components here */}
-                           {modalContent === 'colors' && (
-                              // <div className='space-y-4'>
-                              <VisualSettings />
-                              // </div>
+                           {modalContent === 'theme' && (
+                              <ThemeSettings
+                                 onClose={() => setShowModal(false)}
+                                 isOpen={true}
+                              />
                            )}
-                           {/* Add other modal content cases */}
                            {modalContent === 'feedback' && <ContactForm />}
                            {modalContent === 'backup' && (
-                              // <div className='space-y-4'>
                               <TaskBackups
                                  onClose={() => setShowModal(false)}
                               />
-                              // </div>
                            )}
                         </div>
                      </div>

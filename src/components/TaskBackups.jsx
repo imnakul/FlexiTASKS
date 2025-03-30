@@ -221,7 +221,7 @@ function TaskBackups({ onClose }) {
                disabled={isImporting}
             >
                <FaSync className='w-4 h-4' />
-               Fetch Data from Notion and SYNC this Device
+               Connect Existing Notion Account
             </button>
 
             <button
@@ -229,7 +229,7 @@ function TaskBackups({ onClose }) {
                disabled={isImporting}
             >
                <FaSync className='w-4 h-4' />
-               Upload Data to Notion and SYNC this Device
+               Connect New Notion Account
             </button>
          </div>
       </div>
