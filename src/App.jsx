@@ -68,10 +68,8 @@ function App() {
    }
 
    const deleteTodo = (id) => {
-      if (window.confirm('Are you sure you want to delete this task?')) {
-         setTodos((prev) => prev.filter((todo) => todo.id !== id))
-         toast('Task Deleted!')
-      }
+      setTodos((prev) => prev.filter((todo) => todo.id !== id))
+      toast('Task Deleted!')
    }
 
    const toggleComplete = (id, completedAt) => {

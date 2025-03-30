@@ -197,7 +197,9 @@ function Navbar() {
                            {modalContent === 'feedback' && <ContactForm />}
                            {modalContent === 'backup' && (
                               // <div className='space-y-4'>
-                              <TaskBackups />
+                              <TaskBackups
+                                 onClose={() => setShowModal(false)}
+                              />
                               // </div>
                            )}
                         </div>

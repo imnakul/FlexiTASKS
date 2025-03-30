@@ -3,7 +3,7 @@ import { useTodo } from '../contexts/TodoContext'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
-function TaskBackups() {
+function TaskBackups({ onClose }) {
    const { todos, addTodo, updateTodo } = useTodo()
    const fileInputRef = useRef(null)
    const [isImporting, setIsImporting] = useState(false)
@@ -37,6 +37,7 @@ function TaskBackups() {
          URL.revokeObjectURL(url)
 
          toast.success('Tasks exported successfully!')
+         onClose?.() // Close modal after successful export
       } catch (error) {
          console.error('Error exporting tasks:', error)
          toast.error('Failed to export tasks. Please try again.')
@@ -149,6 +150,7 @@ function TaskBackups() {
 
          // Show success message
          toast.success('Tasks imported successfully!')
+         onClose?.() // Close modal after successful import
       } catch (error) {
          console.error('Error importing tasks:', error)
          toast.error(`Failed to import tasks: ${error.message}`)
