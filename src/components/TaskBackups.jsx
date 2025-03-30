@@ -1,10 +1,12 @@
 import { FaDownload, FaUpload, FaSync } from 'react-icons/fa'
 import { useTodo } from '../contexts/TodoContext'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 
 function TaskBackups() {
-   const { todos, updateTodo } = useTodo()
+   const { todos, addTodo, updateTodo } = useTodo()
    const fileInputRef = useRef(null)
+   const [isImporting, setIsImporting] = useState(false)
 
    const handleExportTasks = () => {
       try {
@@ -33,9 +35,11 @@ function TaskBackups() {
          // Cleanup
          document.body.removeChild(link)
          URL.revokeObjectURL(url)
+
+         toast.success('Tasks exported successfully!')
       } catch (error) {
          console.error('Error exporting tasks:', error)
-         alert('Failed to export tasks. Please try again.')
+         toast.error('Failed to export tasks. Please try again.')
       }
    }
 
@@ -44,7 +48,7 @@ function TaskBackups() {
          const file = event.target.files[0]
          if (!file) {
             console.error('No file selected')
-            alert('Please select a file to import')
+            toast.error('Please select a file to import')
             return
          }
 
@@ -61,6 +65,8 @@ function TaskBackups() {
             return
          }
 
+         setIsImporting(true)
+
          console.log('File selected:', file.name)
          const text = await file.text()
          console.log('File content:', text.substring(0, 100) + '...') // Log first 100 chars
@@ -75,16 +81,18 @@ function TaskBackups() {
             })
          } catch (parseError) {
             console.error('JSON Parse Error:', parseError)
-            alert(
+            toast.error(
                'Invalid JSON format in the backup file. Please ensure the file is not corrupted.'
             )
+            setIsImporting(false)
             return
          }
 
          // Validate imported data structure
          if (!importedData.tasks) {
             console.error('Missing tasks property in imported data')
-            alert('Invalid backup format: Missing tasks data')
+            toast.error('Invalid backup format: Missing tasks data')
+            setIsImporting(false)
             return
          }
 
@@ -93,9 +101,10 @@ function TaskBackups() {
                'Tasks property is not an array:',
                typeof importedData.tasks
             )
-            alert(
+            toast.error(
                'Invalid backup format: Tasks data is not in the correct format'
             )
+            setIsImporting(false)
             return
          }
 
@@ -114,35 +123,48 @@ function TaskBackups() {
                'Task validation failed. Task structure:',
                importedData.tasks[0]
             )
-            alert(
+            toast.error(
                'Invalid backup format: Tasks must have id, todo text, and completed status'
             )
+            setIsImporting(false)
             return
          }
 
          // Update tasks in localStorage directly
          localStorage.setItem('todos', JSON.stringify(importedData.tasks))
-         // Reload the page to refresh the context
-         window.location.reload()
 
          // Clear the file input
          if (fileInputRef.current) {
             fileInputRef.current.value = ''
          }
 
-         alert(
-            'Tasks imported successfully! The page will refresh to load your tasks.'
-         )
+         // Show success message
+         toast.success('Tasks imported successfully!')
+
+         // Reload the page after a short delay to show the success message
+         setTimeout(() => {
+            window.location.reload()
+         }, 1500)
       } catch (error) {
          console.error('Error importing tasks:', error)
-         alert(
-            `Failed to import tasks: ${error.message}. Please make sure the file is a valid backup.`
-         )
+         toast.error(`Failed to import tasks: ${error.message}`)
+         setIsImporting(false)
       }
    }
 
    return (
       <div className='bg-purple-800/90 dark:bg-purple-900/90 p-8 rounded-lg shadow-lg border border-purple-500/30 dark:border-purple-400/30'>
+         {isImporting && (
+            <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
+               <div className='bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl flex flex-col items-center gap-4'>
+                  <div className='animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent'></div>
+                  <p className='text-gray-900 dark:text-gray-100 text-lg font-medium'>
+                     Importing Tasks...
+                  </p>
+               </div>
+            </div>
+         )}
+
          {/* Title */}
          <h2 className='text-2xl font-semibold text-center mb-8 text-white flex items-center justify-center gap-2'>
             Tasks Backup
@@ -157,6 +179,7 @@ function TaskBackups() {
             <button
                onClick={handleExportTasks}
                className='px-6 py-3 bg-emerald-600/40 hover:bg-emerald-500/50 border border-emerald-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
+               disabled={isImporting}
             >
                <FaDownload className='w-4 h-4' />
                Export Tasks
@@ -166,6 +189,7 @@ function TaskBackups() {
             <button
                onClick={() => fileInputRef.current?.click()}
                className='px-6 py-3 bg-amber-600/40 hover:bg-amber-500/50 border border-amber-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
+               disabled={isImporting}
             >
                <FaUpload className='w-4 h-4' />
                Import Tasks
@@ -176,6 +200,7 @@ function TaskBackups() {
                onChange={handleImportTasks}
                accept='.json'
                className='hidden'
+               disabled={isImporting}
             />
          </div>
 
@@ -184,12 +209,18 @@ function TaskBackups() {
 
          {/* Notion Sync Section */}
          <div className='flex flex-col gap-4'>
-            <button className='w-full px-6 py-4 bg-blue-600/40 hover:bg-blue-500/50 border border-blue-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'>
+            <button
+               className='w-full px-6 py-4 bg-blue-600/40 hover:bg-blue-500/50 border border-blue-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
+               disabled={isImporting}
+            >
                <FaSync className='w-4 h-4' />
                Fetch Data from Notion and SYNC this Device
             </button>
 
-            <button className='w-full px-6 py-4 bg-indigo-600/40 hover:bg-indigo-500/50 border border-indigo-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'>
+            <button
+               className='w-full px-6 py-4 bg-indigo-600/40 hover:bg-indigo-500/50 border border-indigo-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
+               disabled={isImporting}
+            >
                <FaSync className='w-4 h-4' />
                Upload Data to Notion and SYNC this Device
             </button>
