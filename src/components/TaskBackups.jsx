@@ -160,10 +160,10 @@ function TaskBackups({ onClose }) {
    }
 
    return (
-      <div className='bg-purple-800/90 dark:bg-purple-900/90 p-8 rounded-lg shadow-lg border border-purple-500/30 dark:border-purple-400/30'>
+      <div className='bg-purple-800/90 dark:bg-purple-900/90 p-6 rounded-lg shadow-lg border border-purple-500/30 dark:border-purple-400/30'>
          {isImporting && (
             <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-               <div className='bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl flex flex-col items-center gap-4'>
+               <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl flex flex-col items-center gap-4'>
                   <div className='animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent'></div>
                   <p className='text-gray-900 dark:text-gray-100 text-lg font-medium'>
                      Importing Tasks...
@@ -173,19 +173,19 @@ function TaskBackups({ onClose }) {
          )}
 
          {/* Title */}
-         <h2 className='text-2xl font-semibold text-center mb-8 text-white flex items-center justify-center gap-2'>
+         <h2 className='text-2xl font-semibold text-center mb-6 text-white flex items-center justify-center gap-2'>
             Tasks Backup
          </h2>
 
          {/* Divider */}
-         <div className='border-b border-purple-400/30 mb-8'></div>
+         <div className='border-b border-purple-400/30 mb-6'></div>
 
          {/* Export/Import Section */}
-         <div className='flex justify-center gap-6 mb-8'>
+         <div className='flex justify-center gap-6 mb-6'>
             {/* Export Button */}
             <button
                onClick={handleExportTasks}
-               className='px-6 py-3 bg-emerald-600/40 hover:bg-emerald-500/50 border border-emerald-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
+               className='px-4 py-2 bg-emerald-600/40 hover:bg-emerald-500/50 border border-emerald-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
                <FaDownload className='w-4 h-4' />
@@ -195,7 +195,7 @@ function TaskBackups({ onClose }) {
             {/* Import Button */}
             <button
                onClick={() => fileInputRef.current?.click()}
-               className='px-6 py-3 bg-amber-600/40 hover:bg-amber-500/50 border border-amber-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
+               className='px-4 py-2 bg-amber-600/40 hover:bg-amber-500/50 border border-amber-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
                <FaUpload className='w-4 h-4' />
@@ -217,7 +217,7 @@ function TaskBackups({ onClose }) {
          {/* Notion Sync Section */}
          <div className='flex flex-col gap-4'>
             <button
-               className='w-full px-6 py-4 bg-blue-600/40 hover:bg-blue-500/50 border border-blue-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
+               className='w-full px-4 py-3 bg-blue-600/40 hover:bg-blue-500/50 border border-blue-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
                <FaSync className='w-4 h-4' />
@@ -225,7 +225,7 @@ function TaskBackups({ onClose }) {
             </button>
 
             <button
-               className='w-full px-6 py-4 bg-indigo-600/40 hover:bg-indigo-500/50 border border-indigo-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
+               className='w-full px-4 py-3 bg-indigo-600/40 hover:bg-indigo-500/50 border border-indigo-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
                <FaSync className='w-4 h-4' />
