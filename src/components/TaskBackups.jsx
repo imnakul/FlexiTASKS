@@ -48,6 +48,19 @@ function TaskBackups() {
             return
          }
 
+         // Ask for confirmation before proceeding
+         const confirmImport = window.confirm(
+            '⚠️ Warning: Importing tasks will overwrite your current tasks. All existing tasks will be replaced with the imported ones.\n\nAre you sure you want to proceed?'
+         )
+
+         if (!confirmImport) {
+            // Clear the file input if user cancels
+            if (fileInputRef.current) {
+               fileInputRef.current.value = ''
+            }
+            return
+         }
+
          console.log('File selected:', file.name)
          const text = await file.text()
          console.log('File content:', text.substring(0, 100) + '...') // Log first 100 chars
