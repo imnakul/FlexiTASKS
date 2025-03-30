@@ -130,8 +130,17 @@ function TaskBackups() {
             return
          }
 
-         // Update tasks in localStorage directly
+         // Update tasks in localStorage
          localStorage.setItem('todos', JSON.stringify(importedData.tasks))
+
+         // Update context with new tasks
+         importedData.tasks.forEach((task) => {
+            if (todos.find((t) => t.id === task.id)) {
+               updateTodo(task.id, task)
+            } else {
+               addTodo(task)
+            }
+         })
 
          // Clear the file input
          if (fileInputRef.current) {
@@ -140,14 +149,10 @@ function TaskBackups() {
 
          // Show success message
          toast.success('Tasks imported successfully!')
-
-         // Reload the page after a short delay to show the success message
-         setTimeout(() => {
-            window.location.reload()
-         }, 1500)
       } catch (error) {
          console.error('Error importing tasks:', error)
          toast.error(`Failed to import tasks: ${error.message}`)
+      } finally {
          setIsImporting(false)
       }
    }
