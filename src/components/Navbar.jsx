@@ -9,9 +9,11 @@ import {
    FaChevronDown,
    FaTasks,
 } from 'react-icons/fa'
-import { RiNotionFill } from 'react-icons/ri'
+import { MdOutlineBackup } from 'react-icons/md'
 
 import ContactForm from './ContactForm'
+import TaskBackups from './TaskBackups'
+import VisualSettings from './VisualSettings'
 
 function Navbar() {
    const { isDarkMode, toggleTheme } = useTheme()
@@ -114,12 +116,12 @@ function Navbar() {
 
                               {/* Notion Integration */}
                               <button
-                                 onClick={() => handleOpenModal('notion')}
+                                 onClick={() => handleOpenModal('backup')}
                                  className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
                               >
-                                 <RiNotionFill className='w-5 h-5  dark:text-white' />
+                                 <MdOutlineBackup className='w-5 h-5  dark:text-white' />
                                  <span className='text-sm text-gray-700 dark:text-gray-300'>
-                                    Notion Integration
+                                    Tasks Backup
                                  </span>
                               </button>
                            </div>
@@ -182,21 +184,21 @@ function Navbar() {
                         <h3 className='text-lg font-semibold leading-6 text-gray-900 dark:text-gray-100'>
                            {modalContent === 'colors' && 'Color Settings'}
                            {modalContent === 'feedback' && 'Feedback & Contact'}
-                           {modalContent === 'notion' && 'Notion Integration'}
+                           {modalContent === 'backup' && 'Tasks Backup'}
                         </h3>
                         <div className='mt-4'>
                            {/* Add your Aceternity UI components here */}
                            {modalContent === 'colors' && (
-                              <div className='space-y-4'>
-                                 {/* Your color settings UI */}
-                              </div>
+                              // <div className='space-y-4'>
+                              <VisualSettings />
+                              // </div>
                            )}
                            {/* Add other modal content cases */}
                            {modalContent === 'feedback' && <ContactForm />}
-                           {modalContent === 'notion' && (
-                              <div className='space-y-4'>
-                                 {/* Your Notion integration UI */}
-                              </div>
+                           {modalContent === 'backup' && (
+                              // <div className='space-y-4'>
+                              <TaskBackups />
+                              // </div>
                            )}
                         </div>
                      </div>
