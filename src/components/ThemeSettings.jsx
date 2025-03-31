@@ -28,10 +28,12 @@ function ThemeSettings({ onClose }) {
    ]
 
    const backgroundOptions = [
-      { name: 'particle', icon: '✨' },
-      { name: 'rain mode', icon: '🌧️' },
-      { name: 'wave', icon: '🌊' },
-      { name: 'others', icon: '🎨' },
+      { name: 'particle' },
+      { name: 'space' },
+      { name: 'fog' },
+      { name: 'mistyGlow' },
+      { name: 'orbs' },
+      { name: 'none' },
    ]
 
    const handleInterfaceChange = (mode) => {
@@ -60,21 +62,21 @@ function ThemeSettings({ onClose }) {
    return (
       <div className='bg-gray-900 dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700'>
          {/* Title */}
-         <h2 className='text-xl font-semibold text-center mb-4 text-white flex items-center justify-center gap-2'>
+         {/* <h2 className='text-xl font-semibold text-center mb-4 text-white flex items-center justify-center gap-2'>
             <FaPalette className='w-5 h-5 text-purple-500' />
             Theme Settings
-         </h2>
+         </h2> */}
 
          {/* Divider */}
-         <div className='border-b border-gray-700 mb-4'></div>
+         {/* <div className='border-b border-gray-700 mb-4'></div> */}
 
          {/* Settings Grid */}
-         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+         <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
             {/* Left Column */}
-            <div className='space-y-4'>
+            <div className='space-y-4 border border-purple-700 rounded-md p-2'>
                {/* Design Basis */}
                <div>
-                  <h3 className='text-base font-medium text-white mb-2'>
+                  <h3 className='flex items-center justify-center  text-sm font-bold text-white mb-1 py-1 border-b border-purple-700'>
                      Design Basis
                   </h3>
                   <div className='flex gap-2'>
@@ -105,7 +107,7 @@ function ThemeSettings({ onClose }) {
 
                {/* Tasks Interface */}
                <div>
-                  <h3 className='text-base font-medium text-white mb-2'>
+                  <h3 className='flex items-center justify-center  text-sm font-bold text-white mb-1 border-b border-purple-700 py-1 '>
                      Tasks Interface
                   </h3>
                   <div className='space-y-1.5'>
@@ -138,7 +140,7 @@ function ThemeSettings({ onClose }) {
                {/* Feature Toggles - Only show if custom interface is selected */}
                {appTheme.taskInterface.mode === 'custom' && (
                   <div>
-                     <h3 className='text-base font-medium text-white mb-2'>
+                     <h3 className='flex items-center justify-center  text-sm font-bold border-b border-purple-700 py-1 text-white mb-1'>
                         Features
                      </h3>
                      <div className='space-y-1.5 bg-gray-800/50 rounded-md p-3'>
@@ -172,10 +174,10 @@ function ThemeSettings({ onClose }) {
             </div>
 
             {/* Right Column */}
-            <div className='space-y-4'>
+            <div className='space-y-4 border border-purple-700 rounded-md p-2'>
                {/* Background */}
                <div>
-                  <h3 className='text-base font-medium text-white mb-2'>
+                  <h3 className='flex items-center justify-center text-sm font-bold border-b border-purple-700 py-1 text-white mb-1'>
                      Background
                   </h3>
                   <div className='grid grid-cols-2 gap-2'>
@@ -190,7 +192,7 @@ function ThemeSettings({ onClose }) {
                                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                               }`}
                         >
-                           <span>{option.icon}</span>
+                           {/* <span>{option.icon}</span> */}
                            {option.name.charAt(0).toUpperCase() +
                               option.name.slice(1)}
                         </button>
@@ -200,7 +202,7 @@ function ThemeSettings({ onClose }) {
 
                {/* Color Theme */}
                <div>
-                  <h3 className='text-base font-medium text-white mb-2'>
+                  <h3 className='flex items-center justify-center  text-sm font-bold border-b border-purple-700 py-1 text-white mb-1'>
                      Color Theme
                   </h3>
                   <div className='bg-gray-800/50 p-3 rounded-md'>
@@ -228,7 +230,7 @@ function ThemeSettings({ onClose }) {
                </div>
 
                {/* Save Button */}
-               <div className='flex justify-end mt-4'>
+               <div className='flex items-center justify-end mt-4'>
                   <button
                      onClick={handleSaveSettings}
                      className='px-4 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm'

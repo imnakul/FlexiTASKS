@@ -51,7 +51,9 @@ const WarpSpeedStarfield = () => {
       return () => window.removeEventListener('resize', resizeCanvas)
    }, [])
 
-   return <canvas ref={canvasRef} className='fixed inset-0 z-0 w-full h-full' />
+   return (
+      <canvas ref={canvasRef} className='fixed top-[64px] z-0 w-full h-full' />
+   )
 }
 
 export default WarpSpeedStarfield
