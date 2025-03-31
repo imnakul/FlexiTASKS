@@ -13,7 +13,12 @@ import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Sorting, ClearTodos } from './functionalities/index.js'
-import ParticleBackground from './components/ParticleBackground'
+import ParticleBackground from './components/backgrounds/ParticleBackground.jsx'
+
+import FogEffect from './components/backgrounds/FogEffect.jsx'
+import MistyGlowParticles from './components/backgrounds/MistyGlowParticles.jsx'
+import FloatingGlowingOrbs from './components/backgrounds/FloatingOrbs.jsx'
+import WarpSpeedStarfield from './components/backgrounds/WarpSpaceSpeed.jsx'
 
 function App() {
    const [todos, setTodos] = useState([])
@@ -144,7 +149,12 @@ function App() {
                   toggleComplete,
                }}
             >
-               <ParticleBackground particleCount={80} />
+               {/* <ParticleBackground particleCount={80} /> */}
+               <FloatingGlowingOrbs />
+               {/* <WarpSpeedStarfield /> */}
+               {/* <FogEffect /> */}
+               {/* <MistyGlowParticles particleCount={80} /> */}
+
                <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
                   <Navbar />
 
