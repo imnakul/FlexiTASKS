@@ -13,6 +13,7 @@ import {
    FaLayerGroup,
 } from 'react-icons/fa'
 import TodoForm from './TodoForm'
+import { useAppTheme } from '../contexts/AppThemeContext'
 
 function TodoItem({ todo }) {
    const {
@@ -27,6 +28,7 @@ function TodoItem({ todo }) {
    const [showSubtasks, setShowSubtasks] = useState(false)
    const [showNote, setShowNote] = useState(false)
    const noteRef = useRef(null)
+   const { appTheme, getColorClass } = useAppTheme()
 
    const handleEdit = () => {
       if (isEditing) {
@@ -165,7 +167,14 @@ function TodoItem({ todo }) {
    }
 
    return (
-      <div className='group bg-purple-200 dark:bg-purple-900/20 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg hover:shadow-purple-500/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-300'>
+      <div
+         className={`group  ${getColorClass(
+            appTheme.colorTheme
+         )} ${getColorClass(appTheme.colorTheme, 'hover')}  ${getColorClass(
+            appTheme.colorTheme,
+            'shadow'
+         )} p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300`}
+      >
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 min-w-0'>

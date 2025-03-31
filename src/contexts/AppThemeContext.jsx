@@ -56,6 +56,68 @@ const isValidAppTheme = (theme) => {
    )
 }
 
+const colorOptions = {
+   red: {
+      bg: 'bg-red-200 dark:bg-red-900/20',
+      hover: 'hover:border-red-300 dark:hover:border-red-500',
+      shadow: 'hover:shadow-lg hover:shadow-red-500/20',
+      buttonbg: 'bg-red-500',
+      buttonbghover: 'hover:bg-red-700',
+      ring: 'focus:ring-red-500',
+      text: 'text-red-600 dark:text-red-400',
+   },
+   orange: {
+      bg: 'bg-orange-200 dark:bg-orange-900/20',
+      hover: 'hover:border-orange-300 dark:hover:border-orange-500',
+      shadow: 'hover:shadow-lg hover:shadow-red-500/20',
+      buttonbg: 'bg-orange-500',
+      buttonbghover: 'hover:bg-orange-700',
+      ring: 'focus:ring-orange-500',
+      text: 'text-orange-600 dark:text-orange-400',
+   },
+   yellow: {
+      bg: 'bg-yellow-200 dark:bg-yellow-900/20',
+      hover: 'hover:border-yellow-300 dark:hover:border-yellow-500',
+      shadow: 'hover:shadow-lg hover:shadow-yellow-500/20',
+      buttonbg: 'bg-yellow-500',
+      buttonbghover: 'hover:bg-yellow-700',
+      ring: 'focus:ring-yellow-500',
+      text: 'text-yellow-600 dark:text-yellow-400',
+   },
+   green: {
+      bg: 'bg-green-200 dark:bg-green-900/20',
+      hover: 'hover:border-green-300 dark:hover:border-green-500',
+      shadow: 'hover:shadow-lg hover:shadow-green-500/20',
+      buttonbg: 'bg-green-500',
+      buttonbghover: 'hover:bg-green-700',
+      ring: 'focus:ring-green-500',
+      text: 'text-green-600 dark:text-green-400',
+   },
+   blue: {
+      bg: 'bg-blue-200 dark:bg-blue-900/20',
+      hover: 'hover:border-blue-300 dark:hover:border-blue-500',
+      shadow: 'hover:shadow-lg hover:shadow-green-500/20',
+      buttonbg: 'bg-blue-500',
+      buttonbghover: 'hover:bg-blue-700',
+      ring: 'focus:ring-blue-500',
+      text: 'text-blue-600 dark:text-blue-400',
+   },
+   purple: {
+      bg: 'bg-purple-200 dark:bg-purple-900/20',
+      hover: 'hover:border-purple-300 dark:hover:border-purple-500',
+      shadow: 'hover:shadow-lg hover:shadow-purple-500/20',
+      buttonbg: 'bg-purple-500',
+      buttonbghover: 'hover:bg-purple-700',
+      ring: 'focus:ring-purple-500',
+      text: 'text-purple-600 dark:text-purple-300',
+   },
+}
+
+// Function to get Tailwind class dynamically
+const getColorClass = (themeColor, type = 'bg') => {
+   return colorOptions[themeColor]?.[type] || ''
+}
+
 export function AppThemeProvider({ children }) {
    // Initialize state from localStorage or use defaults
    const [appTheme, setAppTheme] = useState(() => {
@@ -161,6 +223,7 @@ export function AppThemeProvider({ children }) {
       setBackground,
       setTaskInterface,
       updateTaskFeatures,
+      getColorClass,
    }
 
    return (

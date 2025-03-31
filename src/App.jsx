@@ -25,7 +25,7 @@ function App() {
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
-   const { appTheme } = useAppTheme()
+   const { appTheme, getColorClass } = useAppTheme()
 
    const addTodo = (todo) => {
       const newTodo = {
@@ -199,7 +199,10 @@ function App() {
                                     onClick={() => setFilter('all')}
                                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                                        filter === 'all'
-                                          ? 'bg-purple-500 text-white'
+                                          ? `${getColorClass(
+                                               appTheme.colorTheme,
+                                               'buttonbg'
+                                            )} text-white`
                                           : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                     }`}
                                  >
@@ -209,7 +212,10 @@ function App() {
                                     onClick={() => setFilter('active')}
                                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                                        filter === 'active'
-                                          ? 'bg-purple-500 text-white'
+                                          ? `${getColorClass(
+                                               appTheme.colorTheme,
+                                               'buttonbg'
+                                            )} text-white`
                                           : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                     }`}
                                  >
@@ -219,7 +225,10 @@ function App() {
                                     onClick={() => setFilter('completed')}
                                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                                        filter === 'completed'
-                                          ? 'bg-purple-500 text-white'
+                                          ? `${getColorClass(
+                                               appTheme.colorTheme,
+                                               'buttonbg'
+                                            )} text-white`
                                           : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                     }`}
                                  >

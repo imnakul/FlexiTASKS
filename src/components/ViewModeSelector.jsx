@@ -5,6 +5,7 @@ import {
    FaCalendarAlt,
    FaChartLine,
 } from 'react-icons/fa'
+import { useAppTheme } from '../contexts/AppThemeContext'
 
 function ViewModeSelector({ viewMode, setViewMode }) {
    const views = [
@@ -14,6 +15,8 @@ function ViewModeSelector({ viewMode, setViewMode }) {
       { id: 'timeline', label: 'Timeline', icon: FaChartLine },
       { id: 'calendar', label: 'Calendar', icon: FaCalendarAlt },
    ]
+
+   const { appTheme, getColorClass } = useAppTheme()
 
    return (
       <div className='flex flex-wrap gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg'>
@@ -25,7 +28,10 @@ function ViewModeSelector({ viewMode, setViewMode }) {
                   onClick={() => setViewMode(view.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                      viewMode === view.id
-                        ? 'bg-purple-500 text-white'
+                        ? ` ${getColorClass(
+                             appTheme.colorTheme,
+                             'buttonbg'
+                          )} text-white`
                         : 'bg-white dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-500'
                   }`}
                >

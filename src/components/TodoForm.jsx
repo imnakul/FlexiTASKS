@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useTodo } from '../contexts/ToDoContext'
 import TaskSuggestions from './TaskSuggestions'
 import { FaStickyNote } from 'react-icons/fa'
+import { useAppTheme } from '../contexts/AppThemeContext'
 
 function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [todo, setTodo] = useState('')
@@ -18,6 +19,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [showNoteInput, setShowNoteInput] = useState(false)
    const inputRef = useRef(null)
    const { addTodo, todos, updateTodo } = useTodo()
+   const { appTheme, getColorClass } = useAppTheme()
 
    // Load editing todo data
    useEffect(() => {
@@ -161,7 +163,9 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                   value={todo}
                   onChange={handleInputChange}
                   onFocus={() => !editingTodo && setShowSuggestions(true)}
-                  className='w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 filter-glow'
+                  className={`w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 
+                     ${getColorClass(appTheme.colorTheme, 'ring')}
+                   transition-all duration-300 filter-glow`}
                />
                {showSuggestions && !editingTodo && (
                   <TaskSuggestions
@@ -175,7 +179,10 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
             <select
                value={priority}
                onChange={(e) => setPriority(e.target.value)}
-               className='px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+               className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                  appTheme.colorTheme,
+                  'ring'
+               )} transition-all duration-300`}
             >
                <option value='low'>Low Priority</option>
                <option value='medium'>Medium Priority</option>
@@ -185,7 +192,10 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
             <select
                value={category}
                onChange={(e) => setCategory(e.target.value)}
-               className='px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+               className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                  appTheme.colorTheme,
+                  'ring'
+               )} transition-all duration-300`}
             >
                <option value='personal'>Personal</option>
                <option value='work'>Work</option>
@@ -199,7 +209,10 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                   value={dueDate}
                   min={new Date().toISOString().split('T')[0]}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 ${
+                  className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                     appTheme.colorTheme,
+                     'ring'
+                  )} transition-all duration-300 ${
                      isOverdue
                         ? 'border-red-300 dark:border-red-500'
                         : 'border-gray-200 dark:border-gray-700'
@@ -222,12 +235,18 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                      value={newSubtask}
                      onChange={(e) => setNewSubtask(e.target.value)}
                      placeholder='Enter subtask...'
-                     className='flex-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500'
+                     className={`flex-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                        appTheme.colorTheme,
+                        'ring'
+                     )}`}
                   />
                   <button
                      type='button'
                      onClick={handleAddSubtask}
-                     className='px-3 py-1.5 rounded-lg text-sm font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300'
+                     className={`px-3 py-1.5 rounded-lg text-sm text-black dark:text-white font-medium ${getColorClass(
+                        appTheme.colorTheme
+                     )}
+                        ${getColorClass(appTheme.colorTheme, 'ring')} `}
                   >
                      Add
                   </button>
@@ -277,7 +296,10 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                <select
                   value={recurringInterval}
                   onChange={(e) => setRecurringInterval(e.target.value)}
-                  className='px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300'
+                  className={`px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                     appTheme.colorTheme,
+                     'ring'
+                  )} transition-all duration-300`}
                >
                   <option value='daily'>Daily</option>
                   <option value='weekly'>Weekly</option>
@@ -287,7 +309,13 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
 
             <button
                type='submit'
-               className='ml-auto px-4 py-2 rounded-lg text-sm font-medium bg-purple-500 text-white hover:bg-purple-600 transition-all duration-200'
+               className={`ml-auto px-4 py-2 rounded-lg text-sm font-medium ${getColorClass(
+                  appTheme.colorTheme,
+                  'buttonbg'
+               )} text-white ${getColorClass(
+                  appTheme.colorTheme,
+                  'buttonbghover'
+               )} transition-all duration-200`}
             >
                {editingTodo ? 'Update' : 'Add Task'}
             </button>
