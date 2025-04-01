@@ -11,7 +11,7 @@ import CalendarView from './components/views/CalendarView'
 import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Sorting, ClearTodos } from './functionalities/index.js'
+
 import ParticleBackground from './components/backgrounds/ParticleBackground.jsx'
 
 import FogEffect from './components/backgrounds/FogEffect.jsx'
@@ -76,7 +76,7 @@ function App() {
 
    const deleteTodo = (id) => {
       setTodos((prev) => prev.filter((todo) => todo.id !== id))
-      toast('Task Deleted!')
+      toast.success('Task Deleted!')
    }
 
    const toggleComplete = (id, completedAt) => {
