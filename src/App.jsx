@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { TodoProvider } from './contexts/ToDoContext'
+// import { TodoProvider } from './contexts/ToDoContext'
 
 import Navbar from './components/Navbar'
 import { TodoForm, TodoItem, Achievements } from './components/index'
@@ -19,97 +19,100 @@ import MistyGlowParticles from './components/backgrounds/MistyGlowParticles.jsx'
 import FloatingGlowingOrbs from './components/backgrounds/FloatingOrbs.jsx'
 import WarpSpeedStarfield from './components/backgrounds/WarpSpaceSpeed.jsx'
 import { useAppTheme } from './contexts/AppThemeContext'
+import { useSelector, useDispatch } from 'react-redux'
 
 function App() {
-   const [todos, setTodos] = useState([])
+   // const [todos, setTodos] = useState([])
+   const todos = useSelector((state) => state.todos.todos)
+   console.log('todos from useSelectror', todos)
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
    const { appTheme, getColorClass } = useAppTheme()
 
-   const addTodo = (todo) => {
-      const newTodo = {
-         id: Date.now(),
-         todo: todo.todo,
-         completed: false,
-         createdAt: new Date().toISOString(),
-         completedAt: null,
-         priority: todo.priority || 'medium',
-         category: todo.category || 'personal',
-         dueDate: todo.dueDate || null,
-         stage: todo.stage || 'notStarted',
-         isRecurring: todo.isRecurring || false,
-         recurringInterval: todo.recurringInterval || null,
-         subtasks: (todo.subtasks || []).map((subtask) => ({
-            id: subtask.id || Date.now() + Math.random(),
-            text: subtask.text,
-            completed: false,
-            createdAt: new Date().toISOString(),
-            completedAt: null,
-         })),
-         note: todo.note || null,
-      }
-      setTodos((prev) => [newTodo, ...prev])
-   }
+   // const addTodo = (todo) => {
+   //    const newTodo = {
+   //       id: Date.now(),
+   //       todo: todo.todo,
+   //       completed: false,
+   //       createdAt: new Date().toISOString(),
+   //       completedAt: null,
+   //       priority: todo.priority || 'medium',
+   //       category: todo.category || 'personal',
+   //       dueDate: todo.dueDate || null,
+   //       stage: todo.stage || 'notStarted',
+   //       isRecurring: todo.isRecurring || false,
+   //       recurringInterval: todo.recurringInterval || null,
+   //       subtasks: (todo.subtasks || []).map((subtask) => ({
+   //          id: subtask.id || Date.now() + Math.random(),
+   //          text: subtask.text,
+   //          completed: false,
+   //          createdAt: new Date().toISOString(),
+   //          completedAt: null,
+   //       })),
+   //       note: todo.note || null,
+   //    }
+   //    setTodos((prev) => [newTodo, ...prev])
+   // }
 
-   const updateTodo = (id, todo) => {
-      setTodos((prev) =>
-         prev.map((todoInstance) =>
-            todoInstance.id === id
-               ? {
-                    ...todoInstance,
-                    ...todo,
-                    subtasks:
-                       todo.subtasks?.map((subtask) => ({
-                          id: subtask.id || Date.now() + Math.random(),
-                          text: subtask.text,
-                          completed: subtask.completed || false,
-                          createdAt:
-                             subtask.createdAt || new Date().toISOString(),
-                          completedAt: subtask.completedAt || null,
-                       })) || [],
-                 }
-               : todoInstance
-         )
-      )
-   }
+   // const updateTodo = (id, todo) => {
+   //    setTodos((prev) =>
+   //       prev.map((todoInstance) =>
+   //          todoInstance.id === id
+   //             ? {
+   //                  ...todoInstance,
+   //                  ...todo,
+   //                  subtasks:
+   //                     todo.subtasks?.map((subtask) => ({
+   //                        id: subtask.id || Date.now() + Math.random(),
+   //                        text: subtask.text,
+   //                        completed: subtask.completed || false,
+   //                        createdAt:
+   //                           subtask.createdAt || new Date().toISOString(),
+   //                        completedAt: subtask.completedAt || null,
+   //                     })) || [],
+   //               }
+   //             : todoInstance
+   //       )
+   //    )
+   // }
 
-   const deleteTodo = (id) => {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id))
-      toast.success('Task Deleted!')
-   }
+   // const deleteTodo = (id) => {
+   //    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+   //    toast.success('Task Deleted!')
+   // }
 
-   const toggleComplete = (id, completedAt) => {
-      setTodos((prev) =>
-         prev.map((prevTodo) =>
-            prevTodo.id === id
-               ? {
-                    ...prevTodo,
-                    completed: !prevTodo.completed,
-                    completedAt: !prevTodo.completed ? completedAt : null,
-                    // Also update subtasks when main task is completed
-                    subtasks:
-                       prevTodo.subtasks?.map((subtask) => ({
-                          ...subtask,
-                          completed: !prevTodo.completed,
-                          completedAt: !prevTodo.completed ? completedAt : null,
-                       })) || [],
-                 }
-               : prevTodo
-         )
-      )
-   }
+   // const toggleComplete = (id, completedAt) => {
+   //    setTodos((prev) =>
+   //       prev.map((prevTodo) =>
+   //          prevTodo.id === id
+   //             ? {
+   //                  ...prevTodo,
+   //                  completed: !prevTodo.completed,
+   //                  completedAt: !prevTodo.completed ? completedAt : null,
+   //                  // Also update subtasks when main task is completed
+   //                  subtasks:
+   //                     prevTodo.subtasks?.map((subtask) => ({
+   //                        ...subtask,
+   //                        completed: !prevTodo.completed,
+   //                        completedAt: !prevTodo.completed ? completedAt : null,
+   //                     })) || [],
+   //               }
+   //             : prevTodo
+   //       )
+   //    )
+   // }
 
-   useEffect(() => {
-      const todos = JSON.parse(localStorage.getItem('todos'))
-      if (todos && todos.length > 0) {
-         setTodos(todos)
-      }
-   }, [])
+   // useEffect(() => {
+   //    const todos = JSON.parse(localStorage.getItem('todos'))
+   //    if (todos && todos.length > 0) {
+   //       setTodos(todos)
+   //    }
+   // }, [])
 
-   useEffect(() => {
-      localStorage.setItem('todos', JSON.stringify(todos))
-   }, [todos])
+   // useEffect(() => {
+   //    localStorage.setItem('todos', JSON.stringify(todos))
+   // }, [todos])
 
    // Filter todos based on the current filter
    const filteredTodos = todos.filter((todo) => {
@@ -139,15 +142,16 @@ function App() {
    })
 
    return (
-      <TodoProvider
-         value={{
-            todos,
-            addTodo,
-            updateTodo,
-            deleteTodo,
-            toggleComplete,
-         }}
-      >
+      // <TodoProvider
+      //    value={{
+      //       todos,
+      //       addTodo,
+      //       updateTodo,
+      //       deleteTodo,
+      //       toggleComplete,
+      //    }}
+      // >
+      <>
          {appTheme.background === 'particle' && (
             <ParticleBackground particleCount={80} />
          )}
@@ -291,7 +295,8 @@ function App() {
                className='toast-container'
             />
          </div>
-      </TodoProvider>
+         {/* </TodoProvider> */}
+      </>
    )
 }
 

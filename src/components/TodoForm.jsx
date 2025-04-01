@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { useTodo } from '../contexts/ToDoContext'
 import TaskSuggestions from './TaskSuggestions'
-import { FaStickyNote } from 'react-icons/fa'
+// import { FaStickyNote } from 'react-icons/fa'
 import { useAppTheme } from '../contexts/AppThemeContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { addTodo, updateTodo } from '../store/TodoSlice.js'
 
 function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [todo, setTodo] = useState('')
@@ -18,7 +19,8 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [note, setNote] = useState('')
    const [showNoteInput, setShowNoteInput] = useState(false)
    const inputRef = useRef(null)
-   const { addTodo, todos, updateTodo } = useTodo()
+   const dispatch = useDispatch()
+   const todos = useSelector((state) => state.todos.todos)
    const { appTheme, getColorClass } = useAppTheme()
 
    // Load editing todo data
@@ -81,10 +83,15 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
       }
 
       if (editingTodo) {
-         updateTodo(editingTodo.id, { ...todoData, id: editingTodo.id })
+         dispatch(
+            updateTodo({
+               id: editingTodo.id,
+               updatedTodo: { ...todoData, id: editingTodo.id },
+            })
+         )
          onCancelEdit()
       } else {
-         addTodo(todoData)
+         dispatch(addTodo(todoData))
       }
       resetForm()
    }
