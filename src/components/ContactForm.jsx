@@ -45,7 +45,7 @@ function ContactForm() {
    }
 
    return (
-      <div className='bg-gray-900 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 '>
+      <div className='bg-gray-800 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 '>
          <form onSubmit={handleFormSubmit} className='space-y-4'>
             {/* Name Field (Optional) */}
             <div>

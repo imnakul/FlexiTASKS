@@ -1,5 +1,5 @@
 import { FaDownload, FaUpload, FaSync } from 'react-icons/fa'
-import { useTodo } from '../contexts/TodoContext'
+import { useTodo } from '../contexts/ToDoContext.js'
 import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -160,7 +160,7 @@ function TaskBackups({ onClose }) {
    }
 
    return (
-      <div className='bg-gray-900 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700  '>
+      <div className='bg-gray-800 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700  '>
          {isImporting && (
             <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl flex flex-col items-center gap-4'>

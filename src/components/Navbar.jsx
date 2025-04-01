@@ -76,7 +76,7 @@ function Navbar() {
                            onClick={() => setShowDropdown(!showDropdown)}
                            className={`
                               flex items-center gap-2 px-3 py-2 rounded-lg
-                              text-white/80 dark:text-gray-800
+                              dark:text-white/80 text-gray-800/80
                               ${getColorClass(appTheme.colorTheme, 'hovertext')}
                               ${getColorClass(appTheme.colorTheme)}
                               transition-all duration-200
@@ -147,7 +147,7 @@ function Navbar() {
                         <button
                            onClick={handleThemeToggle}
                            type='button'
-                           className={`p-2 rounded-lg text-white/80 dark:text-gray-800 ${getColorClass(
+                           className={`p-2 rounded-lg dark:text-white/80 text-gray-800/80 ${getColorClass(
                               appTheme.colorTheme,
                               'hovertext'
                            )}
