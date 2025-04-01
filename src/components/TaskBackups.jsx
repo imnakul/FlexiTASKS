@@ -160,7 +160,7 @@ function TaskBackups({ onClose }) {
    }
 
    return (
-      <div className='bg-purple-800/90 dark:bg-purple-900/90 p-6 rounded-lg shadow-lg border border-purple-500/30 dark:border-purple-400/30'>
+      <div className='bg-gray-900 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700  '>
          {isImporting && (
             <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl flex flex-col items-center gap-4'>
@@ -173,12 +173,12 @@ function TaskBackups({ onClose }) {
          )}
 
          {/* Title */}
-         <h2 className='text-2xl font-semibold text-center mb-6 text-white flex items-center justify-center gap-2'>
+         {/* <h2 className='text-2xl font-semibold text-center mb-6 text-white flex items-center justify-center gap-2'>
             Tasks Backup
-         </h2>
+         </h2> */}
 
          {/* Divider */}
-         <div className='border-b border-purple-400/30 mb-6'></div>
+         {/* <div className='border-b border-purple-400/30 mb-6'></div> */}
 
          {/* Export/Import Section */}
          <div className='flex justify-center gap-6 mb-6'>

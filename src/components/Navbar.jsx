@@ -11,10 +11,12 @@ import {
    FaPalette,
 } from 'react-icons/fa'
 import { MdOutlineBackup } from 'react-icons/md'
+import { useAppTheme } from '../contexts/AppThemeContext'
 
 import ContactForm from './ContactForm'
 import TaskBackups from './TaskBackups'
 import ThemeSettings from './ThemeSettings'
+import { use } from 'react'
 
 function Navbar() {
    const { isDarkMode, toggleTheme } = useTheme()
@@ -22,6 +24,7 @@ function Navbar() {
    const [showModal, setShowModal] = useState(false)
    const [modalContent, setModalContent] = useState(null)
    const dropdownRef = useRef(null)
+   const { appTheme, getColorClass } = useAppTheme()
 
    // Handle click outside to close dropdown
    useEffect(() => {
@@ -49,12 +52,17 @@ function Navbar() {
 
    return (
       <>
-         <nav className='bg-gradient-to-r from-indigo-600/80 to-purple-600/80 shadow-sm border-b border-gray-200 dark:border-gray-700'>
+         <nav
+            className={` ${getColorClass(
+               appTheme.colorTheme,
+               'navbar'
+            )}  shadow-sm border-b border-gray-200 dark:border-gray-700`}
+         >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                <div className='flex items-center justify-between h-16'>
                   {/* Logo/Title */}
                   <div className='flex-shrink-0 flex items-center gap-3'>
-                     <FaTasks className='w-7 h-7 text-white' />
+                     <FaTasks className='w-7 h-7 dark:text-white text-black' />
                      <h1 className='text-2xl font-bold text-gray-800 dark:text-white sm:pb-0.5 pb-1'>
                         Task Master
                      </h1>
@@ -69,12 +77,17 @@ function Navbar() {
                            className={`
                               flex items-center gap-2 px-3 py-2 rounded-lg
                               text-white/80 dark:text-gray-800
-                              hover:text-purple-500 dark:hover:text-purple-400
-                              hover:bg-purple-50 dark:hover:bg-purple-900/30
+                              ${getColorClass(appTheme.colorTheme, 'hovertext')}
+                              ${getColorClass(appTheme.colorTheme)}
                               transition-all duration-200
                               ${
                                  showDropdown
-                                    ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-500 dark:text-purple-400'
+                                    ? `${getColorClass(
+                                         appTheme.colorTheme
+                                      )} ${getColorClass(
+                                         appTheme.colorTheme,
+                                         'text'
+                                      )}`
                                     : ''
                               }
                            `}
@@ -134,7 +147,13 @@ function Navbar() {
                         <button
                            onClick={handleThemeToggle}
                            type='button'
-                           className='p-2 rounded-lg text-white/80 dark:text-gray-800 hover:text-purple-500 hover:bg-purple-50  dark:hover:text-purple-400 dark:hover:bg-purple-900/30 transition-colors duration-200 cursor-pointer'
+                           className={`p-2 rounded-lg text-white/80 dark:text-gray-800 ${getColorClass(
+                              appTheme.colorTheme,
+                              'hovertext'
+                           )}
+                              ${getColorClass(
+                                 appTheme.colorTheme
+                              )} transition-colors duration-200 cursor-pointer`}
                         >
                            {isDarkMode ? (
                               <FaSun className='w-5 h-5' />
@@ -153,12 +172,17 @@ function Navbar() {
             <div className='fixed inset-0 z-50 overflow-y-auto'>
                <div className='fixed inset-0 bg-black bg-opacity-50 transition-opacity' />
                <div className='flex min-h-full min-w-xl items-center justify-center p-4'>
-                  <div className='relative transform overflow-hidden rounded-lg bg-purple-500 dark:bg-purple-800 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-1.5 sm:w-full sm:max-w-xl sm:p-6'>
+                  <div
+                     className={`relative transform overflow-hidden rounded-lg ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbg'
+                     )} px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-1.5 sm:w-full sm:max-w-xl sm:p-6`}
+                  >
                      {/* Modal Content */}
                      <div className='absolute right-0 top-0 pr-4 pt-4'>
                         <button
                            onClick={() => setShowModal(false)}
-                           className='rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-800 p-1'
+                           className='rounded-md text-gray-800 hover:text-gray-500 hover:bg-gray-800 p-1'
                         >
                            <span className='sr-only'>Close</span>
                            <svg

@@ -154,7 +154,7 @@ function App() {
          {appTheme.background === 'space' && <WarpSpeedStarfield />}
          {appTheme.background === 'fog' && <FogEffect />}
          {appTheme.background === 'mistyGlow' && (
-            <MistyGlowParticles particleCount={80} />
+            <MistyGlowParticles particleCount={50} />
          )}
          {appTheme.background === 'orbs' && <FloatingGlowingOrbs />}
          {appTheme.background === 'none' && <></>}

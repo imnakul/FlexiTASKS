@@ -16,15 +16,16 @@ function ThemeSettings({ onClose }) {
       setBackground,
       setTaskInterface,
       updateTaskFeatures,
+      getColorClass,
    } = useAppTheme()
 
    const colorOptions = [
-      { name: 'red', class: 'bg-red-500' },
-      { name: 'orange', class: 'bg-orange-500' },
-      { name: 'yellow', class: 'bg-yellow-500' },
-      { name: 'green', class: 'bg-green-500' },
-      { name: 'blue', class: 'bg-blue-500' },
-      { name: 'purple', class: 'bg-purple-500' },
+      { name: 'red', class: 'bg-red-400' },
+      { name: 'orange', class: 'bg-orange-400' },
+      { name: 'yellow', class: 'bg-yellow-400' },
+      { name: 'green', class: 'bg-green-400' },
+      { name: 'blue', class: 'bg-blue-400' },
+      { name: 'purple', class: 'bg-purple-400' },
    ]
 
    const backgroundOptions = [
@@ -85,7 +86,10 @@ function ThemeSettings({ onClose }) {
                         className={`flex-1 px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                            ${
                               appTheme.designBasis === 'text'
-                                 ? 'bg-purple-600 text-white'
+                                 ? `${getColorClass(
+                                      appTheme.colorTheme,
+                                      'buttonbg'
+                                   )} text-white`
                                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                            }`}
                      >
@@ -96,7 +100,10 @@ function ThemeSettings({ onClose }) {
                         className={`flex-1 px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                            ${
                               appTheme.designBasis === 'icon'
-                                 ? 'bg-purple-600 text-white'
+                                 ? `${getColorClass(
+                                      appTheme.colorTheme,
+                                      'buttonbg'
+                                   )} text-white`
                                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                            }`}
                      >
@@ -118,7 +125,10 @@ function ThemeSettings({ onClose }) {
                            className={`w-full px-3 py-1.5 rounded-md transition-all duration-200 flex items-center gap-2 text-sm
                               ${
                                  appTheme.taskInterface.mode === option
-                                    ? 'bg-purple-600 text-white'
+                                    ? `${getColorClass(
+                                         appTheme.colorTheme,
+                                         'buttonbg'
+                                      )} text-white`
                                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                               }`}
                         >
@@ -159,7 +169,10 @@ function ThemeSettings({ onClose }) {
                                     className={`px-3 py-1 rounded-md transition-all duration-200 text-sm
                                     ${
                                        enabled
-                                          ? 'bg-purple-600 text-white'
+                                          ? `${getColorClass(
+                                               appTheme.colorTheme,
+                                               'buttonbg'
+                                            )} text-white`
                                           : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
                                     }`}
                                  >
@@ -188,7 +201,10 @@ function ThemeSettings({ onClose }) {
                            className={`px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                               ${
                                  appTheme.background === option.name
-                                    ? 'bg-purple-600 text-white'
+                                    ? `${getColorClass(
+                                         appTheme.colorTheme,
+                                         'buttonbg'
+                                      )} text-white`
                                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                               }`}
                         >
@@ -233,7 +249,15 @@ function ThemeSettings({ onClose }) {
                <div className='flex items-center justify-end mt-4'>
                   <button
                      onClick={handleSaveSettings}
-                     className='px-4 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm'
+                     className={`px-4 py-1.5 ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbg'
+                     )}
+                     
+                     ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbghover'
+                     )}  text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm`}
                   >
                      <FaCheck className='w-3.5 h-3.5' />
                      Save Changes
