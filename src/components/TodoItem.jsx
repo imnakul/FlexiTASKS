@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react'
-import { useTodo } from '../contexts/ToDoContext'
 import {
    FaEdit,
    FaTrash,
@@ -14,15 +13,11 @@ import {
 } from 'react-icons/fa'
 import TodoForm from './TodoForm'
 import { useAppTheme } from '../contexts/AppThemeContext'
+import { useDispatch } from 'react-redux'
+import { updateTodo, deleteTodo } from '../store/TodoSlice' // Import Redux actions
 
 function TodoItem({ todo }) {
-   const {
-      updateTodo,
-      deleteTodo,
-      toggleComplete,
-      toggleSubtask,
-      deleteSubtask,
-   } = useTodo()
+   const dispatch = useDispatch() // Redux Dispatch
    const [isEditing, setIsEditing] = useState(false)
    const [editedTodo, setEditedTodo] = useState(todo.todo)
    const [showSubtasks, setShowSubtasks] = useState(false)
@@ -32,13 +27,20 @@ function TodoItem({ todo }) {
 
    const handleEdit = () => {
       if (isEditing) {
-         updateTodo(todo.id, { ...todo, todo: editedTodo })
+         dispatch(
+            updateTodo({
+               id: todo.id,
+               updatedTodo: { ...todo, todo: editedTodo },
+            })
+         )
       }
       setIsEditing(!isEditing)
    }
 
    const handleSave = () => {
-      updateTodo(todo.id, { ...todo, todo: editedTodo })
+      dispatch(
+         updateTodo({ id: todo.id, updatedTodo: { ...todo, todo: editedTodo } })
+      )
       setIsEditing(false)
    }
 
@@ -50,12 +52,17 @@ function TodoItem({ todo }) {
 
    const handleDelete = () => {
       if (window.confirm('Are you sure you want to delete this task?')) {
-         deleteTodo(todo.id)
+         dispatch(deleteTodo(todo.id))
       }
    }
 
    const handleToggleComplete = () => {
-      toggleComplete(todo.id, new Date().toISOString())
+      dispatch(
+         updateTodo({
+            id: todo.id,
+            updatedTodo: { ...todo, completed: !todo.completed },
+         })
+      )
    }
 
    const handleToggleSubtask = (subtaskId) => {
@@ -64,15 +71,31 @@ function TodoItem({ todo }) {
             ? { ...subtask, completed: !subtask.completed }
             : subtask
       )
-      updateTodo(todo.id, { ...todo, subtasks: updatedSubtasks })
+
+      dispatch(
+         updateTodo({
+            id: todo.id,
+            updatedTodo: { ...todo, subtasks: updatedSubtasks },
+         })
+      )
    }
 
    const handleDeleteSubtask = (subtaskId) => {
-      deleteSubtask(todo.id, subtaskId)
+      const updatedSubtasks = todo.subtasks.filter(
+         (subtask) => subtask.id !== subtaskId
+      )
+      dispatch(
+         updateTodo({
+            id: todo.id,
+            updatedTodo: { ...todo, subtasks: updatedSubtasks },
+         })
+      )
    }
 
    const handleStageChange = (newStage) => {
-      updateTodo(todo.id, { ...todo, stage: newStage })
+      dispatch(
+         updateTodo({ id: todo.id, updatedTodo: { ...todo, stage: newStage } })
+      )
    }
 
    const getPriorityColor = (priority) => {
