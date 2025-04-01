@@ -57,7 +57,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
 
    const handleSubmit = (e) => {
       e.preventDefault()
-      if (!todo) return
+      if (!todo) return toast.error('Cannot save empty Task!')
 
       const todoData = {
          todo,
@@ -90,6 +90,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    }
 
    const resetForm = () => {
+      console.log('All Todos:', todos)
       setTodo('')
       setDueDate('')
       setPriority('medium')
