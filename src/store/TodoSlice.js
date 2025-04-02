@@ -50,9 +50,12 @@ const todoSlice = createSlice({
                : todo
          )
       },
+      clearTodo: (state) => {
+         state.todos = []
+      },
    },
 })
 
-export const { addTodo, updateTodo, deleteTodo, toggleComplete } =
+export const { addTodo, updateTodo, deleteTodo, toggleComplete, clearTodo } =
    todoSlice.actions
 export default todoSlice.reducer

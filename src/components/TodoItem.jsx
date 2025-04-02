@@ -26,14 +26,14 @@ function TodoItem({ todo }) {
    const { appTheme, getColorClass } = useAppTheme()
 
    const handleEdit = () => {
-      if (isEditing) {
-         dispatch(
-            updateTodo({
-               id: todo.id,
-               updatedTodo: { ...todo, todo: editedTodo },
-            })
-         )
-      }
+      // if (isEditing) {
+      //    dispatch(
+      //       updateTodo({
+      //          id: todo.id,
+      //          updatedTodo: { ...todo, todo: editedTodo },
+      //       })
+      //    )
+      // }
       setIsEditing(!isEditing)
    }
 

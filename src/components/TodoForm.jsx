@@ -86,7 +86,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
          dispatch(
             updateTodo({
                id: editingTodo.id,
-               updatedTodo: { ...todoData, id: editingTodo.id },
+               updatedTodo: { ...todoData },
             })
          )
          onCancelEdit()
@@ -97,7 +97,6 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    }
 
    const resetForm = () => {
-      console.log('All Todos:', todos)
       setTodo('')
       setDueDate('')
       setPriority('medium')

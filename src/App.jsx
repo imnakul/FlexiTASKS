@@ -55,7 +55,6 @@ function App() {
 
    const particle = getColorClass(appTheme.colorTheme, 'particle')
    const theme = useTheme()
-   console.log(theme.isDarkMode)
 
    return (
       <>

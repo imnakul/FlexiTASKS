@@ -1,12 +1,19 @@
 import { FaDownload, FaUpload, FaSync } from 'react-icons/fa'
-import { useTodo } from '../contexts/ToDoContext.js'
 import { useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addTodo, updateTodo, clearTodo } from '../store/todoSlice.js'
 import { toast } from 'react-toastify'
+import { MdClose } from 'react-icons/md'
+import { useAppTheme } from '../contexts/AppThemeContext.jsx'
 
 function TaskBackups({ onClose }) {
-   const { todos, addTodo, updateTodo } = useTodo()
+   const todos = useSelector((state) => state.todos.todos)
    const fileInputRef = useRef(null)
    const [isImporting, setIsImporting] = useState(false)
+   const [importModalOpen, setImportModalOpen] = useState(false)
+   const [importedTasks, setImportedTasks] = useState([])
+   const dispatch = useDispatch()
+   const { appTheme, getColorClass } = useAppTheme()
 
    const handleExportTasks = () => {
       try {
@@ -53,33 +60,20 @@ function TaskBackups({ onClose }) {
             return
          }
 
-         // Ask for confirmation before proceeding
-         const confirmImport = window.confirm(
-            '⚠️ Warning: Importing tasks will overwrite your current tasks. All existing tasks will be replaced with the imported ones.\n\nAre you sure you want to proceed?'
-         )
-
-         if (!confirmImport) {
-            // Clear the file input if user cancels
-            if (fileInputRef.current) {
-               fileInputRef.current.value = ''
-            }
-            return
-         }
-
          setIsImporting(true)
 
          console.log('File selected:', file.name)
          const text = await file.text()
-         console.log('File content:', text.substring(0, 100) + '...') // Log first 100 chars
+         // console.log('File content:', text.substring(0, 100) + '...') // Log first 100 chars
 
          let importedData
          try {
             importedData = JSON.parse(text)
-            console.log('Parsed data structure:', {
-               hasTasks: !!importedData.tasks,
-               isArray: Array.isArray(importedData.tasks),
-               taskCount: importedData.tasks?.length,
-            })
+            // console.log('Parsed data structure:', {
+            //    hasTasks: !!importedData.tasks,
+            //    isArray: Array.isArray(importedData.tasks),
+            //    taskCount: importedData.tasks?.length,
+            // })
          } catch (parseError) {
             console.error('JSON Parse Error:', parseError)
             toast.error(
@@ -131,32 +125,38 @@ function TaskBackups({ onClose }) {
             return
          }
 
-         // Update tasks in localStorage
-         localStorage.setItem('todos', JSON.stringify(importedData.tasks))
-
-         // Update context with new tasks
-         importedData.tasks.forEach((task) => {
-            if (todos.find((t) => t.id === task.id)) {
-               updateTodo(task.id, task)
-            } else {
-               addTodo(task)
-            }
-         })
-
-         // Clear the file input
-         if (fileInputRef.current) {
-            fileInputRef.current.value = ''
-         }
-
-         // Show success message
-         toast.success('Tasks imported successfully!')
-         onClose?.() // Close modal after successful import
+         setImportedTasks(importedData.tasks)
+         setImportModalOpen(true)
       } catch (error) {
          console.error('Error importing tasks:', error)
          toast.error(`Failed to import tasks: ${error.message}`)
       } finally {
          setIsImporting(false)
       }
+   }
+
+   const handleImportOption = (option) => {
+      if (option === 'replace') {
+         dispatch(clearTodo()) // Clear existing tasks
+         importedTasks.forEach((task) => dispatch(addTodo(task))) // Add all new tasks
+      } else if (option === 'merge') {
+         const existingIds = new Set(todos.map((t) => t.id)) // Get all existing IDs in a Set
+
+         importedTasks.forEach((task) => {
+            if (!existingIds.has(task.id)) {
+               dispatch(addTodo(task))
+            }
+         })
+      } else if (option === 'keep') {
+         importedTasks.forEach((task) => dispatch(addTodo(task)))
+      }
+
+      toast.success('Tasks imported successfully!')
+      setImportModalOpen(false)
+      if (fileInputRef.current) {
+         fileInputRef.current.value = ''
+      }
+      onClose?.()
    }
 
    return (
@@ -168,6 +168,62 @@ function TaskBackups({ onClose }) {
                   <p className='text-gray-900 dark:text-gray-100 text-lg font-medium'>
                      Importing Tasks...
                   </p>
+               </div>
+            </div>
+         )}
+
+         {importModalOpen && (
+            <div
+               className={`fixed inset-0 flex items-center justify-center bg-gray-600 shadow-md bg-opacity-50 background-blur backdrop-blur-sm z-50`}
+            >
+               <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-[400px]'>
+                  <div className='relative flex items-center justify-center'>
+                     <h2 className='text-xl text-white font-semibold mb-4 text-center'>
+                        Import Tasks
+                     </h2>
+                     <span
+                        className='absolute top-0 right-0 cursor-pointer text-white/80 hover:bg-red-700 rounded-lg p-1 transition-colors duration-300'
+                        onClick={() => setImportModalOpen(false)}
+                     >
+                        <MdClose className='size-5 ' />
+                     </span>
+                  </div>
+                  <p className='text-gray-600 dark:text-gray-300 mb-4 text-center'>
+                     Choose how you want to import your tasks:
+                  </p>
+
+                  <button
+                     onClick={() => handleImportOption('replace')}
+                     className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbghover'
+                     )}`}
+                     title='Remove all existing tasks and replace them with the imported ones.'
+                  >
+                     🚨 Replace All Tasks
+                  </button>
+
+                  <button
+                     onClick={() => handleImportOption('merge')}
+                     className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbghover'
+                     )}`}
+                     title='Existing Tasks will remain unchanged, while new tasks will be added. - NO DUPLICATES OF Matching tasks'
+                  >
+                     🔄 Merge (Keep Existing, Add New - No Duplicates)
+                  </button>
+
+                  <button
+                     onClick={() => handleImportOption('keep')}
+                     className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbghover'
+                     )}`}
+                     title='Preserve existing tasks and add imported tasks as new ones - DUPLICATES of Matching tasks.'
+                  >
+                     ✅ Keep Existing & Add New - Duplicates Included
+                  </button>
                </div>
             </div>
          )}
@@ -188,7 +244,7 @@ function TaskBackups({ onClose }) {
                className='px-4 py-2 bg-emerald-600/40 hover:bg-emerald-500/50 border border-emerald-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
-               <FaDownload className='w-4 h-4' />
+               <FaUpload className='w-4 h-4' />
                Export Tasks
             </button>
 
@@ -198,7 +254,7 @@ function TaskBackups({ onClose }) {
                className='px-4 py-2 bg-amber-600/40 hover:bg-amber-500/50 border border-amber-400/50 text-white rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
-               <FaUpload className='w-4 h-4' />
+               <FaDownload className='w-4 h-4' />
                Import Tasks
             </button>
             <input
