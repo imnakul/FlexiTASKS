@@ -69,6 +69,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-pink-700/80 to-red-600/80',
       border: 'border-red-200 dark:border-red-800',
       particle: '#ff4f4f',
+      toggle: 'peer-checked:bg-red-600 dark:peer-checked:bg-red-600',
    },
    orange: {
       bg: 'bg-orange-200 dark:bg-orange-900/20',
@@ -82,6 +83,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-rose-400/80 to-orange-600/80',
       border: 'border-orange-200 dark:border-orange-800',
       particle: '#ff904f',
+      toggle: 'peer-checked:bg-orange-600 dark:peer-checked:bg-orange-600',
    },
    yellow: {
       bg: 'bg-yellow-200 dark:bg-yellow-900/20',
@@ -95,6 +97,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-lime-600/80 to-yellow-600/80',
       border: 'border-yellow-200 dark:border-yellow-800',
       particle: '#f9ff4f',
+      toggle: 'peer-checked:bg-yellow-600 dark:peer-checked:bg-yellow-600',
    },
    green: {
       bg: 'bg-green-200 dark:bg-green-900/20',
@@ -108,6 +111,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-emerald-600/80 to-green-600/80',
       border: 'border-green-200 dark:border-green-800',
       particle: '#4fff61',
+      toggle: 'peer-checked:bg-green-600 dark:peer-checked:bg-green-600',
    },
    blue: {
       bg: 'bg-blue-200 dark:bg-blue-900/20',
@@ -121,6 +125,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-sky-600/80 to-blue-600/80',
       border: 'border-blue-200 dark:border-blue-800',
       particle: '#4fd3ff',
+      toggle: 'peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600',
    },
    purple: {
       bg: 'bg-purple-200 dark:bg-purple-900/20',
@@ -134,6 +139,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-indigo-600/80 to-purple-600/80',
       border: 'border-purple-200 dark:border-purple-800',
       particle: '#9E00FF',
+      toggle: 'peer-checked:bg-purple-600 dark:peer-checked:bg-purple-600',
    },
    emerald: {
       bg: 'bg-emerald-200 dark:bg-emerald-900/20',
@@ -147,6 +153,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-purple-600/80 to-emerald-600/80',
       border: 'border-emerald-200 dark:border-emerald-800',
       particle: '#4fff8a',
+      toggle: 'peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600',
    },
    cyan: {
       bg: 'bg-cyan-200 dark:bg-cyan-900/20',
@@ -160,6 +167,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-green-600/80 to-cyan-600/80',
       border: 'border-cyan-200 dark:border-cyan-800',
       particle: '#4fffe5',
+      toggle: 'peer-checked:bg-cyan-600 dark:peer-checked:bg-cyan-600',
    },
    fuchsia: {
       bg: 'bg-fuchsia-200 dark:bg-fuchsia-900/20',
@@ -173,6 +181,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80',
       border: 'border-fuchsia-200 dark:border-fuchsia-800',
       particle: '#f94fff',
+      toggle: 'peer-checked:bg-fuchsia-600 dark:peer-checked:bg-fuchsia-600',
    },
 }
 

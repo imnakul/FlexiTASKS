@@ -53,16 +53,16 @@ function ThemeSettings({ onClose }) {
       })
    }
 
-   const handleSaveSettings = () => {
-      try {
-         // Save all current settings to localStorage through AppThemeContext
-         toast.success('Theme settings saved successfully!')
-         onClose?.()
-      } catch (error) {
-         console.error('Error saving theme settings:', error)
-         toast.error('Failed to save theme settings')
-      }
-   }
+   // const handleSaveSettings = () => {
+   //    try {
+   //       // Save all current settings to localStorage through AppThemeContext
+   //       toast.success('Theme settings saved successfully!')
+   //       onClose?.()
+   //    } catch (error) {
+   //       console.error('Error saving theme settings:', error)
+   //       toast.error('Failed to save theme settings')
+   //    }
+   // }
 
    return (
       <div className='bg-gray-800 dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700'>
@@ -79,7 +79,7 @@ function ThemeSettings({ onClose }) {
          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
             {/* Left Column */}
             <div
-               className={`space-y-4 border ${getColorClass(
+               className={`space-y-6 border ${getColorClass(
                   appTheme.colorTheme,
                   'border'
                )} rounded-md p-2`}
@@ -125,18 +125,34 @@ function ThemeSettings({ onClose }) {
                </div>
 
                {/* Feature Toggles - Only show if custom interface is selected */}
+               {appTheme.taskInterface.mode === 'minimal' && (
+                  <div className='flex flex-col gap-2 items-center justify-center h-[40vh] text-white'>
+                     Additional Features Hidden
+                     <span className='ml-3 text-xs text-gray-500'>
+                        Switch to Custom to explore Feature Toggle
+                     </span>
+                  </div>
+               )}
+               {appTheme.taskInterface.mode === 'maximal' && (
+                  <div className='flex flex-col gap-2 items-center justify-center h-[40vh] text-white ml-3'>
+                     Displaying All Features
+                     <span className='ml-3 text-xs text-gray-500'>
+                        Switch to Custom to explore Feature Toggle
+                     </span>
+                  </div>
+               )}
                {appTheme.taskInterface.mode === 'custom' && (
                   <>
                      <div>
                         <h3
-                           className={`flex items-center justify-center  text-sm font-bold border-b ${getColorClass(
+                           className={`flex items-center justify-center text-sm font-bold border-b ${getColorClass(
                               appTheme.colorTheme,
                               'border'
                            )} py-1 text-white mb-2`}
                         >
                            Features
                         </h3>
-                        <div className='space-y-2 bg-gray-800/50 rounded-md p-3'>
+                        <div className='space-y-3 bg-gray-800/50 rounded-md p-3'>
                            {Object.entries(appTheme.taskInterface.features).map(
                               ([feature, enabled]) => (
                                  <div
@@ -147,20 +163,24 @@ function ThemeSettings({ onClose }) {
                                        {feature.charAt(0).toUpperCase() +
                                           feature.slice(1)}
                                     </span>
-                                    <button
-                                       onClick={() => toggleFeature(feature)}
-                                       className={`px-3 py-1 rounded-md transition-all duration-200 text-sm
-                                    ${
-                                       enabled
-                                          ? `${getColorClass(
-                                               appTheme.colorTheme,
-                                               'buttonbg'
-                                            )} text-white`
-                                          : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
-                                    }`}
-                                    >
-                                       {enabled ? 'Enable' : 'Disable'}
-                                    </button>
+
+                                    <label className='flex items-center cursor-pointer'>
+                                       <input
+                                          type='checkbox'
+                                          checked={enabled}
+                                          onChange={() =>
+                                             toggleFeature(feature)
+                                          }
+                                          className='sr-only peer'
+                                       />
+                                       <div
+                                          className={`relative w-11 h-6 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 
+                                          ${getColorClass(
+                                             appTheme.colorTheme,
+                                             'toggle'
+                                          )} `}
+                                       ></div>
+                                    </label>
                                  </div>
                               )
                            )}
@@ -169,7 +189,7 @@ function ThemeSettings({ onClose }) {
                   </>
                )}
                {/* Save Button */}
-               <div className='flex items-center justify-center'>
+               {/* <div className='flex items-center justify-center'>
                   <button
                      onClick={handleSaveSettings}
                      className={`px-4 py-1.5 ${getColorClass(
@@ -188,20 +208,20 @@ function ThemeSettings({ onClose }) {
                      <FaCheck className='w-3.5 h-3.5' />
                      Save Changes
                   </button>
-               </div>
+               </div> */}
             </div>
 
             {/* Right Column */}
 
             <div
-               className={`space-y-4 border ${getColorClass(
+               className={`space-y-6 border ${getColorClass(
                   appTheme.colorTheme,
                   'border'
                )} rounded-md p-2`}
             >
                {/* Background */}
                {/* Design Basis */}
-               <div>
+               {/* <div>
                   <h3
                      className={`flex items-center justify-center  text-sm font-bold text-white mb-2 py-1 border-b ${getColorClass(
                         appTheme.colorTheme,
@@ -240,7 +260,7 @@ function ThemeSettings({ onClose }) {
                         Icon
                      </button>
                   </div>
-               </div>
+               </div> */}
                <div>
                   <h3
                      className={`flex items-center justify-center text-sm font-bold border-b ${getColorClass(
