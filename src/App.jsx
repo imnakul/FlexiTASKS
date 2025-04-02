@@ -33,6 +33,12 @@ function App() {
       return true
    })
 
+   useEffect(() => {
+      if (!appTheme.taskInterface.mode.viewModes) {
+         setViewMode('list')
+      }
+   }, [appTheme.taskInterface])
+
    // Sort filtered todos based on the current sortBy
    const displayTodos = [...filteredTodos].sort((a, b) => {
       if (sortBy === 'priority') {
