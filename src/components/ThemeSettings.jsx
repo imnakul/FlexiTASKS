@@ -37,6 +37,7 @@ function ThemeSettings({ onClose }) {
       { name: 'fog' },
       { name: 'mistyGlow' },
       { name: 'orbs' },
+      { name: 'rain' },
       { name: 'none' },
    ]
 

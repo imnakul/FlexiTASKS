@@ -17,6 +17,7 @@ import WarpSpeedStarfield from './components/backgrounds/WarpSpaceSpeed.jsx'
 import { useAppTheme } from './contexts/AppThemeContext'
 import { useTheme } from './contexts/ThemeContext.jsx'
 import { useSelector, useDispatch } from 'react-redux'
+import RainBackground from './components/backgrounds/RainBackground.jsx'
 
 function App() {
    const todos = useSelector((state) => state.todos.todos)
@@ -77,6 +78,10 @@ function App() {
          {appTheme.background === 'orbs' && (
             <FloatingGlowingOrbs orbColor={particle} />
          )}
+         {appTheme.background === 'rain' && (
+            <RainBackground rainColor={particle} />
+         )}
+
          {appTheme.background === 'none' && <></>}
 
          <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
