@@ -15,6 +15,7 @@ import TodoForm from './TodoForm'
 import { useAppTheme } from '../contexts/AppThemeContext'
 import { useDispatch } from 'react-redux'
 import { updateTodo, deleteTodo } from '../store/TodoSlice.js' // Import Redux actions
+import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
 
 function TodoItem({ todo }) {
    const dispatch = useDispatch() // Redux Dispatch
@@ -196,7 +197,7 @@ function TodoItem({ todo }) {
          )} ${getColorClass(appTheme.colorTheme, 'hover')}  ${getColorClass(
             appTheme.colorTheme,
             'shadow'
-         )} p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300`}
+         )} p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300`}
       >
          <div className='flex items-start gap-4'>
             {/* Checkbox and Main Content */}
@@ -220,21 +221,34 @@ function TodoItem({ todo }) {
                </div>
 
                {/* Mobile-friendly metadata */}
-               <div className='mt-2 flex flex-wrap gap-2 text-sm'>
-                  <span
-                     className={`${getPriorityColor(
-                        todo.priority
-                     )} font-medium`}
-                  >
-                     {todo.priority}
-                  </span>
-                  <span className='text-gray-400'>•</span>
-                  <span className='text-gray-600 dark:text-gray-400 flex items-center gap-1'>
-                     <FaTags className='w-3 h-3' />
-                     {todo.category}
-                  </span>
+               <div className='mt-2 flex flex-wrap gap-4 text-sm'>
+                  {appTheme.taskInterface.features.priority && (
+                     <span className={`${getPriorityColor(todo.priority)}`}>
+                        <span className=' flex items-center gap-1 pt-1'>
+                           {todo.priority === 'high' && (
+                              <FcHighPriority className='size-4' />
+                           )}
+                           {todo.priority === 'medium' && (
+                              <FcMediumPriority className='size-4' />
+                           )}
+                           {todo.priority === 'low' && (
+                              <FcLowPriority className='size-4' />
+                           )}
+                           {todo.priority}
+                        </span>
+                     </span>
+                  )}
+                  {appTheme.taskInterface.features.category && (
+                     <>
+                        <span className='text-gray-600 dark:text-gray-400 flex items-center gap-1'>
+                           <FaTags className='w-4 h-4' />
+                           {todo.category}
+                        </span>
+                     </>
+                  )}
+
                   {/* Stage Status */}
-                  <span className='text-gray-400'>•</span>
+
                   <div className='relative group/stage'>
                      <span
                         className={`flex items-center gap-1 px-2 py-1 rounded-md ${

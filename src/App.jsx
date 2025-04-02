@@ -87,7 +87,14 @@ function App() {
             <Navbar />
 
             <div className='container mx-auto px-4 py-8'>
-               <div className='max-w-7xl mx-auto space-y-8'>
+               {console.log('ap', appTheme.taskInterface.option)}
+               <div
+                  className={`${
+                     appTheme.taskInterface.mode === 'minimal'
+                        ? 'max-w-xl'
+                        : 'max-w-7xl'
+                  } mx-auto space-y-8`}
+               >
                   {/* <div className='text-center space-y-4'>
                            <h1 className='text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'>
                               Task Master
@@ -107,15 +114,17 @@ function App() {
 
                      <div className='p-4 sm:p-6 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 '>
                         <div className='flex flex-col gap-6'>
-                           <div>
-                              <h3 className='text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
-                                 View Mode
-                              </h3>
-                              <ViewModeSelector
-                                 viewMode={viewMode}
-                                 setViewMode={setViewMode}
-                              />
-                           </div>
+                           {appTheme.taskInterface.features.viewModes && (
+                              <div>
+                                 <h3 className='text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
+                                    View Mode
+                                 </h3>
+                                 <ViewModeSelector
+                                    viewMode={viewMode}
+                                    setViewMode={setViewMode}
+                                 />
+                              </div>
+                           )}
 
                            {/* //? Visible sorting and Filtering in List mode only  */}
                            {viewMode === 'list' && (

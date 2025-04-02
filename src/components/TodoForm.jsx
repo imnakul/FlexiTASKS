@@ -183,105 +183,118 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                )}
             </div>
 
-            <select
-               value={priority}
-               onChange={(e) => setPriority(e.target.value)}
-               className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
-                  appTheme.colorTheme,
-                  'ring'
-               )} transition-all duration-300`}
-            >
-               <option value='low'>Low Priority</option>
-               <option value='medium'>Medium Priority</option>
-               <option value='high'>High Priority</option>
-            </select>
-
-            <select
-               value={category}
-               onChange={(e) => setCategory(e.target.value)}
-               className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
-                  appTheme.colorTheme,
-                  'ring'
-               )} transition-all duration-300`}
-            >
-               <option value='personal'>Personal</option>
-               <option value='work'>Work</option>
-               <option value='shopping'>Shopping</option>
-               <option value='other'>Other</option>
-            </select>
-
-            <div className='relative'>
-               <input
-                  type='date'
-                  value={dueDate}
-                  min={new Date().toISOString().split('T')[0]}
-                  onChange={(e) => setDueDate(e.target.value)}
-                  className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+            {appTheme.taskInterface.features.priority && (
+               <select
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                  className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
                      appTheme.colorTheme,
                      'ring'
-                  )} transition-all duration-300 ${
-                     isOverdue
-                        ? 'border-red-300 dark:border-red-500'
-                        : 'border-gray-200 dark:border-gray-700'
-                  }`}
-               />
-               {isOverdue && (
-                  <div className='absolute -top-2 right-0 px-2 py-0.5 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
-                     Overdue
-                  </div>
-               )}
-            </div>
+                  )} transition-all duration-300`}
+               >
+                  <option value='low'>Low Priority</option>
+                  <option value='medium'>Medium Priority</option>
+                  <option value='high'>High Priority</option>
+               </select>
+            )}
+
+            {appTheme.taskInterface.features.category && (
+               <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                     appTheme.colorTheme,
+                     'ring'
+                  )} transition-all duration-300`}
+               >
+                  <option value='personal'>Personal</option>
+                  <option value='work'>Work</option>
+                  <option value='shopping'>Shopping</option>
+                  <option value='other'>Other</option>
+               </select>
+            )}
+
+            {appTheme.taskInterface.features.dueDate && (
+               <div className='relative'>
+                  <input
+                     type='date'
+                     value={dueDate}
+                     min={new Date().toISOString().split('T')[0]}
+                     onChange={(e) => setDueDate(e.target.value)}
+                     className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                        appTheme.colorTheme,
+                        'ring'
+                     )} transition-all duration-300 ${
+                        isOverdue
+                           ? 'border-red-300 dark:border-red-500'
+                           : 'border-gray-200 dark:border-gray-700'
+                     }`}
+                  />
+                  {isOverdue && (
+                     <div className='absolute -top-2 right-0 px-2 py-0.5 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
+                        Overdue
+                     </div>
+                  )}
+               </div>
+            )}
          </div>
 
          {/* Additional Options Row */}
+
          <div className='flex flex-wrap items-center gap-3'>
-            {showSubtaskInput ? (
-               <div className='flex gap-2 flex-1'>
-                  <input
-                     type='text'
-                     value={newSubtask}
-                     onChange={(e) => setNewSubtask(e.target.value)}
-                     placeholder='Enter subtask...'
-                     className={`flex-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
-                        appTheme.colorTheme,
-                        'ring'
-                     )}`}
-                  />
-                  <button
-                     type='button'
-                     onClick={handleAddSubtask}
-                     className={`px-3 py-1.5 rounded-lg text-sm text-black dark:text-white font-medium ${getColorClass(
-                        appTheme.colorTheme
-                     )}
+            {appTheme.taskInterface.features.subtasks && (
+               <>
+                  {showSubtaskInput ? (
+                     <div className='flex gap-2 flex-1'>
+                        <input
+                           type='text'
+                           value={newSubtask}
+                           onChange={(e) => setNewSubtask(e.target.value)}
+                           placeholder='Enter subtask...'
+                           className={`flex-1 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                              appTheme.colorTheme,
+                              'ring'
+                           )}`}
+                        />
+                        <button
+                           type='button'
+                           onClick={handleAddSubtask}
+                           className={`px-3 py-1.5 rounded-lg text-sm text-black dark:text-white font-medium ${getColorClass(
+                              appTheme.colorTheme
+                           )}
                         ${getColorClass(appTheme.colorTheme, 'ring')} `}
-                  >
-                     Add
-                  </button>
-                  <button
-                     type='button'
-                     onClick={() => setShowSubtaskInput(false)}
-                     className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700'
-                  >
-                     Cancel
-                  </button>
-               </div>
-            ) : (
-               <button
-                  type='button'
-                  onClick={() => setShowSubtaskInput(true)}
-                  className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200'
-               >
-                  Add Subtask
-               </button>
+                        >
+                           Add
+                        </button>
+                        <button
+                           type='button'
+                           onClick={() => setShowSubtaskInput(false)}
+                           className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700'
+                        >
+                           Cancel
+                        </button>
+                     </div>
+                  ) : (
+                     <button
+                        type='button'
+                        onClick={() => setShowSubtaskInput(true)}
+                        className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200'
+                     >
+                        Add Subtask
+                     </button>
+                  )}
+               </>
             )}
 
-            <button
-               type='button'
-               onClick={() => setShowNoteInput(!showNoteInput)}
-               className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200'
-            >
-               {showNoteInput ? 'Hide Note' : 'Add Note'}
-            </button>
+            {appTheme.taskInterface.features.notes && (
+               <button
+                  type='button'
+                  onClick={() => setShowNoteInput(!showNoteInput)}
+                  className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200'
+               >
+                  {showNoteInput ? 'Hide Note' : 'Add Note'}
+               </button>
+            )}
 
             <div className='flex items-center gap-2'>
                <input

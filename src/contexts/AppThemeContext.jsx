@@ -7,11 +7,11 @@ const defaultInterfaceSettings = {
    minimal: {
       subtasks: false,
       notes: false,
-      priority: true,
-      dueDate: true,
+      priority: false,
+      dueDate: false,
       achievement: false,
-      viewModes: true,
-      category: true,
+      viewModes: false,
+      category: false,
    },
    maximal: {
       subtasks: true,
