@@ -79,7 +79,7 @@ function ThemeSettings({ onClose }) {
          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
             {/* Left Column */}
             <div
-               className={`space-y-8 border ${getColorClass(
+               className={`space-y-4 border ${getColorClass(
                   appTheme.colorTheme,
                   'border'
                )} rounded-md p-2`}
@@ -94,7 +94,7 @@ function ThemeSettings({ onClose }) {
                   >
                      Tasks Interface
                   </h3>
-                  <div className='space-y-1.5'>
+                  <div className='space-y-2'>
                      {['minimal', 'maximal', 'custom'].map((option) => (
                         <button
                            key={option}
@@ -168,6 +168,27 @@ function ThemeSettings({ onClose }) {
                      </div>
                   </>
                )}
+               {/* Save Button */}
+               <div className='flex items-center justify-center'>
+                  <button
+                     onClick={handleSaveSettings}
+                     className={`px-4 py-1.5 ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbg'
+                     )}
+                     
+                     ${getColorClass(
+                        appTheme.colorTheme,
+                        'buttonbghover'
+                     )} ${getColorClass(
+                        appTheme.colorTheme,
+                        'text'
+                     )} text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm`}
+                  >
+                     <FaCheck className='w-3.5 h-3.5' />
+                     Save Changes
+                  </button>
+               </div>
             </div>
 
             {/* Right Column */}
@@ -262,8 +283,8 @@ function ThemeSettings({ onClose }) {
                   >
                      Color Theme
                   </h3>
-                  <div className='bg-gray-800/50 p-3 rounded-md'>
-                     <div className='grid grid-cols-3 gap-2'>
+                  <div className='bg-gray-800/50 p-4 rounded-md flex items-center justify-center'>
+                     <div className='grid grid-cols-3 gap-5'>
                         {colorOptions.map((color) => (
                            <button
                               key={color.name}
@@ -285,28 +306,6 @@ function ThemeSettings({ onClose }) {
                         ))}
                      </div>
                   </div>
-               </div>
-
-               {/* Save Button */}
-               <div className='flex items-center justify-center mt-8'>
-                  <button
-                     onClick={handleSaveSettings}
-                     className={`px-4 py-1.5 ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbg'
-                     )}
-                     
-                     ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbghover'
-                     )} ${getColorClass(
-                        appTheme.colorTheme,
-                        'text'
-                     )} text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm`}
-                  >
-                     <FaCheck className='w-3.5 h-3.5' />
-                     Save Changes
-                  </button>
                </div>
             </div>
          </div>
