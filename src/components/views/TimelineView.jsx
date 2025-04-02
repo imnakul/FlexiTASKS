@@ -1,8 +1,8 @@
-import { useTodo } from '../../contexts/ToDoContext'
+import { useSelector } from 'react-redux'
 import TodoItem from '../TodoItem'
 
 function TimelineView() {
-   const { todos } = useTodo()
+   const todos = useSelector((state) => state.todos.todos)
 
    const getTodosByDate = () => {
       const today = new Date()

@@ -20,12 +20,15 @@ function ThemeSettings({ onClose }) {
    } = useAppTheme()
 
    const colorOptions = [
+      { name: 'green', class: 'bg-green-400' },
+      { name: 'purple', class: 'bg-purple-400' },
       { name: 'red', class: 'bg-red-400' },
       { name: 'orange', class: 'bg-orange-400' },
       { name: 'yellow', class: 'bg-yellow-400' },
-      { name: 'green', class: 'bg-green-400' },
       { name: 'blue', class: 'bg-blue-400' },
-      { name: 'purple', class: 'bg-purple-400' },
+      { name: 'emerald', class: 'bg-emerald-500' },
+      { name: 'cyan', class: 'bg-cyan-500' },
+      { name: 'fuchsia', class: 'bg-fuchsia-500' },
    ]
 
    const backgroundOptions = [
@@ -263,6 +266,7 @@ function ThemeSettings({ onClose }) {
                         {colorOptions.map((color) => (
                            <button
                               key={color.name}
+                              title={color.name}
                               onClick={() => setColorTheme(color.name)}
                               className={`aspect-square rounded-md size-10 ${
                                  color.class
@@ -294,7 +298,10 @@ function ThemeSettings({ onClose }) {
                      ${getColorClass(
                         appTheme.colorTheme,
                         'buttonbghover'
-                     )}  text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm`}
+                     )} ${getColorClass(
+                        appTheme.colorTheme,
+                        'text'
+                     )} text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm`}
                   >
                      <FaCheck className='w-3.5 h-3.5' />
                      Save Changes

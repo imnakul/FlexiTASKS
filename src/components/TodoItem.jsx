@@ -304,7 +304,13 @@ function TodoItem({ todo }) {
                         <div className='relative' ref={noteRef}>
                            <button
                               onClick={() => setShowNote(!showNote)}
-                              className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
+                              className={`p-2 rounded-lg text-gray-500 ${getColorClass(
+                                 appTheme.colorTheme,
+                                 'hovertext'
+                              )}  ${getColorClass(
+                                 appTheme.colorTheme,
+                                 'buttonbghover'
+                              )} dark:text-gray-400 `}
                            >
                               <FaStickyNote className='w-4 h-4' />
                            </button>
@@ -320,7 +326,13 @@ function TodoItem({ todo }) {
 
                      <button
                         onClick={() => setIsEditing(true)}
-                        className='p-2 rounded-lg text-gray-500 hover:text-purple-500 hover:bg-purple-50 dark:text-gray-400 dark:hover:text-purple-400 dark:hover:bg-purple-900/30'
+                        className={`p-2 rounded-lg text-gray-500 ${getColorClass(
+                           appTheme.colorTheme,
+                           'hovertext'
+                        )}  ${getColorClass(
+                           appTheme.colorTheme,
+                           'buttonbghover'
+                        )}  dark:text-gray-400 `}
                      >
                         <FaEdit className='w-4 h-4' />
                      </button>
@@ -341,7 +353,10 @@ function TodoItem({ todo }) {
             <div className='mt-3 pl-7'>
                <button
                   onClick={() => setShowSubtasks(!showSubtasks)}
-                  className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors duration-200'
+                  className={`flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 ${getColorClass(
+                     appTheme.colorTheme,
+                     'hovertext'
+                  )} transition-colors duration-200`}
                >
                   {showSubtasks ? (
                      <FaChevronDown className='w-3 h-3' />
@@ -367,7 +382,11 @@ function TodoItem({ todo }) {
                               type='checkbox'
                               checked={subtask.completed}
                               onChange={() => handleToggleSubtask(subtask.id)}
-                              className='w-4 h-4 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
+                              className={`w-4 h-4 rounded border-gray-300 ${getColorClass(
+                                 appTheme.colorTheme,
+                                 'text'
+                              )}
+                                 ${getColorClass(appTheme.colorTheme, 'ring')}`}
                               disabled={todo.completed}
                            />
                            <span

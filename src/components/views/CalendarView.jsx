@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { useTodo } from '../../contexts/ToDoContext'
+import { useSelector } from 'react-redux'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { useAppTheme } from '../../contexts/AppThemeContext'
 
 function CalendarView() {
-   const { todos } = useTodo()
+   const todos = useSelector((state) => state.todos.todos)
+   const { appTheme, getColorClass } = useAppTheme()
    const [currentDate, setCurrentDate] = useState(new Date())
    const [selectedDate, setSelectedDate] = useState(null)
 
@@ -92,7 +94,10 @@ function CalendarView() {
                   return (
                      <div
                         key={day}
-                        className='aspect-square p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all duration-200'
+                        className={`aspect-square p-2 rounded-lg border border-gray-200 dark:border-gray-700 ${getColorClass(
+                           appTheme.colorTheme,
+                           'hover'
+                        )} transition-all duration-200`}
                      >
                         <div className='h-full flex flex-col'>
                            <div className='text-right text-sm font-medium mb-2 text-gray-900 dark:text-gray-100'>
@@ -105,7 +110,13 @@ function CalendarView() {
                                     className={`text-xs p-1.5 rounded ${
                                        todo.completed
                                           ? 'bg-green-100 dark:bg-green-500/20 text-green-800 dark:text-green-200'
-                                          : 'bg-purple-100 dark:bg-purple-500/20 text-purple-800 dark:text-purple-200'
+                                          : `
+                                          ${getColorClass(
+                                             appTheme.colorTheme
+                                          )} ${getColorClass(
+                                               appTheme.colorTheme,
+                                               'text'
+                                            )}`
                                     }`}
                                  >
                                     {todo.todo}
@@ -147,7 +158,7 @@ function CalendarView() {
                         onClick={() => setSelectedDate(isSelected ? null : day)}
                         className={`aspect-square p-1 rounded-lg cursor-pointer transition-all duration-200 ${
                            isSelected
-                              ? 'bg-purple-100 dark:bg-purple-900/30'
+                              ? ` ${getColorClass(appTheme.colorTheme)}`
                               : hasEvents
                               ? 'bg-gray-50 dark:bg-gray-800/50'
                               : ''
@@ -157,7 +168,10 @@ function CalendarView() {
                            <div
                               className={`text-sm font-medium mb-1 text-gray-900 dark:text-gray-100 ${
                                  hasEvents
-                                    ? 'text-purple-600 dark:text-purple-400'
+                                    ? `${getColorClass(
+                                         appTheme.colorTheme,
+                                         'text'
+                                      )}`
                                     : ''
                               }`}
                            >
@@ -165,7 +179,12 @@ function CalendarView() {
                            </div>
                            <div className='flex-1 overflow-y-auto'>
                               {hasEvents && !isSelected && (
-                                 <div className='text-xs text-purple-600 dark:text-purple-400'>
+                                 <div
+                                    className={`text-xs ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'text'
+                                    )}`}
+                                 >
                                     {todosForDay.length} task
                                     {todosForDay.length !== 1 ? 's' : ''}
                                  </div>
@@ -196,7 +215,14 @@ function CalendarView() {
                                  type='checkbox'
                                  checked={todo.completed}
                                  onChange={() => toggleComplete(todo.id)}
-                                 className='w-4 h-4 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
+                                 className={`w-4 h-4 rounded border-gray-300 
+                                     ${getColorClass(
+                                        appTheme.colorTheme,
+                                        'text'
+                                     )} ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'ring'
+                                 )}`}
                               />
                               <span
                                  className={`flex-1 text-gray-900 dark:text-gray-100 ${

@@ -1,8 +1,8 @@
-import { useTodo } from '../../contexts/ToDoContext'
+import { useSelector } from 'react-redux'
 import { useState } from 'react'
 
 function MatrixView() {
-   const { todos } = useTodo()
+   const todos = useSelector((state) => state.todos.todos)
    const [activeSection, setActiveSection] = useState(null)
 
    const matrix = {

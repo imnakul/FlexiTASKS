@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-// import { TodoProvider } from './contexts/ToDoContext'
-
 import Navbar from './components/Navbar'
 import { TodoForm, TodoItem, Achievements } from './components/index'
 import ViewModeSelector from './components/ViewModeSelector'
@@ -8,12 +6,10 @@ import KanbanView from './components/views/KanbanView'
 import MatrixView from './components/views/MatrixView'
 import TimelineView from './components/views/TimelineView'
 import CalendarView from './components/views/CalendarView'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import ParticleBackground from './components/backgrounds/ParticleBackground.jsx'
-
 import FogEffect from './components/backgrounds/FogEffect.jsx'
 import MistyGlowParticles from './components/backgrounds/MistyGlowParticles.jsx'
 import FloatingGlowingOrbs from './components/backgrounds/FloatingOrbs.jsx'
@@ -22,97 +18,11 @@ import { useAppTheme } from './contexts/AppThemeContext'
 import { useSelector, useDispatch } from 'react-redux'
 
 function App() {
-   // const [todos, setTodos] = useState([])
    const todos = useSelector((state) => state.todos.todos)
-   console.log('todos from useSelectror', todos)
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
    const { appTheme, getColorClass } = useAppTheme()
-
-   // const addTodo = (todo) => {
-   //    const newTodo = {
-   //       id: Date.now(),
-   //       todo: todo.todo,
-   //       completed: false,
-   //       createdAt: new Date().toISOString(),
-   //       completedAt: null,
-   //       priority: todo.priority || 'medium',
-   //       category: todo.category || 'personal',
-   //       dueDate: todo.dueDate || null,
-   //       stage: todo.stage || 'notStarted',
-   //       isRecurring: todo.isRecurring || false,
-   //       recurringInterval: todo.recurringInterval || null,
-   //       subtasks: (todo.subtasks || []).map((subtask) => ({
-   //          id: subtask.id || Date.now() + Math.random(),
-   //          text: subtask.text,
-   //          completed: false,
-   //          createdAt: new Date().toISOString(),
-   //          completedAt: null,
-   //       })),
-   //       note: todo.note || null,
-   //    }
-   //    setTodos((prev) => [newTodo, ...prev])
-   // }
-
-   // const updateTodo = (id, todo) => {
-   //    setTodos((prev) =>
-   //       prev.map((todoInstance) =>
-   //          todoInstance.id === id
-   //             ? {
-   //                  ...todoInstance,
-   //                  ...todo,
-   //                  subtasks:
-   //                     todo.subtasks?.map((subtask) => ({
-   //                        id: subtask.id || Date.now() + Math.random(),
-   //                        text: subtask.text,
-   //                        completed: subtask.completed || false,
-   //                        createdAt:
-   //                           subtask.createdAt || new Date().toISOString(),
-   //                        completedAt: subtask.completedAt || null,
-   //                     })) || [],
-   //               }
-   //             : todoInstance
-   //       )
-   //    )
-   // }
-
-   // const deleteTodo = (id) => {
-   //    setTodos((prev) => prev.filter((todo) => todo.id !== id))
-   //    toast.success('Task Deleted!')
-   // }
-
-   // const toggleComplete = (id, completedAt) => {
-   //    setTodos((prev) =>
-   //       prev.map((prevTodo) =>
-   //          prevTodo.id === id
-   //             ? {
-   //                  ...prevTodo,
-   //                  completed: !prevTodo.completed,
-   //                  completedAt: !prevTodo.completed ? completedAt : null,
-   //                  // Also update subtasks when main task is completed
-   //                  subtasks:
-   //                     prevTodo.subtasks?.map((subtask) => ({
-   //                        ...subtask,
-   //                        completed: !prevTodo.completed,
-   //                        completedAt: !prevTodo.completed ? completedAt : null,
-   //                     })) || [],
-   //               }
-   //             : prevTodo
-   //       )
-   //    )
-   // }
-
-   // useEffect(() => {
-   //    const todos = JSON.parse(localStorage.getItem('todos'))
-   //    if (todos && todos.length > 0) {
-   //       setTodos(todos)
-   //    }
-   // }, [])
-
-   // useEffect(() => {
-   //    localStorage.setItem('todos', JSON.stringify(todos))
-   // }, [todos])
 
    // Filter todos based on the current filter
    const filteredTodos = todos.filter((todo) => {
@@ -142,15 +52,6 @@ function App() {
    })
 
    return (
-      // <TodoProvider
-      //    value={{
-      //       todos,
-      //       addTodo,
-      //       updateTodo,
-      //       deleteTodo,
-      //       toggleComplete,
-      //    }}
-      // >
       <>
          {appTheme.background === 'particle' && (
             <ParticleBackground particleCount={80} />
@@ -185,7 +86,7 @@ function App() {
                         <TodoForm />
                      </div>
 
-                     <div className='p-4 sm:p-6 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700'>
+                     <div className='p-4 sm:p-6 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 '>
                         <div className='flex flex-col gap-6'>
                            <div>
                               <h3 className='text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
@@ -197,64 +98,67 @@ function App() {
                               />
                            </div>
 
-                           <div className='flex flex-col sm:flex-row gap-4 justify-between'>
-                              <div className='flex flex-wrap gap-2'>
-                                 <button
-                                    onClick={() => setFilter('all')}
-                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                       filter === 'all'
-                                          ? `${getColorClass(
-                                               appTheme.colorTheme,
-                                               'buttonbg'
-                                            )} text-white`
-                                          : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                    }`}
+                           {/* //? Visible sorting and Filtering in List mode only  */}
+                           {viewMode === 'list' && (
+                              <div className='flex flex-col sm:flex-row gap-4 justify-between '>
+                                 <div className='flex flex-wrap gap-2'>
+                                    <button
+                                       onClick={() => setFilter('all')}
+                                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                          filter === 'all'
+                                             ? `${getColorClass(
+                                                  appTheme.colorTheme,
+                                                  'buttonbg'
+                                               )} text-white`
+                                             : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                       }`}
+                                    >
+                                       All
+                                    </button>
+                                    <button
+                                       onClick={() => setFilter('active')}
+                                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                          filter === 'active'
+                                             ? `${getColorClass(
+                                                  appTheme.colorTheme,
+                                                  'buttonbg'
+                                               )} text-white`
+                                             : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                       }`}
+                                    >
+                                       Active
+                                    </button>
+                                    <button
+                                       onClick={() => setFilter('completed')}
+                                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                          filter === 'completed'
+                                             ? `${getColorClass(
+                                                  appTheme.colorTheme,
+                                                  'buttonbg'
+                                               )} text-white`
+                                             : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                       }`}
+                                    >
+                                       Completed
+                                    </button>
+                                 </div>
+                                 <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                    className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
                                  >
-                                    All
-                                 </button>
-                                 <button
-                                    onClick={() => setFilter('active')}
-                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                       filter === 'active'
-                                          ? `${getColorClass(
-                                               appTheme.colorTheme,
-                                               'buttonbg'
-                                            )} text-white`
-                                          : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                    }`}
-                                 >
-                                    Active
-                                 </button>
-                                 <button
-                                    onClick={() => setFilter('completed')}
-                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                       filter === 'completed'
-                                          ? `${getColorClass(
-                                               appTheme.colorTheme,
-                                               'buttonbg'
-                                            )} text-white`
-                                          : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                    }`}
-                                 >
-                                    Completed
-                                 </button>
+                                    <option value='priority'>
+                                       Sort by Priority
+                                    </option>
+                                    <option value='dueDate'>
+                                       Sort by Due Date
+                                    </option>
+                                    <option value='category'>
+                                       Sort by Category
+                                    </option>
+                                 </select>
                               </div>
-                              <select
-                                 value={sortBy}
-                                 onChange={(e) => setSortBy(e.target.value)}
-                                 className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
-                              >
-                                 <option value='priority'>
-                                    Sort by Priority
-                                 </option>
-                                 <option value='dueDate'>
-                                    Sort by Due Date
-                                 </option>
-                                 <option value='category'>
-                                    Sort by Category
-                                 </option>
-                              </select>
-                           </div>
+                           )}
                         </div>
                      </div>
 
@@ -295,7 +199,6 @@ function App() {
                className='toast-container'
             />
          </div>
-         {/* </TodoProvider> */}
       </>
    )
 }
