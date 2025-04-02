@@ -65,7 +65,7 @@ function ThemeSettings({ onClose }) {
    // }
 
    return (
-      <div className='bg-gray-800 dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-700'>
+      <div className='bg-gray-800 dark:bg-gray-800 p-2 sm:p-4 rounded-lg shadow-lg border border-gray-700'>
          {/* Title */}
          {/* <h2 className='text-xl font-semibold text-center mb-4 text-white flex items-center justify-center gap-2'>
             <FaPalette className='w-5 h-5 text-purple-500' />
@@ -79,7 +79,7 @@ function ThemeSettings({ onClose }) {
          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
             {/* Left Column */}
             <div
-               className={`space-y-6 border ${getColorClass(
+               className={`sm:space-y-6 space-y-4 border ${getColorClass(
                   appTheme.colorTheme,
                   'border'
                )} rounded-md p-2`}
@@ -99,7 +99,7 @@ function ThemeSettings({ onClose }) {
                         <button
                            key={option}
                            onClick={() => handleInterfaceChange(option)}
-                           className={`w-full px-3 py-1.5 rounded-md transition-all duration-200 flex items-center gap-2 text-sm
+                           className={`w-full px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                               ${
                                  appTheme.taskInterface.mode === option
                                     ? `${getColorClass(
@@ -110,10 +110,16 @@ function ThemeSettings({ onClose }) {
                               }`}
                         >
                            {option === 'minimal' && (
-                              <FaMobileAlt className='w-3.5 h-3.5' />
+                              <FaMobileAlt
+                                 className='w-3.5 h-3.5'
+                                 title='Advanced Features Hidden'
+                              />
                            )}
                            {option === 'maximal' && (
-                              <FaDesktop className='w-3.5 h-3.5' />
+                              <FaDesktop
+                                 className='w-3.5 h-3.5'
+                                 title='Displaying All Features'
+                              />
                            )}
                            {option === 'custom' && (
                               <FaTabletAlt className='w-3.5 h-3.5' />
@@ -125,7 +131,7 @@ function ThemeSettings({ onClose }) {
                </div>
 
                {/* Feature Toggles - Only show if custom interface is selected */}
-               {appTheme.taskInterface.mode === 'minimal' && (
+               {/* {appTheme.taskInterface.mode === 'minimal' && (
                   <div className='flex flex-col gap-2 items-center justify-center h-[40vh] text-white'>
                      Additional Features Hidden
                      <span className='ml-3 text-xs text-gray-500'>
@@ -140,7 +146,7 @@ function ThemeSettings({ onClose }) {
                         Switch to Custom to explore Feature Toggle
                      </span>
                   </div>
-               )}
+               )} */}
                {appTheme.taskInterface.mode === 'custom' && (
                   <>
                      <div>
@@ -214,7 +220,7 @@ function ThemeSettings({ onClose }) {
             {/* Right Column */}
 
             <div
-               className={`space-y-6 border ${getColorClass(
+               className={`sm:space-y-6 space-y-4 border ${getColorClass(
                   appTheme.colorTheme,
                   'border'
                )} rounded-md p-2`}

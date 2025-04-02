@@ -170,7 +170,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                   value={todo}
                   onChange={handleInputChange}
                   onFocus={() => !editingTodo && setShowSuggestions(true)}
-                  className={`w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 
+                  className={`sm:w-full w-[205px] px-2 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 
                      ${getColorClass(appTheme.colorTheme, 'ring')}
                    transition-all duration-300 filter-glow`}
                />
@@ -187,7 +187,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
-                  className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                  className={`sm:px-3 sm:py-2 px-2 py-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
                      appTheme.colorTheme,
                      'ring'
                   )} transition-all duration-300`}
@@ -202,7 +202,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className={`px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                  className={`sm:px-3 sm:py-2 px-2 py-1 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
                      appTheme.colorTheme,
                      'ring'
                   )} transition-all duration-300`}
@@ -221,7 +221,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                      value={dueDate}
                      min={new Date().toISOString().split('T')[0]}
                      onChange={(e) => setDueDate(e.target.value)}
-                     className={`px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                     className={`sm:px-3 sm:py-2 px-2 py-1 rounded-lg border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
                         appTheme.colorTheme,
                         'ring'
                      )} transition-all duration-300 ${

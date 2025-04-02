@@ -86,8 +86,7 @@ function App() {
          <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
             <Navbar />
 
-            <div className='container mx-auto px-4 py-8'>
-               {console.log('ap', appTheme.taskInterface.option)}
+            <div className='container mx-auto px-4 py-4'>
                <div
                   className={`${
                      appTheme.taskInterface.mode === 'minimal'
@@ -106,7 +105,10 @@ function App() {
 
                   <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors duration-300 relative z-10 overflow-hidden'>
                      <div className='p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700'>
-                        <h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4'>
+                        <h2
+                           className='sm:text-xl text-base font-semibold text-gray-800 dark:text-gray-200 
+                            mb-3 sm:mb-4'
+                        >
                            Add New Task
                         </h2>
                         <TodoForm />

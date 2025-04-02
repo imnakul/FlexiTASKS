@@ -59,12 +59,15 @@ function Navbar() {
             )}  shadow-sm border-b border-gray-200 dark:border-gray-700`}
          >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-               <div className='flex items-center justify-between h-16'>
+               <div className='flex items-center justify-between h-14 sm:h-16'>
                   {/* Logo/Title */}
                   <div className='flex-shrink-0 flex items-center gap-3'>
-                     <FaTasks className='w-7 h-7 dark:text-white text-black' />
-                     <h1 className='text-2xl font-bold text-gray-800 dark:text-white sm:pb-0.5 pb-1'>
-                        Task Master
+                     <FaTasks className='sm:size-7 size-5 dark:text-white text-black' />
+                     <h1
+                        className='text-lg sm:text-2xl font-bold text-gray-800 dark:text-white 
+                     sm:pb-0.5 pb-1'
+                     >
+                        Task Sphere
                      </h1>
                   </div>
 
@@ -93,12 +96,12 @@ function Navbar() {
                            `}
                         >
                            <FaCog
-                              className={`w-5 h-5 transition-transform duration-200 ${
+                              className={`sm:size-5 size-4 transition-transform duration-200 ${
                                  showDropdown ? 'rotate-180' : ''
                               }`}
                            />
                            <FaChevronDown
-                              className={`w-3 h-3 transition-transform duration-200 ${
+                              className={`sm:size-3 size-2 transition-transform duration-200 ${
                                  showDropdown ? 'rotate-180' : ''
                               }`}
                            />
@@ -156,9 +159,9 @@ function Navbar() {
                               )} transition-colors duration-200 cursor-pointer`}
                         >
                            {isDarkMode ? (
-                              <FaSun className='w-5 h-5' />
+                              <FaSun className='sm:size-5 size-4' />
                            ) : (
-                              <FaMoon className='w-5 h-5' />
+                              <FaMoon className='sm:size-5 size-4' />
                            )}
                         </button>
                      </div>
@@ -176,7 +179,7 @@ function Navbar() {
                      className={`relative transform overflow-hidden rounded-lg ${getColorClass(
                         appTheme.colorTheme,
                         'buttonbg'
-                     )} px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-1.5 sm:w-full sm:max-w-xl sm:p-6`}
+                     )} px-3 pt-1 pb-3 text-left shadow-xl transition-all sm:my-1.5 w-[80vw] sm:w-full sm:max-w-xl sm:p-6`}
                   >
                      {/* Modal Content */}
                      <div className='absolute right-0 top-0 pr-4 pt-4'>

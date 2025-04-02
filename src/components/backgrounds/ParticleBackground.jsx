@@ -8,7 +8,7 @@ const ParticleBackground = ({
    speed = 0.5,
    linkDistance = 150,
    linkColor = '#2EB9DF',
-   linkOpacity = 0.2,
+   linkOpacity = 0.1,
 }) => {
    const canvasRef = useRef(null)
 

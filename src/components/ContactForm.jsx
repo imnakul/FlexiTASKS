@@ -45,13 +45,13 @@ function ContactForm() {
    }
 
    return (
-      <div className='bg-gray-800 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 '>
+      <div className=' bg-gray-800 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 '>
          <form onSubmit={handleFormSubmit} className='space-y-4'>
             {/* Name Field (Optional) */}
             <div>
                <label
                   htmlFor='name'
-                  className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
+                  className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
                >
                   Name (Optional)
                </label>
@@ -71,7 +71,7 @@ function ContactForm() {
             <div>
                <label
                   htmlFor='email'
-                  className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
+                  className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
                >
                   Email Address <span className='text-red-500'>*</span>
                </label>
@@ -96,7 +96,7 @@ function ContactForm() {
 
             {/* Rating Selector */}
             <div>
-               <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
+               <label className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
                   Rate your experience <span className='text-red-500'>*</span>
                </label>
                <div className='flex gap-1'>
@@ -127,7 +127,7 @@ function ContactForm() {
             <div>
                <label
                   htmlFor='message'
-                  className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
+                  className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
                >
                   Feedback <span className='text-red-500'>*</span>
                </label>
