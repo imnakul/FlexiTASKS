@@ -204,12 +204,12 @@ function App() {
                      </div>
                   </div>
 
-                  <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 transition-colors duration-300 relative z-10'>
+                  {/* <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 transition-colors duration-300 relative z-10'>
                      <h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4'>
                         Your Achievements
                      </h2>
                      <Achievements todos={todos} />
-                  </div>
+                  </div> */}
                </div>
             </div>
             <ToastContainer

@@ -97,6 +97,8 @@ function CalendarView() {
                         className={`aspect-square p-2 rounded-lg border border-gray-200 dark:border-gray-700 ${getColorClass(
                            appTheme.colorTheme,
                            'hover'
+                        )} ${getColorClass(
+                           appTheme.colorTheme
                         )} transition-all duration-200`}
                      >
                         <div className='h-full flex flex-col'>
