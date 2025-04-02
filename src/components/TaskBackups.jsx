@@ -1,9 +1,8 @@
-import { FaDownload, FaUpload, FaSync } from 'react-icons/fa'
+import { FaDownload, FaUpload } from 'react-icons/fa'
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo, updateTodo, clearTodo } from '../store/TodoSlice.js'
+import { addTodo, clearTodo } from '../store/TodoSlice.js'
 import { toast } from 'react-toastify'
-import { MdClose } from 'react-icons/md'
 import { useAppTheme } from '../contexts/AppThemeContext.jsx'
 
 function TaskBackups({ onClose }) {
@@ -172,72 +171,8 @@ function TaskBackups({ onClose }) {
             </div>
          )}
 
-         {importModalOpen && (
-            <div
-               className={`fixed inset-0 flex items-center justify-center bg-gray-600 shadow-md bg-opacity-50 background-blur backdrop-blur-sm z-50`}
-            >
-               <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-[400px]'>
-                  <div className='relative flex items-center justify-center'>
-                     <h2 className='text-xl text-white font-semibold mb-4 text-center'>
-                        Import Tasks
-                     </h2>
-                     <span
-                        className='absolute top-0 right-0 cursor-pointer text-white/80 hover:bg-red-700 rounded-lg p-1 transition-colors duration-300'
-                        onClick={() => setImportModalOpen(false)}
-                     >
-                        <MdClose className='size-5 ' />
-                     </span>
-                  </div>
-                  <p className='text-gray-600 dark:text-gray-300 mb-4 text-center'>
-                     Choose how you want to import your tasks:
-                  </p>
-
-                  <button
-                     onClick={() => handleImportOption('replace')}
-                     className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbghover'
-                     )}`}
-                     title='Remove all existing tasks and replace them with the imported ones.'
-                  >
-                     🚨 Replace All Tasks
-                  </button>
-
-                  <button
-                     onClick={() => handleImportOption('merge')}
-                     className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbghover'
-                     )}`}
-                     title='Existing Tasks will remain unchanged, while new tasks will be added. - NO DUPLICATES OF Matching tasks'
-                  >
-                     🔄 Merge (Keep Existing, Add New - No Duplicates)
-                  </button>
-
-                  <button
-                     onClick={() => handleImportOption('keep')}
-                     className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbghover'
-                     )}`}
-                     title='Preserve existing tasks and add imported tasks as new ones - DUPLICATES of Matching tasks.'
-                  >
-                     ✅ Keep Existing & Add New - Duplicates Included
-                  </button>
-               </div>
-            </div>
-         )}
-
-         {/* Title */}
-         {/* <h2 className='text-2xl font-semibold text-center mb-6 text-white flex items-center justify-center gap-2'>
-            Tasks Backup
-         </h2> */}
-
-         {/* Divider */}
-         {/* <div className='border-b border-purple-400/30 mb-6'></div> */}
-
          {/* Export/Import Section */}
-         <div className='flex justify-center gap-6 mb-6'>
+         <div className='flex justify-center gap-6'>
             {/* Export Button */}
             <button
                onClick={handleExportTasks}
@@ -267,27 +202,46 @@ function TaskBackups({ onClose }) {
             />
          </div>
 
-         {/* Divider */}
-         <div className='border-b border-purple-400/30 mb-8'></div>
+         {importModalOpen && (
+            <div className='flex flex-col gap-2'>
+               <p className='text-gray-600 dark:text-gray-300 my-4 text-center'>
+                  Choose how you want to import your tasks:
+               </p>
 
-         {/* Notion Sync Section */}
-         <div className='flex flex-col gap-4'>
-            <button
-               className='w-full px-4 py-3 bg-blue-600/40 hover:bg-blue-500/50 border border-blue-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
-               disabled={isImporting}
-            >
-               <FaSync className='w-4 h-4' />
-               Connect Existing Notion Account
-            </button>
+               <button
+                  onClick={() => handleImportOption('replace')}
+                  className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                     appTheme.colorTheme,
+                     'buttonbghover'
+                  )}`}
+                  title='Remove all existing tasks and replace them with the imported ones.'
+               >
+                  🚨 Replace All Tasks
+               </button>
 
-            <button
-               className='w-full px-4 py-3 bg-indigo-600/40 hover:bg-indigo-500/50 border border-indigo-400/50 text-white rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105'
-               disabled={isImporting}
-            >
-               <FaSync className='w-4 h-4' />
-               Connect New Notion Account
-            </button>
-         </div>
+               <button
+                  onClick={() => handleImportOption('merge')}
+                  className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                     appTheme.colorTheme,
+                     'buttonbghover'
+                  )}`}
+                  title='Existing Tasks will remain unchanged, while new tasks will be added. - NO DUPLICATES OF Matching tasks'
+               >
+                  🔄 Merge (Keep Existing, Add New - No Duplicates)
+               </button>
+
+               <button
+                  onClick={() => handleImportOption('keep')}
+                  className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                     appTheme.colorTheme,
+                     'buttonbghover'
+                  )}`}
+                  title='Preserve existing tasks and add imported tasks as new ones - DUPLICATES of Matching tasks.'
+               >
+                  ✅ Keep Existing & Add New - Duplicates Included
+               </button>
+            </div>
+         )}
       </div>
    )
 }
