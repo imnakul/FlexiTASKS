@@ -48,16 +48,8 @@ function CalendarView() {
 
    return (
       <>
-         <div className='flex flex-col gap-0.5 p-4 sm:hidden visible'>
-            <h2 className='text-lg font-semibold text-gray-900 dark:text-gray-300 mb-4'>
-               Calendar View is not available on mobile devices.
-            </h2>
-            <h2 className='text-base font-semibold text-gray-900 dark:text-gray-400 mb-4'>
-               Please switch to desktop view on your browser or use another view
-               instead.
-            </h2>
-         </div>
-         <div className='p-4 sm:visible invisible'>
+         {/* //? Desktop and Tablet Calendar View */}
+         <div className='p-4 '>
             {/* Calendar Header */}
             <div className='flex items-center justify-between mb-6'>
                <button
@@ -146,7 +138,7 @@ function CalendarView() {
 
             {/* Mobile Calendar View */}
             <div className='sm:hidden'>
-               <div className='grid grid-cols-7 gap-1 mb-4 text-center text-sm font-medium'>
+               <div className='grid grid-cols-7 gap-2 mb-4 text-center text-sm font-medium'>
                   {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day) => (
                      <div
                         key={day}
@@ -157,9 +149,9 @@ function CalendarView() {
                   ))}
                </div>
 
-               <div className='grid grid-cols-7 gap-1'>
+               <div className='grid grid-cols-7 gap-2'>
                   {blanks.map((i) => (
-                     <div key={`blank-${i}`} className='aspect-square' />
+                     <div key={`blank-${i}`} className='aspect-square ' />
                   ))}
                   {days.map((day) => {
                      const todosForDay = getTodosForDate(day)
@@ -172,7 +164,7 @@ function CalendarView() {
                            onClick={() =>
                               setSelectedDate(isSelected ? null : day)
                            }
-                           className={`aspect-square p-1 rounded-lg cursor-pointer transition-all duration-200 ${
+                           className={`aspect-square border border-gray-500 p-0.5 rounded-md cursor-pointer transition-all duration-200 size-11 ${
                               isSelected
                                  ? ` ${getColorClass(appTheme.colorTheme)}`
                                  : hasEvents

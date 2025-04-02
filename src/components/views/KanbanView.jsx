@@ -11,15 +11,18 @@ function KanbanView() {
 
    return (
       <>
+         {/* //? Mobile Kanban View */}
          <div className='flex flex-col gap-0.5 p-4 sm:hidden visible'>
             <h2 className='text-lg font-semibold text-gray-900 dark:text-gray-300 mb-4'>
                Kanban View is not available on mobile devices.
             </h2>
             <h2 className='text-base font-semibold text-gray-900 dark:text-gray-400 mb-4'>
-               Please switch to desktop view on your browser or use another view
-               instead.
+               Please switch to "Desktop Mode" on your browser or use another
+               view instead.
             </h2>
          </div>
+
+         {/* //? Desktop Kanban View */}
          <div className='sm:visible invisible grid grid-cols-2 gap-4 p-4 max-w-[1400px] mx-auto'>
             {/* Not Started Column */}
             <div
