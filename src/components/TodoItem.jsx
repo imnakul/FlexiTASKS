@@ -14,7 +14,7 @@ import {
 import TodoForm from './TodoForm'
 import { useAppTheme } from '../contexts/AppThemeContext'
 import { useDispatch } from 'react-redux'
-import { updateTodo, deleteTodo } from '../store/TodoSlice' // Import Redux actions
+import { updateTodo, deleteTodo } from '../store/TodoSlice.js' // Import Redux actions
 
 function TodoItem({ todo }) {
    const dispatch = useDispatch() // Redux Dispatch

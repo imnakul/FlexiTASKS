@@ -1,7 +1,7 @@
 import { FaDownload, FaUpload, FaSync } from 'react-icons/fa'
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo, updateTodo, clearTodo } from '../store/todoSlice.js'
+import { addTodo, updateTodo, clearTodo } from '../store/TodoSlice.js'
 import { toast } from 'react-toastify'
 import { MdClose } from 'react-icons/md'
 import { useAppTheme } from '../contexts/AppThemeContext.jsx'
