@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 
-const WarpSpeedStarfield = () => {
+const WarpSpeedStarfield = ({ dark = 'true', particle = '#f5f5f5' }) => {
    const canvasRef = useRef(null)
 
    useEffect(() => {
@@ -20,9 +20,13 @@ const WarpSpeedStarfield = () => {
       }
 
       const draw = () => {
-         ctx.fillStyle = 'black'
+         if (dark) {
+            ctx.fillStyle = 'black'
+         } else {
+            ctx.fillStyle = 'white'
+         }
          ctx.fillRect(0, 0, w, h)
-         ctx.fillStyle = 'white'
+         ctx.fillStyle = particle
 
          stars.forEach((star) => {
             star.z -= 2
@@ -49,7 +53,7 @@ const WarpSpeedStarfield = () => {
       window.addEventListener('resize', resizeCanvas)
 
       return () => window.removeEventListener('resize', resizeCanvas)
-   }, [])
+   }, [dark, particle])
 
    return (
       <canvas ref={canvasRef} className='fixed top-[64px] z-0 w-full h-full' />

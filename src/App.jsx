@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Navbar from './components/Navbar'
 import { TodoForm, TodoItem, Achievements } from './components/index'
 import ViewModeSelector from './components/ViewModeSelector'
@@ -15,6 +15,7 @@ import MistyGlowParticles from './components/backgrounds/MistyGlowParticles.jsx'
 import FloatingGlowingOrbs from './components/backgrounds/FloatingOrbs.jsx'
 import WarpSpeedStarfield from './components/backgrounds/WarpSpaceSpeed.jsx'
 import { useAppTheme } from './contexts/AppThemeContext'
+import { useTheme } from './contexts/ThemeContext.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 
 function App() {
@@ -51,17 +52,31 @@ function App() {
       return 0
    })
 
+   const particle = getColorClass(appTheme.colorTheme, 'particle')
+   const theme = useTheme()
+   console.log(theme.isDarkMode)
+
    return (
       <>
          {appTheme.background === 'particle' && (
-            <ParticleBackground particleCount={80} />
+            <ParticleBackground
+               particleCount={80}
+               particleColor={particle}
+               linkColor={particle}
+            />
          )}
-         {appTheme.background === 'space' && <WarpSpeedStarfield />}
-         {appTheme.background === 'fog' && <FogEffect />}
+         {appTheme.background === 'space' && (
+            <WarpSpeedStarfield dark={theme.isDarkMode} particle={particle} />
+         )}
+         {appTheme.background === 'fog' && (
+            <FogEffect particleColor={particle} />
+         )}
          {appTheme.background === 'mistyGlow' && (
             <MistyGlowParticles particleCount={50} />
          )}
-         {appTheme.background === 'orbs' && <FloatingGlowingOrbs />}
+         {appTheme.background === 'orbs' && (
+            <FloatingGlowingOrbs orbColor={particle} />
+         )}
          {appTheme.background === 'none' && <></>}
 
          <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>

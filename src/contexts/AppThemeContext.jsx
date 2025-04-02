@@ -68,6 +68,7 @@ const colorOptions = {
       hovertext: 'hover:text-red-500 dark:hover:text-red-400',
       navbar: 'bg-gradient-to-r from-pink-700/80 to-red-600/80',
       border: 'border-red-200 dark:border-red-800',
+      particle: '#ff4f4f',
    },
    orange: {
       bg: 'bg-orange-200 dark:bg-orange-900/20',
@@ -80,6 +81,7 @@ const colorOptions = {
       hovertext: 'hover:text-orange-500 dark:hover:text-orange-400',
       navbar: 'bg-gradient-to-r from-rose-400/80 to-orange-600/80',
       border: 'border-orange-200 dark:border-orange-800',
+      particle: '#ff904f',
    },
    yellow: {
       bg: 'bg-yellow-200 dark:bg-yellow-900/20',
@@ -92,6 +94,7 @@ const colorOptions = {
       hovertext: 'hover:text-yellow-500 dark:hover:text-yellow-400',
       navbar: 'bg-gradient-to-r from-lime-600/80 to-yellow-600/80',
       border: 'border-yellow-200 dark:border-yellow-800',
+      particle: '#f9ff4f',
    },
    green: {
       bg: 'bg-green-200 dark:bg-green-900/20',
@@ -104,6 +107,7 @@ const colorOptions = {
       hovertext: 'hover:text-green-500 dark:hover:text-green-400',
       navbar: 'bg-gradient-to-r from-emerald-600/80 to-green-600/80',
       border: 'border-green-200 dark:border-green-800',
+      particle: '#4fff61',
    },
    blue: {
       bg: 'bg-blue-200 dark:bg-blue-900/20',
@@ -116,6 +120,7 @@ const colorOptions = {
       hovertext: 'hover:text-blue-500 dark:hover:text-blue-400',
       navbar: 'bg-gradient-to-r from-sky-600/80 to-blue-600/80',
       border: 'border-blue-200 dark:border-blue-800',
+      particle: '#4fd3ff',
    },
    purple: {
       bg: 'bg-purple-200 dark:bg-purple-900/20',
@@ -128,6 +133,7 @@ const colorOptions = {
       hovertext: 'hover:text-purple-500 dark:hover:text-purple-400',
       navbar: 'bg-gradient-to-r from-indigo-600/80 to-purple-600/80',
       border: 'border-purple-200 dark:border-purple-800',
+      particle: '#9E00FF',
    },
    emerald: {
       bg: 'bg-emerald-200 dark:bg-emerald-900/20',
@@ -140,6 +146,7 @@ const colorOptions = {
       hovertext: 'hover:text-emerald-500 dark:hover:text-emerald-400',
       navbar: 'bg-gradient-to-r from-purple-600/80 to-emerald-600/80',
       border: 'border-emerald-200 dark:border-emerald-800',
+      particle: '#4fff8a',
    },
    cyan: {
       bg: 'bg-cyan-200 dark:bg-cyan-900/20',
@@ -152,6 +159,7 @@ const colorOptions = {
       hovertext: 'hover:text-cyan-500 dark:hover:text-cyan-400',
       navbar: 'bg-gradient-to-r from-green-600/80 to-cyan-600/80',
       border: 'border-cyan-200 dark:border-cyan-800',
+      particle: '#4fffe5',
    },
    fuchsia: {
       bg: 'bg-fuchsia-200 dark:bg-fuchsia-900/20',
@@ -164,6 +172,7 @@ const colorOptions = {
       hovertext: 'hover:text-fuchsia-500 dark:hover:text-fuchsia-400',
       navbar: 'bg-gradient-to-r from-indigo-600/80 to-fuchsia-600/80',
       border: 'border-fuchsia-200 dark:border-fuchsia-800',
+      particle: '#f94fff',
    },
 }
 
