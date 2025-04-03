@@ -113,20 +113,20 @@ function TodoItem({ todo }) {
    const getPriorityColor = (priority) => {
       switch (priority) {
          case 'high':
-            return 'text-red-500 dark:text-red-400'
+            return 'text-red-500 dark:text-red-400 sm:bg-transparent dark:sm:bg-transparent bg-red-100 dark:bg-red-900/30 sm:px-0 sm:py-0 px-2 py-1 rounded-md'
          case 'medium':
-            return 'text-yellow-500 dark:text-yellow-400'
+            return 'text-yellow-500 dark:text-yellow-400 sm:bg-transparent dark:sm:bg-transparent bg-yellow-100 dark:bg-yellow-900/30 sm:px-0 sm:py-0 px-2 py-1 rounded-md'
          case 'low':
-            return 'text-green-500 dark:text-green-400'
+            return 'text-green-500 dark:text-green-400 sm:bg-transparent dark:sm:bg-transparent bg-green-100 dark:bg-green-900/30 sm:px-0 sm:py-0 px-2 py-1 rounded-md'
          default:
-            return 'text-gray-500 dark:text-gray-400'
+            return 'text-gray-500 dark:text-gray-400 sm:bg-transparent dark:sm:bg-transparent bg-gray-100 dark:bg-gray-700 sm:px-0 sm:py-0 px-2 py-1 rounded-md'
       }
    }
 
    const getStageColor = (stage) => {
       switch (stage) {
          case 'notStarted':
-            return 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300'
+            return 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300'
          case 'inProgress':
             return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300'
          case 'completed':
@@ -208,11 +208,11 @@ function TodoItem({ todo }) {
          )} ${getColorClass(appTheme.colorTheme, 'hover')}  ${getColorClass(
             appTheme.colorTheme,
             'shadow'
-         )} p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300`}
+         )} p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300 `}
       >
-         <div className='flex items-start gap-4'>
+         <div className='flex flex-col sm:flex sm:flex-row items-start gap-4 '>
             {/* Checkbox and Main Content */}
-            <div className='flex-1 min-w-0'>
+            <div className='flex-1 '>
                <div className='flex items-center gap-2'>
                   <input
                      type='checkbox'
@@ -232,18 +232,18 @@ function TodoItem({ todo }) {
                </div>
 
                {/* Mobile-friendly metadata */}
-               <div className='mt-2 flex flex-wrap gap-4 text-sm'>
+               <div className='mt-2 flex sm:flex-wrap sm:gap-4 sm:text-sm gap-2 text-xs sm:w-96 w-96'>
                   {appTheme.taskInterface.features.priority && (
                      <span className={`${getPriorityColor(todo.priority)}`}>
-                        <span className=' flex items-center gap-1 pt-1'>
+                        <span className=' flex items-center gap-1 sm:pt-1'>
                            {todo.priority === 'high' && (
-                              <FcHighPriority className='size-4' />
+                              <FcHighPriority className='sm:block hidden size-4' />
                            )}
                            {todo.priority === 'medium' && (
-                              <FcMediumPriority className='size-4' />
+                              <FcMediumPriority className='sm:block hidden size-4' />
                            )}
                            {todo.priority === 'low' && (
-                              <FcLowPriority className='size-4' />
+                              <FcLowPriority className='sm:block hidden size-4' />
                            )}
                            {todo.priority}
                         </span>
@@ -251,8 +251,8 @@ function TodoItem({ todo }) {
                   )}
                   {appTheme.taskInterface.features.category && (
                      <>
-                        <span className='text-gray-600 dark:text-gray-400 flex items-center gap-1'>
-                           <FaTags className='w-4 h-4' />
+                        <span className='sm:text-gray-600 sm:dark:text-gray-400 flex items-center gap-1 sm:bg-transparent dark:sm:bg-transparent text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 sm:px-0 sm:py-0 px-2 py-1 rounded-md'>
+                           <FaTags className='sm:block hidden w-4 h-4' />
                            {todo.category}
                         </span>
                      </>
@@ -272,7 +272,7 @@ function TodoItem({ todo }) {
                                  : ''
                            }`}
                         >
-                           <FaLayerGroup className='w-3 h-3' />
+                           <FaLayerGroup className='sm:block hidden w-3 h-3' />
                            {todo.completed
                               ? 'Completed'
                               : getStageName(todo.stage)}
@@ -307,7 +307,7 @@ function TodoItem({ todo }) {
                      <>
                         {!dueDateHidden && (
                            <span className='flex items-center gap-1'>
-                              <FaClock className='w-3 h-3 flex-shrink-0 dark:text-gray-400' />
+                              <FaClock className='sm:block hidden w-3 h-3 flex-shrink-0 dark:text-gray-400' />
                               {isOverdue ? (
                                  <span className='px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
                                     Due Date Passed
@@ -331,7 +331,7 @@ function TodoItem({ todo }) {
             </div>
 
             {/* Action Buttons */}
-            <div className='flex items-center gap-3 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
+            <div className='flex items-center sm:gap-3 gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200'>
                {!todo.completed && (
                   <>
                      {todo.note && (

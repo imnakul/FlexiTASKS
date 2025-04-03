@@ -119,7 +119,7 @@ function App() {
                         </div> */}
 
                   <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors duration-300 relative z-10 overflow-hidden'>
-                     <div className='p-3.5 sm:p-6 border-b border-gray-200 dark:border-gray-700'>
+                     <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
                         <h2
                            className='sm:text-xl text-base font-semibold text-gray-800 dark:text-gray-200 
                             mb-3 sm:mb-4'
@@ -129,8 +129,8 @@ function App() {
                         <TodoForm />
                      </div>
 
-                     <div className='p-4 sm:p-6 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 '>
-                        <div className='flex flex-col gap-6'>
+                     <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 '>
+                        <div className='flex flex-col gap-3 sm:gap-4'>
                            {appTheme.taskInterface.features.viewModes && (
                               <div>
                                  <h3 className='text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
@@ -145,7 +145,7 @@ function App() {
 
                            {/* //? Visible sorting and Filtering in List mode only  */}
                            {viewMode === 'list' && (
-                              <div className='flex flex-col sm:flex-row gap-4 justify-between '>
+                              <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
                                  <div className='flex flex-wrap gap-2'>
                                     <button
                                        onClick={() => setFilter('all')}

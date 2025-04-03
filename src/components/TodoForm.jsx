@@ -157,7 +157,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
       !editingTodo.completed
 
    return (
-      <form onSubmit={handleSubmit} className='space-y-4 '>
+      <form onSubmit={handleSubmit} className='sm:space-y-5 space-y-3'>
          {/* Main Task Input Row */}
          <div className='sm:flex hidden flex-wrap gap-3 items-center'>
             <div
@@ -170,7 +170,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                   value={todo}
                   onChange={handleInputChange}
                   onFocus={() => !editingTodo && setShowSuggestions(true)}
-                  className={`w-full  px-2 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 
+                  className={`w-full px-2 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 
                      ${getColorClass(appTheme.colorTheme, 'ring')}
                    transition-all duration-300 filter-glow`}
                />
@@ -258,7 +258,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                   onFocus={() => !editingTodo && setShowSuggestions(true)}
                   className={`w-full px-2 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 
                      ${getColorClass(appTheme.colorTheme, 'ring')}
-                   transition-all duration-300 filter-glow mb-2`}
+                   transition-all duration-300 filter-glow mb-1.5`}
                />
                {showSuggestions && !editingTodo && (
                   <TaskSuggestions
@@ -439,7 +439,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
                )} text-white ${getColorClass(
                   appTheme.colorTheme,
                   'buttonbghover'
-               )} transition-all duration-200`}
+               )} transition-all duration-200 `}
             >
                {editingTodo ? 'Update' : 'Add Task'}
             </button>
