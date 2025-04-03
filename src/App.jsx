@@ -104,8 +104,10 @@ function App() {
                   className={`${
                      appTheme.taskInterface.mode === 'minimal'
                         ? 'max-w-2xl'
-                        : 'max-w-7xl'
-                  } mx-auto space-y-8`}
+                        : viewMode === 'kanban'
+                        ? 'max-w-7xl'
+                        : 'max-w-4xl'
+                  } mx-auto space-y-8 transition-all duration-1000 ease-out `}
                >
                   {/* <div className='text-center space-y-4'>
                            <h1 className='text-4xl sm:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'>
@@ -117,7 +119,7 @@ function App() {
                         </div> */}
 
                   <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors duration-300 relative z-10 overflow-hidden'>
-                     <div className='p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700'>
+                     <div className='p-3.5 sm:p-6 border-b border-gray-200 dark:border-gray-700'>
                         <h2
                            className='sm:text-xl text-base font-semibold text-gray-800 dark:text-gray-200 
                             mb-3 sm:mb-4'
