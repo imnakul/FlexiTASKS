@@ -210,7 +210,7 @@ function TodoItem({ todo }) {
             'shadow'
          )} p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300 `}
       >
-         <div className='flex flex-col sm:flex sm:flex-row items-start gap-4 '>
+         <div className='flex flex-col sm:flex sm:flex-row items-start sm:gap-4 gap-1'>
             {/* Checkbox and Main Content */}
             <div className='flex-1 '>
                <div className='flex items-center gap-2'>
@@ -232,7 +232,7 @@ function TodoItem({ todo }) {
                </div>
 
                {/* Mobile-friendly metadata */}
-               <div className='mt-2 flex sm:flex-wrap sm:gap-4 sm:text-sm gap-2 text-xs sm:w-96 w-96'>
+               <div className='mt-2 flex sm:flex-wrap sm:gap-4 sm:text-sm gap-3 text-xs sm:w-96 w-96'>
                   {appTheme.taskInterface.features.priority && (
                      <span className={`${getPriorityColor(todo.priority)}`}>
                         <span className=' flex items-center gap-1 sm:pt-1'>
