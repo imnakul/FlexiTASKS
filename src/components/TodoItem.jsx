@@ -13,7 +13,7 @@ import {
 } from 'react-icons/fa'
 import TodoForm from './TodoForm'
 import { useAppTheme } from '../contexts/AppThemeContext'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { updateTodo, deleteTodo } from '../store/TodoSlice.js' // Import Redux actions
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
 
@@ -38,14 +38,6 @@ function TodoItem({ todo }) {
    })
 
    const handleEdit = () => {
-      // if (isEditing) {
-      //    dispatch(
-      //       updateTodo({
-      //          id: todo.id,
-      //          updatedTodo: { ...todo, todo: editedTodo },
-      //       })
-      //    )
-      // }
       setIsEditing(!isEditing)
    }
 
@@ -75,6 +67,29 @@ function TodoItem({ todo }) {
             updatedTodo: { ...todo, completed: !todo.completed },
          })
       )
+
+      if (!todo.completed) {
+         handleConfetti()
+      }
+   }
+
+   const handleConfetti = async () => {
+      const confetti = (await import('canvas-confetti')).default
+      const shapes = ['square', 'circle']
+      confetti({
+         origin: { x: 0.5, y: 0.1 },
+         angle: 270.0906564243709, // Converted angle for canvas-confetti
+         spread: 120,
+         particleCount: 200,
+         startVelocity: 30,
+         gravity: 1.3,
+         ticks: 300,
+         decay: 0.9,
+         scalar: 1,
+         drift: 0,
+         shapes,
+         colors: ['#FFFFFF', '#F97316', '#3B82F6', '#10B981', '#F59E0B'],
+      })
    }
 
    const handleToggleSubtask = (subtaskId) => {

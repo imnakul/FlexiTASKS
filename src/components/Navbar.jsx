@@ -62,12 +62,20 @@ function Navbar() {
                <div className='flex items-center justify-between h-14 sm:h-16'>
                   {/* Logo/Title */}
                   <div className='flex-shrink-0 flex items-center gap-3'>
-                     <FaTasks className='sm:size-7 size-5 dark:text-white text-black' />
+                     {/* <FaTasks className='sm:size-7 size-5 dark:text-white text-black' /> */}
+                     <img
+                        src='/3.png'
+                        alt='Logo'
+                        className={`size-10 p-1 rounded-full bg-gray-800 dark:bg-gray-200 border-2 ${getColorClass(
+                           appTheme.colorTheme,
+                           'border'
+                        )}`}
+                     />
                      <h1
                         className='text-lg sm:text-2xl font-bold text-gray-800 dark:text-white 
                      sm:pb-0.5 pb-1'
                      >
-                        Task Sphere
+                        FlexiTasks
                      </h1>
                   </div>
 
