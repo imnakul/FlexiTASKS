@@ -130,23 +130,6 @@ function ThemeSettings({ onClose }) {
                   </div>
                </div>
 
-               {/* Feature Toggles - Only show if custom interface is selected */}
-               {/* {appTheme.taskInterface.mode === 'minimal' && (
-                  <div className='flex flex-col gap-2 items-center justify-center h-[40vh] text-white'>
-                     Additional Features Hidden
-                     <span className='ml-3 text-xs text-gray-500'>
-                        Switch to Custom to explore Feature Toggle
-                     </span>
-                  </div>
-               )}
-               {appTheme.taskInterface.mode === 'maximal' && (
-                  <div className='flex flex-col gap-2 items-center justify-center h-[40vh] text-white ml-3'>
-                     Displaying All Features
-                     <span className='ml-3 text-xs text-gray-500'>
-                        Switch to Custom to explore Feature Toggle
-                     </span>
-                  </div>
-               )} */}
                {appTheme.taskInterface.mode === 'custom' && (
                   <>
                      <div>

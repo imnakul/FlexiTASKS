@@ -25,6 +25,13 @@ function App() {
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
    const { appTheme, getColorClass } = useAppTheme()
+   let priorityHidden = !appTheme.taskInterface.features.priority
+   let categoryHidden = !appTheme.taskInterface.features.category
+   let dueDateHidden = !appTheme.taskInterface.features.dueDate
+   let allSortHidden = false
+   if (priorityHidden && categoryHidden && dueDateHidden) {
+      allSortHidden = true
+   }
 
    // Filter todos based on the current filter
    const filteredTodos = todos.filter((todo) => {
@@ -92,11 +99,11 @@ function App() {
          <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
             <Navbar />
 
-            <div className='container mx-auto px-4 py-4'>
+            <div className='container mx-auto p-4'>
                <div
                   className={`${
                      appTheme.taskInterface.mode === 'minimal'
-                        ? 'max-w-xl'
+                        ? 'max-w-2xl'
                         : 'max-w-7xl'
                   } mx-auto space-y-8`}
                >
@@ -178,21 +185,31 @@ function App() {
                                        Completed
                                     </button>
                                  </div>
-                                 <select
-                                    value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value)}
-                                    className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
-                                 >
-                                    <option value='priority'>
-                                       Sort by Priority
-                                    </option>
-                                    <option value='dueDate'>
-                                       Sort by Due Date
-                                    </option>
-                                    <option value='category'>
-                                       Sort by Category
-                                    </option>
-                                 </select>
+                                 {!allSortHidden && (
+                                    <select
+                                       value={sortBy}
+                                       onChange={(e) =>
+                                          setSortBy(e.target.value)
+                                       }
+                                       className='px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
+                                    >
+                                       {!priorityHidden && (
+                                          <option value='priority'>
+                                             Sort by Priority
+                                          </option>
+                                       )}
+                                       {!dueDateHidden && (
+                                          <option value='dueDate'>
+                                             Sort by Due Date
+                                          </option>
+                                       )}
+                                       {!categoryHidden && (
+                                          <option value='category'>
+                                             Sort by Category
+                                          </option>
+                                       )}
+                                    </select>
+                                 )}
                               </div>
                            )}
                         </div>

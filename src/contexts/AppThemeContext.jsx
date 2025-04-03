@@ -12,6 +12,7 @@ const defaultInterfaceSettings = {
       achievement: false,
       viewModes: false,
       category: false,
+      status: false,
    },
    maximal: {
       subtasks: true,
@@ -21,15 +22,17 @@ const defaultInterfaceSettings = {
       achievement: true,
       viewModes: true,
       category: true,
+      status: true,
    },
    custom: {
       subtasks: true,
       notes: true,
       priority: true,
       dueDate: true,
-      achievement: true,
+      achievement: false,
       viewModes: true,
       category: true,
+      status: true,
    },
 }
 

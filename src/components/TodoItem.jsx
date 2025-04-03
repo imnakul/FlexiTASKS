@@ -25,6 +25,17 @@ function TodoItem({ todo }) {
    const [showNote, setShowNote] = useState(false)
    const noteRef = useRef(null)
    const { appTheme, getColorClass } = useAppTheme()
+   let notesHidden = !appTheme.taskInterface.features.notes
+   let subtasksHidden = !appTheme.taskInterface.features.subtasks
+   let dueDateHidden = !appTheme.taskInterface.features.dueDate
+   let stageHidden = !appTheme.taskInterface.features.status
+
+   useEffect(() => {
+      if (notesHidden) {
+         setShowNote(false)
+      }
+      if (subtasksHidden) setShowSubtasks(false)
+   })
 
    const handleEdit = () => {
       // if (isEditing) {
@@ -248,63 +259,72 @@ function TodoItem({ todo }) {
                   )}
 
                   {/* Stage Status */}
-
-                  <div className='relative group/stage'>
-                     <span
-                        className={`flex items-center gap-1 px-2 py-1 rounded-md ${
-                           todo.completed
-                              ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300'
-                              : getStageColor(todo.stage)
-                        } ${
-                           !todo.completed ? 'group-hover/stage:opacity-0' : ''
-                        }`}
-                     >
-                        <FaLayerGroup className='w-3 h-3' />
-                        {todo.completed
-                           ? 'Completed'
-                           : getStageName(todo.stage)}
-                     </span>
-                     {!todo.completed && (
-                        <select
-                           value={todo.stage || 'notStarted'}
-                           onChange={(e) => handleStageChange(e.target.value)}
-                           className='absolute left-0 top-0 w-full h-full opacity-0 group-hover/stage:opacity-100 cursor-pointer disabled:cursor-not-allowed bg-transparent dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 appearance-none px-2 py-1'
-                           disabled={todo.completed}
+                  {!stageHidden && (
+                     <div className='relative group/stage'>
+                        <span
+                           className={`flex items-center gap-1 px-2 py-1 rounded-md ${
+                              todo.completed
+                                 ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300'
+                                 : getStageColor(todo.stage)
+                           } ${
+                              !todo.completed
+                                 ? 'group-hover/stage:opacity-0'
+                                 : ''
+                           }`}
                         >
-                           <option
-                              value='notStarted'
-                              className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                           <FaLayerGroup className='w-3 h-3' />
+                           {todo.completed
+                              ? 'Completed'
+                              : getStageName(todo.stage)}
+                        </span>
+                        {!todo.completed && (
+                           <select
+                              value={todo.stage || 'notStarted'}
+                              onChange={(e) =>
+                                 handleStageChange(e.target.value)
+                              }
+                              className='absolute left-0 top-0 w-full h-full opacity-0 group-hover/stage:opacity-100 cursor-pointer disabled:cursor-not-allowed bg-transparent dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 appearance-none px-2 py-1'
+                              disabled={todo.completed}
                            >
-                              Not Started
-                           </option>
-                           <option
-                              value='inProgress'
-                              className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
-                           >
-                              In Progress
-                           </option>
-                        </select>
-                     )}
-                  </div>
+                              <option
+                                 value='notStarted'
+                                 className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                              >
+                                 Not Started
+                              </option>
+                              <option
+                                 value='inProgress'
+                                 className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                              >
+                                 In Progress
+                              </option>
+                           </select>
+                        )}
+                     </div>
+                  )}
+
                   {todo.dueDate && (
                      <>
-                        <span className='text-gray-400'>•</span>
-                        <span className='flex items-center gap-1'>
-                           <FaClock className='w-3 h-3 flex-shrink-0' />
-                           {isOverdue ? (
-                              <span className='px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
-                                 Due Date Passed
-                              </span>
-                           ) : isDueToday ? (
-                              <span className='px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-md'>
-                                 Due Today
-                              </span>
-                           ) : (
-                              <span className='text-gray-600 dark:text-gray-400'>
-                                 {new Date(todo.dueDate).toLocaleDateString()}
-                              </span>
-                           )}
-                        </span>
+                        {!dueDateHidden && (
+                           <span className='flex items-center gap-1'>
+                              <FaClock className='w-3 h-3 flex-shrink-0 dark:text-gray-400' />
+                              {isOverdue ? (
+                                 <span className='px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
+                                    Due Date Passed
+                                 </span>
+                              ) : isDueToday ? (
+                                 <span className='px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-md'>
+                                    Due Today
+                                 </span>
+                              ) : (
+                                 <span className='text-gray-600 dark:text-gray-400'>
+                                    {new Date(
+                                       todo.dueDate
+                                    ).toLocaleDateString()}
+                                 </span>
+                              )}
+                           </span>
+                        )}
                      </>
                   )}
                </div>
@@ -317,14 +337,25 @@ function TodoItem({ todo }) {
                      {todo.note && (
                         <div className='relative' ref={noteRef}>
                            <button
-                              onClick={() => setShowNote(!showNote)}
+                              onClick={() => {
+                                 setShowNote(!showNote)
+                              }}
                               className={`p-2 rounded-lg text-gray-500 ${getColorClass(
                                  appTheme.colorTheme,
                                  'hovertext'
                               )}  ${getColorClass(
                                  appTheme.colorTheme,
                                  'buttonbghover'
-                              )} dark:text-gray-400 `}
+                              )} dark:text-gray-400 ${
+                                 notesHidden && 'cursor-not-allowed'
+                              }`}
+                              title={
+                                 notesHidden
+                                    ? 'Notes Feature Hidden'
+                                    : showNote
+                                    ? 'Hide Note'
+                                    : 'Show Note'
+                              }
                            >
                               <FaStickyNote className='w-4 h-4' />
                            </button>
@@ -363,58 +394,71 @@ function TodoItem({ todo }) {
          </div>
 
          {/* Subtasks Section */}
-         {todo.subtasks && todo.subtasks.length > 0 && !todo.completed && (
-            <div className='mt-3 pl-7'>
-               <button
-                  onClick={() => setShowSubtasks(!showSubtasks)}
-                  className={`flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 ${getColorClass(
-                     appTheme.colorTheme,
-                     'hovertext'
-                  )} transition-colors duration-200`}
-               >
-                  {showSubtasks ? (
-                     <FaChevronDown className='w-3 h-3' />
-                  ) : (
-                     <FaChevronRight className='w-3 h-3' />
-                  )}
-                  <FaList className='w-3 h-3' />
-                  <span>
-                     Subtasks (
-                     {todo.subtasks.filter((st) => st.completed).length}/
-                     {todo.subtasks.length})
-                  </span>
-               </button>
-
-               {showSubtasks && (
-                  <div className='mt-2 space-y-2'>
-                     {todo.subtasks.map((subtask) => (
-                        <div
-                           key={subtask.id}
-                           className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'
+         {!subtasksHidden && (
+            <>
+               {todo.subtasks &&
+                  todo.subtasks.length > 0 &&
+                  !todo.completed && (
+                     <div className='mt-3 pl-7'>
+                        <button
+                           onClick={() => setShowSubtasks(!showSubtasks)}
+                           className={`flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 ${getColorClass(
+                              appTheme.colorTheme,
+                              'hovertext'
+                           )} transition-colors duration-200`}
                         >
-                           <input
-                              type='checkbox'
-                              checked={subtask.completed}
-                              onChange={() => handleToggleSubtask(subtask.id)}
-                              className={`w-4 h-4 rounded border-gray-300 ${getColorClass(
-                                 appTheme.colorTheme,
-                                 'text'
-                              )}
-                                 ${getColorClass(appTheme.colorTheme, 'ring')}`}
-                              disabled={todo.completed}
-                           />
-                           <span
-                              className={
-                                 subtask.completed ? 'line-through' : ''
+                           {showSubtasks ? (
+                              <FaChevronDown className='w-3 h-3' />
+                           ) : (
+                              <FaChevronRight className='w-3 h-3' />
+                           )}
+                           <FaList className='w-3 h-3' />
+                           <span>
+                              Subtasks (
+                              {
+                                 todo.subtasks.filter((st) => st.completed)
+                                    .length
                               }
-                           >
-                              {subtask.text}
+                              /{todo.subtasks.length})
                            </span>
-                        </div>
-                     ))}
-                  </div>
-               )}
-            </div>
+                        </button>
+
+                        {showSubtasks && (
+                           <div className='mt-2 space-y-2'>
+                              {todo.subtasks.map((subtask) => (
+                                 <div
+                                    key={subtask.id}
+                                    className='flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400'
+                                 >
+                                    <input
+                                       type='checkbox'
+                                       checked={subtask.completed}
+                                       onChange={() =>
+                                          handleToggleSubtask(subtask.id)
+                                       }
+                                       className={`w-4 h-4 rounded border-gray-300 ${getColorClass(
+                                          appTheme.colorTheme,
+                                          'text'
+                                       )}
+                                 ${getColorClass(appTheme.colorTheme, 'ring')}`}
+                                       disabled={todo.completed}
+                                    />
+                                    <span
+                                       className={
+                                          subtask.completed
+                                             ? 'line-through'
+                                             : ''
+                                       }
+                                    >
+                                       {subtask.text}
+                                    </span>
+                                 </div>
+                              ))}
+                           </div>
+                        )}
+                     </div>
+                  )}
+            </>
          )}
       </div>
    )
