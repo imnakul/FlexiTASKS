@@ -70,7 +70,12 @@ const FloatingGlowingOrbs = ({
       }
    }, [orbCount, orbColor, maxSize, speed, glowOpacity])
 
-   return <canvas ref={canvasRef} className='fixed inset-0 z-0 w-full h-full' />
+   return (
+      <canvas
+         ref={canvasRef}
+         className='fixed inset-0 sm:top-[65px] top-[62px] z-0 w-full h-full'
+      />
+   )
 }
 
 export default FloatingGlowingOrbs

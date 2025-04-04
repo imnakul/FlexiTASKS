@@ -56,7 +56,10 @@ const WarpSpeedStarfield = ({ dark = 'true', particle = '#f5f5f5' }) => {
    }, [dark, particle])
 
    return (
-      <canvas ref={canvasRef} className='fixed top-[64px] z-0 w-full h-full' />
+      <canvas
+         ref={canvasRef}
+         className='fixed sm:top-[65px] top-[62px] z-0 w-full h-full'
+      />
    )
 }
 

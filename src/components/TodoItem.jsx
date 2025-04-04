@@ -141,13 +141,13 @@ function TodoItem({ todo }) {
    const getStageColor = (stage) => {
       switch (stage) {
          case 'notStarted':
-            return 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300'
+            return 'bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300 text-xs space-grotesk'
          case 'inProgress':
-            return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300'
+            return 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 text-xs space-grotesk'
          case 'completed':
-            return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300'
+            return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 text-xs space-grotesk'
          default:
-            return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+            return 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs space-grotesk'
       }
    }
 
@@ -236,7 +236,7 @@ function TodoItem({ todo }) {
                      className='w-5 h-5 rounded border-gray-300 text-purple-500 focus:ring-purple-500'
                   />
                   <div
-                     className={`text-gray-900 dark:text-gray-100 break-words ${
+                     className={`inter text-gray-900 dark:text-gray-100 break-words ${
                         todo.completed
                            ? 'line-through text-gray-500 dark:text-gray-400'
                            : ''
@@ -247,10 +247,10 @@ function TodoItem({ todo }) {
                </div>
 
                {/* Mobile-friendly metadata */}
-               <div className='mt-2 flex sm:flex-wrap sm:gap-4 sm:text-sm gap-3 text-xs sm:w-96 w-96'>
+               <div className='mt-2 flex sm:flex-wrap sm:text-sm sm:gap-3 gap-2 sm:w-96 w-96'>
                   {appTheme.taskInterface.features.priority && (
                      <span className={`${getPriorityColor(todo.priority)}`}>
-                        <span className=' flex items-center gap-1 sm:pt-1'>
+                        <span className='inter text-xs flex items-center gap-1 sm:pt-1'>
                            {todo.priority === 'high' && (
                               <FcHighPriority className='sm:block hidden size-4' />
                            )}
@@ -266,13 +266,36 @@ function TodoItem({ todo }) {
                   )}
                   {appTheme.taskInterface.features.category && (
                      <>
-                        <span className='sm:text-gray-600 sm:dark:text-gray-400 flex items-center gap-1 sm:bg-transparent dark:sm:bg-transparent text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 sm:px-0 sm:py-0 px-2 py-1 rounded-md'>
+                        <span className='inter text-xs sm:text-gray-600 sm:dark:text-gray-400 flex items-center gap-1 sm:bg-transparent dark:sm:bg-transparent text-sky-600 dark:text-sky-400 bg-sky-100 dark:bg-sky-900/30 sm:px-0 sm:py-0 px-2 py-1 rounded-md'>
                            <FaTags className='sm:block hidden w-4 h-4' />
                            {todo.category}
                         </span>
                      </>
                   )}
-
+                  {todo.dueDate && (
+                     <>
+                        {!dueDateHidden && (
+                           <span className='inter flex items-center gap-1'>
+                              <FaClock className='sm:block hidden w-3 h-3 flex-shrink-0 dark:text-gray-400' />
+                              {isOverdue ? (
+                                 <span className='px-1 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
+                                    Due Date Passed
+                                 </span>
+                              ) : isDueToday ? (
+                                 <span className='px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-md'>
+                                    Due Today
+                                 </span>
+                              ) : (
+                                 <span className='text-gray-600 dark:text-gray-400'>
+                                    {new Date(
+                                       todo.dueDate
+                                    ).toLocaleDateString()}
+                                 </span>
+                              )}
+                           </span>
+                        )}
+                     </>
+                  )}
                   {/* Stage Status */}
                   {!stageHidden && (
                      <div className='relative group/stage'>
@@ -298,49 +321,24 @@ function TodoItem({ todo }) {
                               onChange={(e) =>
                                  handleStageChange(e.target.value)
                               }
-                              className='absolute left-0 top-0 w-full h-full opacity-0 group-hover/stage:opacity-100 cursor-pointer disabled:cursor-not-allowed bg-transparent dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 appearance-none px-2 py-1'
+                              className=' absolute left-0 top-0 w-full h-full opacity-0 group-hover/stage:opacity-100 cursor-pointer disabled:cursor-not-allowed bg-transparent dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600 appearance-none px-2 py-1'
                               disabled={todo.completed}
                            >
                               <option
                                  value='notStarted'
-                                 className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                                 className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1 text-xs'
                               >
                                  Not Started
                               </option>
                               <option
                                  value='inProgress'
-                                 className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1'
+                                 className='dark:bg-gray-800 dark:text-gray-200 px-2 py-1 text-xs'
                               >
                                  In Progress
                               </option>
                            </select>
                         )}
                      </div>
-                  )}
-
-                  {todo.dueDate && (
-                     <>
-                        {!dueDateHidden && (
-                           <span className='flex items-center gap-1'>
-                              <FaClock className='sm:block hidden w-3 h-3 flex-shrink-0 dark:text-gray-400' />
-                              {isOverdue ? (
-                                 <span className='px-2 py-1 text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md'>
-                                    Due Date Passed
-                                 </span>
-                              ) : isDueToday ? (
-                                 <span className='px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-md'>
-                                    Due Today
-                                 </span>
-                              ) : (
-                                 <span className='text-gray-600 dark:text-gray-400'>
-                                    {new Date(
-                                       todo.dueDate
-                                    ).toLocaleDateString()}
-                                 </span>
-                              )}
-                           </span>
-                        )}
-                     </>
                   )}
                </div>
             </div>
@@ -375,8 +373,8 @@ function TodoItem({ todo }) {
                               <FaStickyNote className='w-4 h-4' />
                            </button>
                            {showNote && (
-                              <div className='absolute right-0 mt-2 w-64 p-3 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-10'>
-                                 <p className='text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap'>
+                              <div className='absolute right-0 mt-2 w-64 p-2 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-10'>
+                                 <p className='inter text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap'>
                                     {todo.note}
                                  </p>
                               </div>
@@ -417,7 +415,7 @@ function TodoItem({ todo }) {
                      <div className='mt-3 pl-7'>
                         <button
                            onClick={() => setShowSubtasks(!showSubtasks)}
-                           className={`flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 ${getColorClass(
+                           className={`space-grotesk flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 ${getColorClass(
                               appTheme.colorTheme,
                               'hovertext'
                            )} transition-colors duration-200`}
@@ -428,7 +426,7 @@ function TodoItem({ todo }) {
                               <FaChevronRight className='w-3 h-3' />
                            )}
                            <FaList className='w-3 h-3' />
-                           <span>
+                           <span className='inter'>
                               Subtasks (
                               {
                                  todo.subtasks.filter((st) => st.completed)

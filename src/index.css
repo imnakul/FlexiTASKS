@@ -1,11 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter');
+
+	
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 .filter-glow {
     filter: drop-shadow(0 0 2px #e5e2e7);
   }
+
+  .filter-glow-logo {
+    filter: drop-shadow(0 0 2px #eceded);
+  }
+  /* #e3a600  */
+
+  .inter {
+		font-family: "Inter", sans-serif;
+	}
+  
+  .space-grotesk {
+		font-family: "Space Grotesk", sans-serif;
+	}
+  
 
 
   

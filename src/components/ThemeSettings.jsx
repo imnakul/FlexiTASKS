@@ -53,19 +53,8 @@ function ThemeSettings({ onClose }) {
       })
    }
 
-   // const handleSaveSettings = () => {
-   //    try {
-   //       // Save all current settings to localStorage through AppThemeContext
-   //       toast.success('Theme settings saved successfully!')
-   //       onClose?.()
-   //    } catch (error) {
-   //       console.error('Error saving theme settings:', error)
-   //       toast.error('Failed to save theme settings')
-   //    }
-   // }
-
    return (
-      <div className='bg-gray-800 dark:bg-gray-800 p-2 sm:p-4 rounded-lg shadow-lg border border-gray-700'>
+      <div className='bg-white/30 dark:bg-black/30 p-2 sm:p-4 rounded-lg'>
          {/* Title */}
          {/* <h2 className='text-xl font-semibold text-center mb-4 text-white flex items-center justify-center gap-2'>
             <FaPalette className='w-5 h-5 text-purple-500' />
@@ -87,7 +76,7 @@ function ThemeSettings({ onClose }) {
                {/* Tasks Interface */}
                <div>
                   <h3
-                     className={`flex items-center justify-center text-sm font-bold text-white mb-2 border-b ${getColorClass(
+                     className={`space-grotesk flex items-center justify-center text-sm font-bold text-white mb-2 border-b ${getColorClass(
                         appTheme.colorTheme,
                         'border'
                      )} py-1 `}
@@ -99,7 +88,7 @@ function ThemeSettings({ onClose }) {
                         <button
                            key={option}
                            onClick={() => handleInterfaceChange(option)}
-                           className={`w-full px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
+                           className={`space-grotesk w-full px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                               ${
                                  appTheme.taskInterface.mode === option
                                     ? `${getColorClass(
@@ -134,7 +123,7 @@ function ThemeSettings({ onClose }) {
                   <>
                      <div>
                         <h3
-                           className={`flex items-center justify-center text-sm font-bold border-b ${getColorClass(
+                           className={`space-grotesk flex items-center justify-center text-sm font-bold border-b ${getColorClass(
                               appTheme.colorTheme,
                               'border'
                            )} py-1 text-white mb-2`}
@@ -146,7 +135,7 @@ function ThemeSettings({ onClose }) {
                               ([feature, enabled]) => (
                                  <div
                                     key={feature}
-                                    className='flex items-center justify-between'
+                                    className='inter flex items-center justify-between'
                                  >
                                     <span className='text-gray-300 text-sm'>
                                        {feature.charAt(0).toUpperCase() +
@@ -177,27 +166,6 @@ function ThemeSettings({ onClose }) {
                      </div>
                   </>
                )}
-               {/* Save Button */}
-               {/* <div className='flex items-center justify-center'>
-                  <button
-                     onClick={handleSaveSettings}
-                     className={`px-4 py-1.5 ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbg'
-                     )}
-                     
-                     ${getColorClass(
-                        appTheme.colorTheme,
-                        'buttonbghover'
-                     )} ${getColorClass(
-                        appTheme.colorTheme,
-                        'text'
-                     )} text-white rounded-md transition-all duration-200 flex items-center gap-2 text-sm`}
-                  >
-                     <FaCheck className='w-3.5 h-3.5' />
-                     Save Changes
-                  </button>
-               </div> */}
             </div>
 
             {/* Right Column */}
@@ -208,51 +176,10 @@ function ThemeSettings({ onClose }) {
                   'border'
                )} rounded-md p-2`}
             >
-               {/* Background */}
-               {/* Design Basis */}
-               {/* <div>
-                  <h3
-                     className={`flex items-center justify-center  text-sm font-bold text-white mb-2 py-1 border-b ${getColorClass(
-                        appTheme.colorTheme,
-                        'border'
-                     )}`}
-                  >
-                     Design Basis
-                  </h3>
-                  <div className='flex gap-2'>
-                     <button
-                        onClick={() => setDesignBasis('text')}
-                        className={`flex-1 px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
-                           ${
-                              appTheme.designBasis === 'text'
-                                 ? `${getColorClass(
-                                      appTheme.colorTheme,
-                                      'buttonbg'
-                                   )} text-white`
-                                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                           }`}
-                     >
-                        Text
-                     </button>
-                     <button
-                        onClick={() => setDesignBasis('icon')}
-                        className={`flex-1 px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
-                           ${
-                              appTheme.designBasis === 'icon'
-                                 ? `${getColorClass(
-                                      appTheme.colorTheme,
-                                      'buttonbg'
-                                   )} text-white`
-                                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                           }`}
-                     >
-                        Icon
-                     </button>
-                  </div>
-               </div> */}
+               {/* //? background */}
                <div>
                   <h3
-                     className={`flex items-center justify-center text-sm font-bold border-b ${getColorClass(
+                     className={`space-grotesk flex items-center justify-center text-sm font-bold border-b ${getColorClass(
                         appTheme.colorTheme,
                         'border'
                      )} py-1 text-white mb-2`}
@@ -264,7 +191,7 @@ function ThemeSettings({ onClose }) {
                         <button
                            key={option.name}
                            onClick={() => setBackground(option.name)}
-                           className={`px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
+                           className={`space-grotesk px-3 py-1.5 rounded-md transition-all duration-200 flex items-center justify-center gap-2 text-sm
                               ${
                                  appTheme.background === option.name
                                     ? `${getColorClass(
@@ -281,11 +208,10 @@ function ThemeSettings({ onClose }) {
                      ))}
                   </div>
                </div>
-
                {/* Color Theme */}
                <div>
                   <h3
-                     className={`flex items-center justify-center  text-sm font-bold border-b ${getColorClass(
+                     className={`space-grotesk flex items-center justify-center  text-sm font-bold border-b ${getColorClass(
                         appTheme.colorTheme,
                         'border'
                      )} py-1 text-white mb-2`}
@@ -299,7 +225,7 @@ function ThemeSettings({ onClose }) {
                               key={color.name}
                               title={color.name}
                               onClick={() => setColorTheme(color.name)}
-                              className={`aspect-square rounded-md size-10 ${
+                              className={`space-grotesk aspect-square rounded-md size-10 ${
                                  color.class
                               } transition-all duration-200 flex items-center justify-center
                                  ${

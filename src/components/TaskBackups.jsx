@@ -159,7 +159,7 @@ function TaskBackups({ onClose }) {
    }
 
    return (
-      <div className='bg-gray-800 dark:bg-gray-800 sm:p-6 p-2 rounded-lg shadow-lg border border-gray-700 '>
+      <div className='bg-white/30 dark:bg-black/30 p-2 sm:p-4 rounded-lg'>
          {isImporting && (
             <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
                <div className='bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl flex flex-col items-center gap-4'>
@@ -176,7 +176,7 @@ function TaskBackups({ onClose }) {
             {/* Export Button */}
             <button
                onClick={handleExportTasks}
-               className='px-4 py-2 bg-emerald-600/40 hover:bg-emerald-500/50 border border-emerald-400/50 text-white sm:text-base text-sm rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
+               className='space-grotesk px-4 py-2 bg-emerald-600/40 hover:bg-emerald-500/50 border border-emerald-400/50 text-white sm:text-base text-sm rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
                <FaUpload className='w-4 h-4' />
@@ -186,7 +186,7 @@ function TaskBackups({ onClose }) {
             {/* Import Button */}
             <button
                onClick={() => fileInputRef.current?.click()}
-               className='px-4 py-2 bg-amber-600/40 hover:bg-amber-500/50 border border-amber-400/50 text-white sm:text-base text-sm rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
+               className='space-grotesk px-4 py-2 bg-amber-600/40 hover:bg-amber-500/50 border border-amber-400/50 text-white sm:text-base text-sm rounded-lg transition-all duration-300 flex items-center gap-2 hover:scale-105'
                disabled={isImporting}
             >
                <FaDownload className='w-4 h-4' />
@@ -204,13 +204,13 @@ function TaskBackups({ onClose }) {
 
          {importModalOpen && (
             <div className='flex flex-col gap-2'>
-               <p className='text-gray-600 dark:text-gray-300 my-4 text-center'>
+               <p className='inter text-gray-600 dark:text-gray-300 my-4 text-center'>
                   Choose how you want to import your tasks:
                </p>
 
                <button
                   onClick={() => handleImportOption('replace')}
-                  className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                  className={`space-grotesk w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
                      appTheme.colorTheme,
                      'buttonbghover'
                   )}`}
@@ -221,7 +221,7 @@ function TaskBackups({ onClose }) {
 
                <button
                   onClick={() => handleImportOption('merge')}
-                  className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                  className={`space-grotesk w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
                      appTheme.colorTheme,
                      'buttonbghover'
                   )}`}
@@ -232,7 +232,7 @@ function TaskBackups({ onClose }) {
 
                <button
                   onClick={() => handleImportOption('keep')}
-                  className={`w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
+                  className={`space-grotesk w-full bg-gray-500/30 text-white py-2 rounded-md mb-2 ${getColorClass(
                      appTheme.colorTheme,
                      'buttonbghover'
                   )}`}

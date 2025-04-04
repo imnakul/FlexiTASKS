@@ -59,7 +59,10 @@ const FogEffect = ({ particleColor = '#427d82' }) => {
    }, [particleColor])
 
    return (
-      <canvas ref={canvasRef} className='absolute top-0 left-0 w-full h-full' />
+      <canvas
+         ref={canvasRef}
+         className='absolute sm:top-[65px] top-[62px] left-0 w-full h-full'
+      />
    )
 }
 

@@ -45,13 +45,13 @@ function ContactForm() {
    }
 
    return (
-      <div className=' bg-gray-800 dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 '>
+      <div className='bg-white/30 dark:bg-black/30 p-2 sm:p-4 rounded-lg'>
          <form onSubmit={handleFormSubmit} className='space-y-4'>
             {/* Name Field (Optional) */}
             <div>
                <label
                   htmlFor='name'
-                  className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
+                  className='space-grotesk flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
                >
                   Name (Optional)
                </label>
@@ -59,7 +59,7 @@ function ContactForm() {
                   id='name'
                   type='text'
                   name='name'
-                  className={`w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 ${getColorClass(
+                  className={`inter w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 ${getColorClass(
                      appTheme.colorTheme,
                      'ring'
                   )} focus:border-transparent transition-colors duration-200 outline-none`}
@@ -71,7 +71,7 @@ function ContactForm() {
             <div>
                <label
                   htmlFor='email'
-                  className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
+                  className='space-grotesk flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
                >
                   Email Address <span className='text-red-500'>*</span>
                </label>
@@ -80,7 +80,7 @@ function ContactForm() {
                   type='email'
                   name='email'
                   required
-                  className={`w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 ${getColorClass(
+                  className={`inter w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 ${getColorClass(
                      appTheme.colorTheme,
                      'ring'
                   )} focus:border-transparent transition-colors duration-200 outline-none`}
@@ -96,7 +96,7 @@ function ContactForm() {
 
             {/* Rating Selector */}
             <div>
-               <label className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
+               <label className='space-grotesk flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
                   Rate your experience <span className='text-red-500'>*</span>
                </label>
                <div className='flex gap-1'>
@@ -127,7 +127,7 @@ function ContactForm() {
             <div>
                <label
                   htmlFor='message'
-                  className='flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
+                  className='space-grotesk flex items-center justify-start text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'
                >
                   Feedback <span className='text-red-500'>*</span>
                </label>
@@ -136,7 +136,7 @@ function ContactForm() {
                   name='message'
                   required
                   rows='4'
-                  className={`w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 ${getColorClass(
+                  className={`inter w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 ${getColorClass(
                      appTheme.colorTheme,
                      'ring'
                   )} focus:border-transparent transition-colors duration-200 outline-none`}
@@ -151,19 +151,15 @@ function ContactForm() {
             </div>
 
             {/* Submit Button */}
-            <button
-               type='submit'
-               disabled={state.submitting || rating === 0}
-               className={`w-full px-4 py-2 text-white ${getColorClass(
-                  appTheme.colorTheme,
-                  'buttonbg'
-               )} rounded-lg ${getColorClass(
-                  appTheme.colorTheme,
-                  'buttonbghover'
-               )} disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 border-2 border-gray-800 dark:border-gray-500`}
-            >
-               {state.submitting ? 'Sending...' : 'Submit Feedback'}
-            </button>
+            <div className='flex items-center justify-center'>
+               <button
+                  type='submit'
+                  disabled={state.submitting || rating === 0}
+                  className={`space-grotesk  w-1/3 rounded-lg px-4 py-2 text-white bg-green-700 hover:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 border-2 border-gray-800 dark:border-gray-500`}
+               >
+                  {state.submitting ? 'Sending...' : 'Submit'}
+               </button>
+            </div>
          </form>
       </div>
    )

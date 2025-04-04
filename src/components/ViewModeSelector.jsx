@@ -19,14 +19,14 @@ function ViewModeSelector({ viewMode, setViewMode }) {
    const { appTheme, getColorClass } = useAppTheme()
 
    return (
-      <div className='flex flex-wrap items-center justify-center p-2 gap-2 bg-gray-50 dark:bg-gray-700 rounded-lg'>
+      <div className='flex flex-wrap items-center justify-center p-2 gap-2 bg-gray-300 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600'>
          {views.map((view) => {
             const Icon = view.icon
             return (
                <button
                   key={view.id}
                   onClick={() => setViewMode(view.id)}
-                  className={`flex items-center gap-1.5 sm:px-4 px-2 py-2  rounded-lg sm:text-sm text-xs font-medium transition-all duration-200 ${
+                  className={`space-grotesk flex items-center gap-1.5 sm:px-4 px-2 py-2  rounded-lg sm:text-sm text-xs font-medium transition-all duration-200 ${
                      view.id === 'kanban' ? 'sm:flex hidden' : ''
                   } ${
                      viewMode === view.id
@@ -34,7 +34,7 @@ function ViewModeSelector({ viewMode, setViewMode }) {
                              appTheme.colorTheme,
                              'buttonbg'
                           )} text-white`
-                        : 'bg-white dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-500'
+                        : 'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-500'
                   }`}
                >
                   <Icon className='sm:size-4 size-3' />

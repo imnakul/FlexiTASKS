@@ -49,7 +49,7 @@ function CalendarView() {
    return (
       <>
          {/* //? Desktop and Tablet Calendar View */}
-         <div className='p-4 '>
+         <div className='sm:p-4 p-0'>
             {/* Calendar Header */}
             <div className='flex items-center justify-between mb-6'>
                <button
@@ -136,7 +136,7 @@ function CalendarView() {
                </div>
             </div>
 
-            {/* Mobile Calendar View */}
+            {/*//? Mobile Calendar View */}
             <div className='sm:hidden'>
                <div className='grid grid-cols-7 gap-2 mb-4 text-center text-sm font-medium'>
                   {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day) => (

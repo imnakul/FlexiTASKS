@@ -106,7 +106,7 @@ const ParticleBackground = ({
    return (
       <canvas
          ref={canvasRef}
-         className='fixed inset-0 z-0 w-full h-full'
+         className='fixed inset-0 sm:top-[65px] top-[62px] z-0 w-full h-full'
          data-oid='.16.-fl'
       />
    )

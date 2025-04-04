@@ -72,7 +72,7 @@ function MatrixView() {
    ]
 
    return (
-      <div className='p-4'>
+      <div className='sm:p-4 p-0'>
          {/* Mobile View */}
          <div className='sm:hidden space-y-4'>
             {sections.map((section) => (

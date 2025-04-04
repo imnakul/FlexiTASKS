@@ -75,7 +75,10 @@ function TimelineView() {
    return (
       <div className='space-y-6'>
          {sections.map((section) => (
-            <div key={section.id} className={`${section.color} rounded-lg p-4`}>
+            <div
+               key={section.id}
+               className={`${section.color} rounded-lg sm:p-4 p-2`}
+            >
                <h3 className='text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300'>
                   {section.label}
                </h3>
