@@ -9,7 +9,7 @@ const defaultInterfaceSettings = {
       notes: false,
       priority: false,
       dueDate: false,
-      achievement: false,
+
       viewModes: false,
       category: false,
       status: false,
@@ -19,7 +19,7 @@ const defaultInterfaceSettings = {
       notes: true,
       priority: true,
       dueDate: true,
-      achievement: true,
+
       viewModes: true,
       category: true,
       status: true,
@@ -29,7 +29,7 @@ const defaultInterfaceSettings = {
       notes: true,
       priority: true,
       dueDate: true,
-      achievement: false,
+
       viewModes: true,
       category: true,
       status: true,

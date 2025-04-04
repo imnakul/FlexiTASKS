@@ -238,7 +238,7 @@ function App() {
                                     <div className='p-3 sm:p-4 overflow-y-auto md:h-[55vh] lg:h-[88vh] '>
                                        <div className='space-y-3 '>
                                           {viewMode === 'list' && (
-                                             <div className='space-y-3  '>
+                                             <div className='space-y-4  '>
                                                 {displayTodos.map((todo) => (
                                                    <TodoItem
                                                       key={todo.id}
@@ -380,7 +380,7 @@ function App() {
                               <div className='p-4 sm:p-6'>
                                  <div className='space-y-3'>
                                     {viewMode === 'list' && (
-                                       <div className='space-y-3 p-3 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
+                                       <div className='space-y-4 p-3 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
                                           {displayTodos.map((todo) => (
                                              <TodoItem
                                                 key={todo.id}
@@ -516,7 +516,7 @@ function App() {
                               <div className='p-4 sm:p-6'>
                                  <div className='space-y-3'>
                                     {viewMode === 'list' && (
-                                       <div className='space-y-3'>
+                                       <div className='space-y-4'>
                                           {displayTodos.map((todo) => (
                                              <TodoItem
                                                 key={todo.id}

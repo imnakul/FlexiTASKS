@@ -223,7 +223,7 @@ function TodoItem({ todo }) {
          )} ${getColorClass(appTheme.colorTheme, 'hover')}  ${getColorClass(
             appTheme.colorTheme,
             'shadow'
-         )} p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700   transition-all duration-300 `}
+         )} p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 `}
       >
          <div className='flex flex-col sm:flex sm:flex-row items-start sm:gap-4 gap-1'>
             {/* Checkbox and Main Content */}

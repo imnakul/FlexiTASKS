@@ -55,15 +55,6 @@ function ThemeSettings({ onClose }) {
 
    return (
       <div className='bg-white/30 dark:bg-black/30 p-2 sm:p-4 rounded-lg'>
-         {/* Title */}
-         {/* <h2 className='text-xl font-semibold text-center mb-4 text-white flex items-center justify-center gap-2'>
-            <FaPalette className='w-5 h-5 text-purple-500' />
-            Theme Settings
-         </h2> */}
-
-         {/* Divider */}
-         {/* <div className='border-b border-gray-700 mb-4'></div> */}
-
          {/* Settings Grid */}
          <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
             {/* Left Column */}

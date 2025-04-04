@@ -164,7 +164,7 @@ function CalendarView() {
                            onClick={() =>
                               setSelectedDate(isSelected ? null : day)
                            }
-                           className={`aspect-square border border-gray-500 p-0.5 rounded-md cursor-pointer transition-all duration-200 size-11 ${
+                           className={`aspect-square border border-gray-500 px-1 py-0 rounded-md cursor-pointer transition-all duration-200 size-11 ${
                               isSelected
                                  ? ` ${getColorClass(appTheme.colorTheme)}`
                                  : hasEvents

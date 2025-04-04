@@ -433,7 +433,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
 
             <button
                type='submit'
-               className={`space-grotesk ml-auto sm:px-4 sm:py-2 px-3 py-1.5 rounded-lg text-sm font-medium ${getColorClass(
+               className={`space-grotesk ml-auto px-4 py-2  rounded-lg text-sm font-medium ${getColorClass(
                   appTheme.colorTheme,
                   'buttonbg'
                )} text-white ${getColorClass(
