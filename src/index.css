@@ -41,6 +41,13 @@
     );
 }
 
+@media (min-width: 768px) {
+html, body {
+   /* Or your dark background */
+  overscroll-behavior: none; /* Optional: prevents bounce */
+}
+}
+
 
 
   
