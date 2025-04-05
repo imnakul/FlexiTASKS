@@ -193,6 +193,53 @@ const colorOptions = {
       particle: '#f94fff',
       toggle: 'peer-checked:bg-fuchsia-600 dark:peer-checked:bg-fuchsia-600',
    },
+   rgb: {
+      bg: 'bg-white/30 dark:bg-white/5', // Semi-transparent for light overlay
+      hover: 'hover:border-cyan-400 dark:hover:border-green-400',
+      shadow:
+         'hover:shadow-lg hover:shadow-cyan-300/30 dark:hover:shadow-green-400/10',
+      buttonbg:
+         'bg-gradient-to-r from-cyan-400 via-pink-400 to-yellow-400 text-white dark:from-cyan-600 dark:via-pink-600 dark:to-yellow-600',
+      buttonbghover: 'hover:opacity-90 dark:hover:opacity-80',
+      ring: 'focus:ring-cyan-500 dark:focus:ring-green-400',
+      text: 'text-cyan-700 dark:text-green-300',
+      hovertext: 'hover:text-pink-500 dark:hover:text-yellow-400',
+      navbar: 'rgb-gradient', // Your gradient class here
+      modal: 'rgb-modal', // The gradient background modal
+      border: 'border-cyan-200 dark:border-green-900/30',
+      particle: '#00f0ff', // Could be cyan or mix of the RGB tones
+      toggle: 'peer-checked:bg-pink-500 dark:peer-checked:bg-green-500',
+   },
+   rose: {
+      bg: 'bg-rose-200 dark:bg-rose-900/20',
+      hover: 'hover:border-rose-600 dark:hover:border-rose-600',
+      shadow: 'hover:shadow-lg hover:shadow-rose-500/20',
+      buttonbg: 'bg-rose-500 dark:bg-rose-800',
+      buttonbghover: 'hover:bg-rose-400 dark:hover:bg-rose-700',
+      ring: 'focus:ring-rose-800 dark:focus:ring-rose-500',
+      text: 'text-rose-800 dark:text-rose-200',
+      hovertext: 'hover:text-rose-500 dark:hover:text-rose-400',
+      navbar: 'bg-gradient-to-r from-indigo-600/80 to-rose-600/80',
+      modal: 'bg-gradient-to-r from-indigo-600/40 to-rose-600/40',
+      border: 'border-rose-200 dark:border-rose-800',
+      particle: '#f94fff',
+      toggle: 'peer-checked:bg-rose-600 dark:peer-checked:bg-rose-600',
+   },
+   none: {
+      bg: '',
+      hover: '',
+      shadow: '',
+      buttonbg: '',
+      buttonbghover: '',
+      ring: '',
+      text: '',
+      hovertext: '',
+      navbar: '',
+      modal: '',
+      border: '',
+      particle: '#5c5a54',
+      toggle: 'peer-checked:bg-gray-600 dark:peer-checked:bg-gray-600',
+   },
 }
 
 // Function to get Tailwind class dynamically

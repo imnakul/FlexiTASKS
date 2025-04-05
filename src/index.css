@@ -27,6 +27,20 @@
 		font-family: "Space Grotesk", sans-serif;
 	}
   
+  .rgb-gradient {
+		background-image: linear-gradient(to right, #00aeff, #ff007a, #ffff00, #00ff00);
+	}
+
+  .rgb-modal {
+    background: linear-gradient(
+        to right,
+        rgba(0, 174, 255, 0.4),  /* Blue with 40% opacity */
+        rgba(255, 0, 122, 0.4),  /* Pink with 40% opacity */
+        rgba(255, 255, 0, 0.4),  /* Yellow with 40% opacity */
+        rgba(0, 255, 0, 0.4)     /* Green with 40% opacity */
+    );
+}
+
 
 
   

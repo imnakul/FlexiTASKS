@@ -29,6 +29,12 @@ function ThemeSettings({ onClose }) {
       { name: 'emerald', class: 'bg-emerald-500' },
       { name: 'cyan', class: 'bg-cyan-500' },
       { name: 'fuchsia', class: 'bg-fuchsia-500' },
+      {
+         name: 'rgb',
+         class: 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500',
+      },
+      { name: 'rose', class: 'bg-rose-500 ' },
+      { name: 'none', class: 'bg-gradient-to-br from-black to-white' },
    ]
 
    const backgroundOptions = [
