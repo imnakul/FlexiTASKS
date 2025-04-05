@@ -18,20 +18,35 @@ import { useAppTheme } from './contexts/AppThemeContext'
 import { useTheme } from './contexts/ThemeContext.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import RainBackground from './components/backgrounds/RainBackground.jsx'
+import { VscFoldDown, VscFoldUp } from 'react-icons/vsc'
 
 function App() {
    const todos = useSelector((state) => state.todos.todos)
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
+   const [formAreaShow, setFormAreaShow] = useState(false)
+   const [isMobile, setIsMobile] = useState(false)
    const { appTheme, getColorClass } = useAppTheme()
    let priorityHidden = !appTheme.taskInterface.features.priority
    let categoryHidden = !appTheme.taskInterface.features.category
    let dueDateHidden = !appTheme.taskInterface.features.dueDate
    let allSortHidden = false
+
    if (priorityHidden && categoryHidden && dueDateHidden) {
       allSortHidden = true
    }
+
+   useEffect(() => {
+      const checkScreen = () => {
+         setIsMobile(window.innerWidth < 640)
+      }
+
+      checkScreen() // run once at mount
+      window.addEventListener('resize', checkScreen)
+
+      return () => window.removeEventListener('resize', checkScreen)
+   }, [])
 
    // Filter todos based on the current filter
    const filteredTodos = todos.filter((todo) => {
@@ -68,6 +83,10 @@ function App() {
 
    const particle = getColorClass(appTheme.colorTheme, 'particle')
    const theme = useTheme()
+
+   const handleFormArea = () => {
+      setFormAreaShow(!formAreaShow)
+   }
 
    return (
       <>
@@ -120,28 +139,58 @@ function App() {
                            'border'
                         )}`}
                      >
-                        {/* //? MAXIMAL MODE SPLIT VIEW */}
+                        {/* //* MAXIMAL MODE SPLIT VIEW */}
                         {appTheme.taskInterface.mode === 'maximal' && (
                            <>
-                              <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
-                                 {/* //Form grid  */}
-                                 <div>
-                                    <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
-                                       <h2
-                                          className='text-base font-medium text-gray-800 dark:text-gray-200 
-                            mb-3 sm:mb-4 space-grotesk'
-                                       >
-                                          Add New Task
-                                       </h2>
-                                       <TodoForm />
-                                    </div>
+                              <div className='relative grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                                 {/* //?Form grid  */}
+                                 {/* //Collpase extend button for mobile view */}
+                                 <button
+                                    className='sm:hidden block absolute top-5 right-5'
+                                    onClick={handleFormArea}
+                                 >
+                                    {formAreaShow ? (
+                                       <VscFoldUp
+                                          className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 `}
+                                          style={{ strokeWidth: 1 }}
+                                       />
+                                    ) : (
+                                       <VscFoldDown
+                                          className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
+                                          style={{ strokeWidth: 1 }}
+                                       />
+                                    )}
+                                 </button>
 
+                                 <div>
+                                    {console.log('isMobile:', isMobile)}
+                                    {(!isMobile ||
+                                       (isMobile && formAreaShow)) && (
+                                       <>
+                                          <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
+                                             <h2
+                                                className='text-sm font-medium text-gray-500 dark:text-gray-400 
+                            mb-3 sm:mb-4 space-grotesk'
+                                             >
+                                                Add New Task
+                                             </h2>
+
+                                             <TodoForm />
+                                          </div>
+                                       </>
+                                    )}
                                     <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
                                        <div className='flex flex-col gap-3 sm:gap-4'>
                                           {appTheme.taskInterface.features
                                              .viewModes && (
                                              <div>
-                                                <h3 className='space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
+                                                <h3
+                                                   className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
+                                                      !formAreaShow && isMobile
+                                                         ? 'mt-3 mb-3'
+                                                         : 'mt-0 mb-2'
+                                                   }`}
+                                                >
                                                    View Mode
                                                 </h3>
                                                 <ViewModeSelector
@@ -233,9 +282,20 @@ function App() {
                                        </div>
                                     </div>
                                  </div>
+
                                  {/* //Todo Grid  */}
                                  <div>
-                                    <div className='p-3 sm:p-4 overflow-y-auto md:h-[55vh] lg:h-[88vh] '>
+                                    <div
+                                       className={`p-4 sm:p-4 overflow-y-auto 
+                                       ${
+                                          !formAreaShow && viewMode === 'list'
+                                             ? 'h-[65vh]'
+                                             : !formAreaShow &&
+                                               viewMode !== 'list'
+                                             ? 'h-[68vh]'
+                                             : ''
+                                       } md:h-[55vh] lg:h-[88vh] `}
+                                    >
                                        <div className='space-y-3 '>
                                           {viewMode === 'list' && (
                                              <div className='space-y-4  '>
@@ -271,7 +331,7 @@ function App() {
                            </>
                         )}
 
-                        {/* //? MINIMAL MODE */}
+                        {/* //* MINIMAL MODE */}
                         {appTheme.taskInterface.mode === 'minimal' && (
                            <>
                               <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
@@ -377,10 +437,10 @@ function App() {
                                  </div>
                               </div>
 
-                              <div className='p-4 sm:p-6'>
+                              <div className='p-2 sm:p-6'>
                                  <div className='space-y-3'>
                                     {viewMode === 'list' && (
-                                       <div className='space-y-4 p-3 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
+                                       <div className='space-y-4 p-2 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
                                           {displayTodos.map((todo) => (
                                              <TodoItem
                                                 key={todo.id}
@@ -407,7 +467,7 @@ function App() {
                            </>
                         )}
 
-                        {/* //? CUSTOM MODE */}
+                        {/* //* CUSTOM MODE */}
                         {appTheme.taskInterface.mode === 'custom' && (
                            <>
                               <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
