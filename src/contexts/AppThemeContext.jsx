@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { useScreenSize } from './useScreenSize'
 
 const AppThemeContext = createContext()
 
@@ -34,15 +35,15 @@ const defaultInterfaceSettings = {
 }
 
 // Default app theme settings
-const defaultAppTheme = {
-   designBasis: 'text', // 'text' or 'icon'
-   colorTheme: 'purple', // 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
-   background: 'particle', // 'particle', 'rain mode', 'wave', 'others'
-   taskInterface: {
-      mode: 'minimal', // 'minimal', 'maximal', 'custom'
-      features: defaultInterfaceSettings.minimal,
-   },
-}
+// const defaultAppTheme = {
+//    designBasis: 'text', // 'text' or 'icon'
+//    colorTheme: 'purple', // 'red', 'orange', 'yellow', 'green', 'blue', 'purple'
+//    background: 'particle', // 'particle', 'rain mode', 'wave', 'others'
+//    taskInterface: {
+//       mode: 'minimal', // 'minimal', 'maximal', 'custom'
+//       features: defaultInterfaceSettings.minimal,
+//    },
+// }
 
 // Helper function to validate app theme object
 const isValidAppTheme = (theme) => {
@@ -171,8 +172,9 @@ const colorOptions = {
       ring: 'focus:ring-cyan-800 dark:focus:ring-cyan-500',
       text: 'text-cyan-800 dark:text-cyan-200',
       hovertext: 'hover:text-cyan-500 dark:hover:text-cyan-400',
-      navbar: 'bg-gradient-to-r from-green-600/80 to-cyan-600/80',
-      modal: 'bg-gradient-to-r from-green-600/40 to-cyan-600/40',
+      navbar: 'bg-gradient-to-r from-cyan-400/80 via-sky-500/80 to-cyan-600/80',
+
+      modal: 'bg-gradient-to-r from-cyan-400/40 via-sky-500/40 to-cyan-600/40',
       border: 'border-cyan-200 dark:border-cyan-800',
       // particle: '#4fffe5',
       particle: '#02a8c9',
@@ -248,18 +250,50 @@ const getColorClass = (themeColor, type = 'bg') => {
 }
 
 export function AppThemeProvider({ children }) {
-   // Initialize state from localStorage or use defaults
+   const screenSize = useScreenSize()
+
+   // 🔧 MODIFIED: Get default app theme based on screen size
+   const getDefaultAppThemeBasedOnScreen = () => {
+      let mode = 'minimal'
+      if (screenSize.isLarge) mode = 'maximal'
+      else if (screenSize.isMedium) mode = 'custom'
+      // console.log('screenSize', screenSize)
+      // console.log('selected Mode value based on screen size came', mode)
+      return {
+         designBasis: 'text',
+         colorTheme: screenSize.isSmall
+            ? 'purple'
+            : screenSize.isMedium
+            ? 'purple'
+            : 'blue',
+         background: 'particle',
+         taskInterface: {
+            mode,
+            features: defaultInterfaceSettings[mode],
+         },
+      }
+   }
+
+   // 🔧 MODIFIED: Initialize state from localStorage or screen-based default
    const [appTheme, setAppTheme] = useState(() => {
+      const defaultTheme = getDefaultAppThemeBasedOnScreen()
       try {
          const savedTheme = localStorage.getItem('appTheme')
-         if (!savedTheme) return defaultAppTheme
+         if (!savedTheme) {
+            // const defaultTheme = getDefaultAppThemeBasedOnScreen()
+            // console.log('default theme', defaultTheme)
+            localStorage.setItem('appTheme', JSON.stringify(defaultTheme))
+            return defaultTheme
+         }
 
          const parsedTheme = JSON.parse(savedTheme)
          if (!isValidAppTheme(parsedTheme)) {
             console.warn(
-               'Invalid app theme data found in localStorage, using default theme'
+               'Invalid app theme data found in localStorage, using screen-based theme'
             )
-            return defaultAppTheme
+            const defaultTheme = getDefaultAppThemeBasedOnScreen()
+            localStorage.setItem('appTheme', JSON.stringify(defaultTheme))
+            return defaultTheme
          }
 
          // Ensure taskInterface has the correct structure
@@ -273,11 +307,13 @@ export function AppThemeProvider({ children }) {
          return parsedTheme
       } catch (error) {
          console.warn('Error parsing app theme from localStorage:', error)
-         return defaultAppTheme
+         const defaultTheme = getDefaultAppThemeBasedOnScreen()
+         localStorage.setItem('appTheme', JSON.stringify(defaultTheme))
+         return defaultTheme
       }
    })
 
-   // Persist app theme changes to localStorage
+   // ⏺ NO CHANGE: Persist theme to localStorage when user updates it
    useEffect(() => {
       try {
          localStorage.setItem('appTheme', JSON.stringify(appTheme))
@@ -286,22 +322,17 @@ export function AppThemeProvider({ children }) {
       }
    }, [appTheme])
 
-   // Apply app theme settings to document
+   // ⏺ NO CHANGE: Apply theme to document
    useEffect(() => {
       try {
-         // Apply color theme
          document.documentElement.setAttribute(
             'data-color-theme',
             appTheme.colorTheme
          )
-
-         // Apply background
          document.documentElement.setAttribute(
             'data-background',
             appTheme.background
          )
-
-         // Apply design basis
          document.documentElement.setAttribute(
             'data-design-basis',
             appTheme.designBasis
@@ -311,7 +342,7 @@ export function AppThemeProvider({ children }) {
       }
    }, [appTheme.colorTheme, appTheme.background, appTheme.designBasis])
 
-   // Theme manipulation functions
+   // ⏺ NO CHANGE: Theme setter functions
    const setDesignBasis = (basis) => {
       setAppTheme((prev) => ({ ...prev, designBasis: basis }))
    }

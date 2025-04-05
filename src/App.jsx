@@ -25,7 +25,7 @@ function App() {
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
-   const [formAreaShow, setFormAreaShow] = useState(false)
+   const [formAreaShow, setFormAreaShow] = useState(true)
    const [isMobile, setIsMobile] = useState(false)
    const { appTheme, getColorClass } = useAppTheme()
    let priorityHidden = !appTheme.taskInterface.features.priority
