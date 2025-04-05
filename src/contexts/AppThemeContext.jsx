@@ -9,7 +9,6 @@ const defaultInterfaceSettings = {
       notes: false,
       priority: false,
       dueDate: false,
-
       viewModes: false,
       category: false,
       status: false,
@@ -19,7 +18,6 @@ const defaultInterfaceSettings = {
       notes: true,
       priority: true,
       dueDate: true,
-
       viewModes: true,
       category: true,
       status: true,
@@ -29,7 +27,6 @@ const defaultInterfaceSettings = {
       notes: true,
       priority: true,
       dueDate: true,
-
       viewModes: true,
       category: true,
       status: true,
@@ -102,7 +99,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-lime-600/80 to-yellow-600/80',
       modal: 'bg-gradient-to-r from-lime-600/40 to-yellow-600/40',
       border: 'border-yellow-200 dark:border-yellow-800',
-      particle: '#f9ff4f',
+      particle: '#ccd400',
       toggle: 'peer-checked:bg-yellow-600 dark:peer-checked:bg-yellow-600',
    },
    green: {
@@ -117,7 +114,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-emerald-600/80 to-green-600/80',
       modal: 'bg-gradient-to-r from-emerald-600/40 to-green-600/40',
       border: 'border-green-200 dark:border-green-800',
-      particle: '#4fff61',
+      particle: '#05e31b',
       toggle: 'peer-checked:bg-green-600 dark:peer-checked:bg-green-600',
    },
    blue: {
@@ -132,7 +129,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-sky-600/80 to-blue-600/80',
       modal: 'bg-gradient-to-r from-sky-600/40 to-blue-600/40',
       border: 'border-blue-200 dark:border-blue-800',
-      particle: '#4fd3ff',
+      particle: '#029bc9',
       toggle: 'peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600',
    },
    purple: {
@@ -162,7 +159,7 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-purple-600/80 to-emerald-600/80',
       modal: 'bg-gradient-to-r from-purple-600/40 to-emerald-600/40',
       border: 'border-emerald-200 dark:border-emerald-800',
-      particle: '#4fff8a',
+      particle: '#02c97d',
       toggle: 'peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600',
    },
    cyan: {
@@ -177,7 +174,8 @@ const colorOptions = {
       navbar: 'bg-gradient-to-r from-green-600/80 to-cyan-600/80',
       modal: 'bg-gradient-to-r from-green-600/40 to-cyan-600/40',
       border: 'border-cyan-200 dark:border-cyan-800',
-      particle: '#4fffe5',
+      // particle: '#4fffe5',
+      particle: '#02a8c9',
       toggle: 'peer-checked:bg-cyan-600 dark:peer-checked:bg-cyan-600',
    },
    fuchsia: {

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-const MistyGlowParticles = () => {
+const MistyGlowParticles = ({ particleColor = '#427d82' }) => {
    const canvasRef = useRef(null)
 
    useEffect(() => {
@@ -23,8 +23,17 @@ const MistyGlowParticles = () => {
                speedX: Math.random() * 0.5 - 0.25,
                speedY: Math.random() * 0.5 - 0.25,
                opacity: Math.random() * 0.5 + 0.5,
+               color: particleColor,
             })
          }
+      }
+
+      const hexToRgb = (hex) => {
+         hex = hex.replace(/^#/, '')
+         let r = parseInt(hex.substring(0, 2), 16)
+         let g = parseInt(hex.substring(2, 4), 16)
+         let b = parseInt(hex.substring(4, 6), 16)
+         return `${r}, ${g}, ${b}`
       }
 
       const animate = () => {
@@ -37,7 +46,8 @@ const MistyGlowParticles = () => {
             if (p.x > canvas.width || p.x < 0) p.speedX *= -1
             if (p.y > canvas.height || p.y < 0) p.speedY *= -1
 
-            ctx.fillStyle = `rgba(200, 200, 255, ${p.opacity})`
+            // ctx.fillStyle = `rgba(200, 200, 255, ${p.opacity})`
+            ctx.fillStyle = `rgba(${hexToRgb(p.color)}, ${p.opacity})`
             ctx.shadowBlur = 10
             ctx.shadowColor = 'rgba(200, 200, 255, 1)'
 
@@ -60,7 +70,7 @@ const MistyGlowParticles = () => {
    return (
       <canvas
          ref={canvasRef}
-         className='absolute sm:top-[65px] top-[62px] left-0 w-full h-full'
+         className='fixed sm:top-[65px] top-[62px] left-0 w-full h-full'
       />
    )
 }

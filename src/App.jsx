@@ -104,7 +104,7 @@ function App() {
             <FogEffect particleColor={particle} />
          )}
          {appTheme.background === 'mistyGlow' && (
-            <MistyGlowParticles particleCount={50} />
+            <MistyGlowParticles particleCount={50} particleColor={particle} />
          )}
          {appTheme.background === 'orbs' && (
             <FloatingGlowingOrbs orbColor={particle} />
@@ -119,7 +119,7 @@ function App() {
             <Navbar />
 
             <div
-               className={`flex w-screen min-h-screen h-full ${getColorClass(
+               className={`flex w-screen min-h-screen ${getColorClass(
                   appTheme.colorTheme
                )}`}
             >
@@ -163,7 +163,6 @@ function App() {
                                  </button>
 
                                  <div>
-                                    {console.log('isMobile:', isMobile)}
                                     {(!isMobile ||
                                        (isMobile && formAreaShow)) && (
                                        <>
@@ -470,14 +469,38 @@ function App() {
                         {/* //* CUSTOM MODE */}
                         {appTheme.taskInterface.mode === 'custom' && (
                            <>
-                              <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
-                                 <h2
-                                    className='text-base font-medium text-gray-800 dark:text-gray-200 
-                            mb-3 sm:mb-4 space-grotesk'
+                              <div className='relative'>
+                                 <button
+                                    className=' absolute top-5 right-5 sm:right-7'
+                                    onClick={handleFormArea}
                                  >
-                                    Add New Task
-                                 </h2>
-                                 <TodoForm />
+                                    {formAreaShow ? (
+                                       <VscFoldUp
+                                          className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 `}
+                                          style={{ strokeWidth: 1 }}
+                                       />
+                                    ) : (
+                                       <VscFoldDown
+                                          className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
+                                          style={{ strokeWidth: 1 }}
+                                       />
+                                    )}
+                                 </button>
+
+                                 {formAreaShow && (
+                                    <>
+                                       <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
+                                          <h2
+                                             className='text-sm font-medium text-gray-500 dark:text-gray-400 
+                            mb-3 sm:mb-4 space-grotesk'
+                                          >
+                                             Add New Task
+                                          </h2>
+
+                                          <TodoForm />
+                                       </div>
+                                    </>
+                                 )}
                               </div>
 
                               <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
@@ -485,7 +508,13 @@ function App() {
                                     {appTheme.taskInterface.features
                                        .viewModes && (
                                        <div>
-                                          <h3 className='space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
+                                          <h3
+                                             className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
+                                                !formAreaShow && isMobile
+                                                   ? 'mt-3 mb-3'
+                                                   : 'mt-0 mb-2'
+                                             }`}
+                                          >
                                              View Mode
                                           </h3>
                                           <ViewModeSelector
@@ -573,7 +602,15 @@ function App() {
                                  </div>
                               </div>
 
-                              <div className='p-4 sm:p-6'>
+                              <div
+                                 className={`p-4 sm:p-6 overflow-y-auto ${
+                                    !formAreaShow && viewMode === 'list'
+                                       ? 'h-[65vh] '
+                                       : !formAreaShow && viewMode !== 'list'
+                                       ? 'h-[68vh]'
+                                       : ''
+                                 } `}
+                              >
                                  <div className='space-y-3'>
                                     {viewMode === 'list' && (
                                        <div className='space-y-4'>
