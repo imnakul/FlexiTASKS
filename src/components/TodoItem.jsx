@@ -311,10 +311,12 @@ function TodoItem({ todo }) {
                                  : ''
                            }`}
                         >
-                           <FaLayerGroup className='sm:block hidden w-3 h-3' />
-                           {todo.completed
-                              ? 'Completed'
-                              : getStageName(todo.stage)}
+                           <FaLayerGroup className='sm:block hidden w-3 h-3 ' />
+                           <span className='text-xs inter'>
+                              {todo.completed
+                                 ? 'Completed'
+                                 : getStageName(todo.stage)}
+                           </span>
                         </span>
                         {!todo.completed && (
                            <select

@@ -79,10 +79,10 @@ function TimelineView() {
                key={section.id}
                className={`${section.color} rounded-lg sm:p-4 p-2`}
             >
-               <h3 className='text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300'>
+               <h3 className='space-grotesk text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300'>
                   {section.label}
                </h3>
-               <div className='space-y-3'>
+               <div className='inter space-y-3'>
                   {todosByDate[section.id].map((todo) => (
                      <TodoItem key={todo.id} todo={todo} />
                   ))}

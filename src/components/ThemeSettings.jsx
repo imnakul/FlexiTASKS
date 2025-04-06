@@ -127,7 +127,7 @@ function ThemeSettings({ onClose }) {
                         >
                            Features
                         </h3>
-                        <div className='space-y-3 bg-gray-800/50 rounded-md p-3'>
+                        <div className='space-y-2 sm:space-y-3 bg-gray-800/50 rounded-md p-2 sm:p-3'>
                            {Object.entries(appTheme.taskInterface.features).map(
                               ([feature, enabled]) => (
                                  <div

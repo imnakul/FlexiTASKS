@@ -86,15 +86,15 @@ function MatrixView() {
                            activeSection === section.id ? null : section.id
                         )
                      }
-                     className='w-full p-4 text-left focus:outline-none'
+                     className='w-full p-4 text-left focus:outline-none space-grotesk'
                   >
                      <div className='flex items-center justify-between'>
                         <h3
-                           className={`text-lg font-semibold ${section.textColor}`}
+                           className={`space-grotesk text-lg font-semibold ${section.textColor}`}
                         >
                            {section.title}
                         </h3>
-                        <span className='text-sm text-gray-600 dark:text-gray-400'>
+                        <span className='space-grotesk text-sm text-gray-600 dark:text-gray-400'>
                            {section.todos.length} tasks
                         </span>
                      </div>
@@ -107,11 +107,11 @@ function MatrixView() {
                               key={todo.id}
                               className='bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm'
                            >
-                              <p className='font-medium text-gray-900 dark:text-gray-100'>
+                              <p className='inter font-medium text-gray-900 dark:text-gray-100'>
                                  {todo.todo}
                               </p>
                               {todo.dueDate && (
-                                 <p className='text-sm text-gray-500 dark:text-gray-400'>
+                                 <p className='space-grotesk text-sm text-gray-500 dark:text-gray-400'>
                                     Due:{' '}
                                     {new Date(
                                        todo.dueDate
@@ -121,7 +121,7 @@ function MatrixView() {
                            </div>
                         ))}
                         {section.todos.length === 0 && (
-                           <p className='text-gray-500 dark:text-gray-400 text-sm'>
+                           <p className='inter text-gray-500 dark:text-gray-400 text-sm'>
                               No tasks in this category
                            </p>
                         )}

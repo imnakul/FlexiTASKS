@@ -175,6 +175,7 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
    return (
       <form onSubmit={handleSubmit} className='sm:space-y-5 space-y-3'>
          {/* Main Task Input Row */}
+
          <div className='lg:flex hidden flex-wrap gap-3 items-center'>
             <div
                className='relative flex-1 min-w-[200px] max-w-xl'
@@ -262,7 +263,8 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
          </div>
 
          {/* //? Mobile View  */}
-         <div className='lg:hidden flex flex-wrap gap-1.5 items-center'>
+
+         <div className={`lg:hidden flex flex-wrap gap-3 items-center`}>
             <div
                className='relative flex-1 min-w-[250px] max-w-2xl'
                ref={wrapperRef}
@@ -288,7 +290,7 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
             </div>
             {appTheme.taskInterface.features.priority && (
                <>
-                  <fieldset className='fieldset '>
+                  <fieldset className='fieldset pb-2'>
                      <legend className='fieldset-legend text-gray-500 dark:text-gray-400 text-xs pl-1'>
                         Priority
                      </legend>
@@ -310,7 +312,7 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
             )}
 
             {appTheme.taskInterface.features.category && (
-               <fieldset className='fieldset '>
+               <fieldset className='fieldset pb-2'>
                   <legend className='fieldset-legend text-gray-500 dark:text-gray-400 text-xs pl-1'>
                      Category
                   </legend>
@@ -333,7 +335,7 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
 
             {appTheme.taskInterface.features.dueDate && (
                <div className='relative'>
-                  <fieldset className='fieldset '>
+                  <fieldset className='fieldset pb-2'>
                      <legend className='fieldset-legend text-gray-500 dark:text-gray-400 text-xs pl-1'>
                         DueDate
                      </legend>

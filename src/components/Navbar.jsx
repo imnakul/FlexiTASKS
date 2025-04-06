@@ -73,7 +73,7 @@ function Navbar() {
                            'border'
                         )} */}
                      <h1
-                        className='antialiased space-gestrok text-lg sm:text-2xl font-extrabold text-gray-800 dark:text-white 
+                        className='antialiased space-grotesk text-lg sm:text-2xl font-extrabold text-gray-800 dark:text-white 
                      '
                      >
                         FlexiTASKS

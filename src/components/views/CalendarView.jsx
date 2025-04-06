@@ -142,7 +142,7 @@ function CalendarView() {
                   {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day) => (
                      <div
                         key={day}
-                        className='p-2 text-gray-600 dark:text-gray-300'
+                        className='space-grotesk p-2 text-gray-600 dark:text-gray-300'
                      >
                         {day}
                      </div>
@@ -174,7 +174,7 @@ function CalendarView() {
                         >
                            <div className='h-full flex flex-col'>
                               <div
-                                 className={`text-sm font-medium mb-1 text-gray-900 dark:text-gray-100 ${
+                                 className={`space-grotesk text-sm font-medium mb-1 text-gray-900 dark:text-gray-100 ${
                                     hasEvents
                                        ? `${getColorClass(
                                             appTheme.colorTheme,
@@ -188,7 +188,7 @@ function CalendarView() {
                               <div className='flex-1 overflow-y-auto'>
                                  {hasEvents && !isSelected && (
                                     <div
-                                       className={`text-xs ${getColorClass(
+                                       className={`inter text-xs ${getColorClass(
                                           appTheme.colorTheme,
                                           'text'
                                        )}`}
@@ -207,7 +207,7 @@ function CalendarView() {
                {/* Mobile Task List */}
                {selectedDate && (
                   <div className='mt-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg'>
-                     <h3 className='text-lg font-medium mb-4 text-gray-900 dark:text-gray-100'>
+                     <h3 className='text-lg space-grotesk font-medium mb-4 text-gray-900 dark:text-gray-100'>
                         Tasks for{' '}
                         {currentDate.toLocaleString('default', {
                            month: 'long',
@@ -235,7 +235,7 @@ function CalendarView() {
                                     )}`}
                                  />
                                  <span
-                                    className={`flex-1 text-gray-900 dark:text-gray-100 ${
+                                    className={`inter flex-1 text-gray-900 dark:text-gray-100 ${
                                        todo.completed
                                           ? 'line-through text-gray-500'
                                           : ''
@@ -244,7 +244,7 @@ function CalendarView() {
                                     {todo.todo}
                                  </span>
                               </div>
-                              <div className='mt-1 text-sm text-gray-500 dark:text-gray-400'>
+                              <div className='space-grotesk mt-1 text-xs text-gray-500 dark:text-gray-400'>
                                  {todo.priority} • {todo.category}
                               </div>
                            </div>

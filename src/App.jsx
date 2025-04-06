@@ -361,7 +361,7 @@ function App() {
                                  >
                                     Add New Task
                                  </h2>
-                                 <TodoForm />
+                                 <TodoForm ref={todoFormRef} />
                               </div>
 
                               <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
@@ -433,7 +433,10 @@ function App() {
                                                 onChange={(e) =>
                                                    setSortBy(e.target.value)
                                                 }
-                                                className='space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
+                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
+                                                   appTheme.colorTheme,
+                                                   'ring'
+                                                )} transition-all duration-200 w-full sm:w-auto`}
                                              >
                                                 {!priorityHidden && (
                                                    <option value='priority'>
@@ -484,6 +487,23 @@ function App() {
                                     )}
                                  </div>
                               </div>
+                              <button
+                                 onClick={() => {
+                                    setFormAreaShow(true)
+                                    setTimeout(() => {
+                                       todoFormRef.current?.focusInput()
+                                    }, 0) // Short delay, just enough for DOM to render
+                                 }}
+                                 className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'buttonbg'
+                                 )} text-white ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'buttonbghover'
+                                 )} transition-all duration-200 `}
+                              >
+                                 <IoIosAdd className='size-6' />
+                              </button>
                            </>
                         )}
 
@@ -518,7 +538,7 @@ function App() {
                                              Add New Task
                                           </h2>
 
-                                          <TodoForm />
+                                          <TodoForm ref={todoFormRef} />
                                        </div>
                                     </>
                                  )}
@@ -599,7 +619,10 @@ function App() {
                                                 onChange={(e) =>
                                                    setSortBy(e.target.value)
                                                 }
-                                                className='space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
+                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
+                                                   appTheme.colorTheme,
+                                                   'ring'
+                                                )} transition-all duration-200 w-full sm:w-auto`}
                                              >
                                                 {!priorityHidden && (
                                                    <option value='priority'>
@@ -658,8 +681,26 @@ function App() {
                                     )}
                                  </div>
                               </div>
+                              <button
+                                 onClick={() => {
+                                    setFormAreaShow(true)
+                                    setTimeout(() => {
+                                       todoFormRef.current?.focusInput()
+                                    }, 30) // Short delay, just enough for DOM to render
+                                 }}
+                                 className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'buttonbg'
+                                 )} text-white ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'buttonbghover'
+                                 )} transition-all duration-200 `}
+                              >
+                                 <IoIosAdd className='size-6' />
+                              </button>
                            </>
                         )}
+                        {/* //? Custom Mode Ends Here  */}
                      </div>
 
                      {/* <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 transition-colors duration-300 relative z-10'>

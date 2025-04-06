@@ -28,7 +28,7 @@ function KanbanView() {
             <div
                className={`bg-sky-100 dark:bg-sky-800/20 rounded-xl p-6 min-h-[600px] flex flex-col border-2 border-sky-300 dark:border-sky-700 `}
             >
-               <h3 className='text-xl font-semibold text-cyan-700 dark:text-cyan-300 mb-6'>
+               <h3 className='text-xl space-grotesk  font-semibold text-cyan-700 dark:text-cyan-300 mb-6'>
                   Not Started
                </h3>
                <div className='space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-2'>
@@ -45,7 +45,7 @@ function KanbanView() {
 
             {/* In Progress Column */}
             <div className='bg-teal-100 dark:bg-teal-800/20 rounded-xl p-6 min-h-[600px] flex flex-col border-2 border-teal-300 dark:border-teal-700'>
-               <h3 className='text-xl font-semibold text-emerald-700 dark:text-emerald-300 mb-6'>
+               <h3 className='text-xl space-grotesk font-semibold text-emerald-700 dark:text-emerald-300 mb-6'>
                   In Progress
                </h3>
                <div className='space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-2'>
