@@ -123,7 +123,8 @@ function App() {
 
             <div
                className={`flex w-screen min-h-screen ${getColorClass(
-                  appTheme.colorTheme
+                  appTheme.colorTheme,
+                  'background'
                )}`}
             >
                <div className='container mx-auto pb-4 pt-20'>

@@ -59,7 +59,8 @@ const isValidAppTheme = (theme) => {
 
 const colorOptions = {
    red: {
-      bg: 'bg-red-200 dark:bg-red-900/20',
+      bg: 'bg-red-200 dark:bg-red-900',
+      background: 'bg-red-200 dark:bg-red-900/20',
       hover: 'hover:border-red-600 dark:hover:border-red-600',
       shadow: 'hover:shadow-lg hover:shadow-red-500/20',
       buttonbg: 'bg-red-500 dark:bg-red-800',
@@ -74,7 +75,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-red-600 dark:peer-checked:bg-red-600',
    },
    orange: {
-      bg: 'bg-orange-200 dark:bg-orange-900/20',
+      bg: 'bg-orange-200 dark:bg-orange-900',
+      background: 'bg-orange-200 dark:bg-orange-900/20',
       hover: 'hover:border-orange-600 dark:hover:border-orange-600',
       shadow: 'hover:shadow-lg hover:shadow-red-500/20',
       buttonbg: 'bg-orange-500 dark:bg-orange-800',
@@ -89,7 +91,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-orange-600 dark:peer-checked:bg-orange-600',
    },
    yellow: {
-      bg: 'bg-yellow-200 dark:bg-yellow-900/20',
+      bg: 'bg-yellow-200 dark:bg-yellow-900',
+      background: 'bg-yellow-200 dark:bg-yellow-900/20',
       hover: 'hover:border-yellow-300 dark:hover:border-yellow-500',
       shadow: 'hover:shadow-lg hover:shadow-yellow-500/20',
       buttonbg: 'bg-yellow-500 dark:bg-yellow-800',
@@ -104,7 +107,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-yellow-600 dark:peer-checked:bg-yellow-600',
    },
    green: {
-      bg: 'bg-green-200 dark:bg-green-900/20',
+      bg: 'bg-green-200 dark:bg-green-900',
+      background: 'bg-green-200 dark:bg-green-900/20',
       hover: 'hover:border-green-600 dark:hover:border-green-600',
       shadow: 'hover:shadow-lg hover:shadow-green-500/20',
       buttonbg: 'bg-green-500 dark:bg-green-800',
@@ -119,7 +123,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-green-600 dark:peer-checked:bg-green-600',
    },
    blue: {
-      bg: 'bg-blue-200 dark:bg-blue-900/20',
+      bg: 'bg-blue-200 dark:bg-blue-900',
+      background: 'bg-blue-200 dark:bg-blue-900/20',
       hover: 'hover:border-blue-600 dark:hover:border-blue-600',
       shadow: 'hover:shadow-lg hover:shadow-blue-500/20',
       buttonbg: 'bg-blue-500 dark:bg-blue-800',
@@ -134,7 +139,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600',
    },
    purple: {
-      bg: 'bg-purple-200 dark:bg-purple-900/20',
+      bg: 'bg-purple-200 dark:bg-purple-900',
+      background: 'bg-purple-200 dark:bg-purple-900/20',
       hover: 'hover:border-purple-600 dark:hover:border-purple-600',
       shadow: 'hover:shadow-lg hover:shadow-purple-500/20',
       buttonbg: 'bg-purple-500 dark:bg-purple-800',
@@ -149,7 +155,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-purple-600 dark:peer-checked:bg-purple-600',
    },
    emerald: {
-      bg: 'bg-emerald-200 dark:bg-emerald-900/20',
+      bg: 'bg-emerald-200 dark:bg-emerald-900',
+      background: 'bg-emerald-200 dark:bg-emerald-900/20',
       hover: 'hover:border-emerald-600 dark:hover:border-emerald-600',
       shadow: 'hover:shadow-lg hover:shadow-emerald-500/20',
       buttonbg: 'bg-emerald-500 dark:bg-emerald-800',
@@ -164,7 +171,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-600',
    },
    cyan: {
-      bg: 'bg-cyan-200 dark:bg-cyan-900/20',
+      bg: 'bg-cyan-200 dark:bg-cyan-900',
+      background: 'bg-cyan-200 dark:bg-cyan-900/20',
       hover: 'hover:border-cyan-600 dark:hover:border-cyan-600',
       shadow: 'hover:shadow-lg hover:shadow-cyan-500/20',
       buttonbg: 'bg-cyan-500 dark:bg-cyan-800',
@@ -181,7 +189,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-cyan-600 dark:peer-checked:bg-cyan-600',
    },
    fuchsia: {
-      bg: 'bg-fuchsia-200 dark:bg-fuchsia-900/20',
+      bg: 'bg-fuchsia-200 dark:bg-fuchsia-900',
+      background: 'bg-fuchsia-200 dark:bg-fuchsia-900/20',
       hover: 'hover:border-fuchsia-600 dark:hover:border-fuchsia-600',
       shadow: 'hover:shadow-lg hover:shadow-fuchsia-500/20',
       buttonbg: 'bg-fuchsia-500 dark:bg-fuchsia-800',
@@ -196,7 +205,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-fuchsia-600 dark:peer-checked:bg-fuchsia-600',
    },
    rgb: {
-      bg: 'bg-white/30 dark:bg-white/5', // Semi-transparent for light overlay
+      bg: 'bg-black/20 dark:bg-white/5', // Semi-transparent for light overlay
+      background: 'bg-white/30 dark:bg-white/5',
       hover: 'hover:border-cyan-400 dark:hover:border-green-400',
       shadow:
          'hover:shadow-lg hover:shadow-cyan-300/30 dark:hover:shadow-green-400/10',
@@ -213,7 +223,8 @@ const colorOptions = {
       toggle: 'peer-checked:bg-pink-500 dark:peer-checked:bg-green-500',
    },
    rose: {
-      bg: 'bg-rose-200 dark:bg-rose-900/20',
+      bg: 'bg-rose-200 dark:bg-rose-900',
+      background: 'bg-rose-200 dark:bg-rose-900/20',
       hover: 'hover:border-rose-600 dark:hover:border-rose-600',
       shadow: 'hover:shadow-lg hover:shadow-rose-500/20',
       buttonbg: 'bg-rose-500 dark:bg-rose-800',
@@ -264,8 +275,8 @@ export function AppThemeProvider({ children }) {
          colorTheme: screenSize.isSmall
             ? 'purple'
             : screenSize.isMedium
-            ? 'purple'
-            : 'blue',
+            ? 'cyan'
+            : 'purple',
          background: 'particle',
          taskInterface: {
             mode,

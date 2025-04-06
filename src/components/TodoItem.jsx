@@ -219,7 +219,8 @@ function TodoItem({ todo }) {
    return (
       <div
          className={`group  ${getColorClass(
-            appTheme.colorTheme
+            appTheme.colorTheme,
+            'background'
          )} ${getColorClass(appTheme.colorTheme, 'hover')}  ${getColorClass(
             appTheme.colorTheme,
             'shadow'

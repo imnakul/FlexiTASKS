@@ -373,7 +373,7 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
                            value={newSubtask}
                            onChange={(e) => setNewSubtask(e.target.value)}
                            placeholder='Enter subtask...'
-                           className={`inter w-48 sm:w-full px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
+                           className={`inter w-48 sm:w-48 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 ${getColorClass(
                               appTheme.colorTheme,
                               'ring'
                            )}`}

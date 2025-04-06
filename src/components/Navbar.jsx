@@ -86,14 +86,10 @@ function Navbar() {
                      <div className='relative' ref={dropdownRef}>
                         <button
                            onClick={() => setShowDropdown(!showDropdown)}
-                           // ${getColorClass(
-                           //    appTheme.colorTheme,
-                           //    'hovertext'
-                           // )}
                            className={`
                               flex items-center gap-2 px-3 py-2 rounded-lg
                               dark:text-white/80 text-gray-800/80
-                              
+                              ${getColorClass(appTheme.colorTheme, 'hovertext')}
                               ${getColorClass(appTheme.colorTheme)}
                               transition-all duration-200
                               ${
@@ -144,7 +140,6 @@ function Navbar() {
                                  </span>
                               </button>
 
-                              {/* Notion Integration */}
                               <button
                                  onClick={() => handleOpenModal('backup')}
                                  className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
@@ -163,14 +158,13 @@ function Navbar() {
                         <button
                            onClick={handleThemeToggle}
                            type='button'
-                           // ${getColorClass(
-                           //    appTheme.colorTheme,
-                           //    'hovertext'
-                           // )}
                            className={`p-2 rounded-lg dark:text-white/80 text-gray-800/80 
                               ${getColorClass(
                                  appTheme.colorTheme
-                              )} transition-colors duration-200 cursor-pointer`}
+                              )} ${getColorClass(
+                              appTheme.colorTheme,
+                              'hovertext'
+                           )} transition-colors duration-200 cursor-pointer`}
                         >
                            {isDarkMode ? (
                               <FaSun className='sm:size-5 size-4' />
