@@ -12,11 +12,11 @@ import {
 } from 'react-icons/fa'
 import { MdOutlineBackup } from 'react-icons/md'
 import { useAppTheme } from '../contexts/AppThemeContext'
-
 import ContactForm from './ContactForm'
 import TaskBackups from './TaskBackups'
 import ThemeSettings from './ThemeSettings'
-import { use } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import ThemeWipeTransition from './ThemeTransitionOverlay'
 
 function Navbar() {
    const { isDarkMode, toggleTheme } = useTheme()
@@ -25,6 +25,34 @@ function Navbar() {
    const [modalContent, setModalContent] = useState(null)
    const dropdownRef = useRef(null)
    const { appTheme, getColorClass } = useAppTheme()
+   const [isAnimating, setIsAnimating] = useState(false)
+   const [direction, setDirection] = useState(true)
+
+   const overlayVariants = {
+      hidden: { opacity: 0 },
+      visible: { opacity: 1, transition: { duration: 0.3 } },
+      exit: { opacity: 0, transition: { duration: 0.2 } },
+   }
+
+   const modalVariants = {
+      hidden: {
+         opacity: 0,
+         y: 40,
+         scale: 0.95,
+      },
+      visible: {
+         opacity: 1,
+         y: 0,
+         scale: 1,
+         transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] }, // nice easing
+      },
+      exit: {
+         opacity: 0,
+         y: 20,
+         scale: 0.95,
+         transition: { duration: 0.25 },
+      },
+   }
 
    // Handle click outside to close dropdown
    useEffect(() => {
@@ -41,7 +69,18 @@ function Navbar() {
    }, [])
 
    const handleThemeToggle = () => {
-      toggleTheme()
+      if (isAnimating) return // Prevent overlapping animation
+
+      setIsAnimating(true)
+      setDirection((prev) => !prev) // Alternate direction each time
+
+      setTimeout(() => {
+         toggleTheme() // Flip theme mid-animation
+      }, 500) // Midway
+
+      setTimeout(() => {
+         setIsAnimating(false)
+      }, 400) // After animation ends
    }
 
    const handleOpenModal = (content) => {
@@ -155,6 +194,10 @@ function Navbar() {
 
                      {/* Dark Mode Toggle - Separate button */}
                      <div className='relative'>
+                        <ThemeWipeTransition
+                           isAnimating={isAnimating}
+                           direction={direction}
+                        />
                         <button
                            onClick={handleThemeToggle}
                            type='button'
@@ -178,66 +221,104 @@ function Navbar() {
             </div>
          </nav>
 
-         {/* Modal */}
-         {showModal && (
-            <div className='fixed inset-0 z-50 overflow-y-auto'>
-               <div className='fixed inset-0 bg-black bg-opacity-50 transition-opacity' />
-               <div className='flex min-h-full min-w-xl items-center justify-center p-4'>
-                  <div
-                     className={`relative transform overflow-hidden rounded-lg backdrop-blur-lg ${getColorClass(
-                        appTheme.colorTheme,
-                        'modal'
-                     )} px-3 pt-1 pb-3 text-left shadow-xl transition-all sm:my-1.5 w-[80vw] sm:w-full sm:max-w-xl sm:p-6 `}
-                  >
-                     {/* Modal Content */}
-                     <div className='absolute right-0 top-0 pr-4 pt-4'>
-                        <button
-                           onClick={() => setShowModal(false)}
-                           className='rounded-md text-gray-800 dark:text-gray-400 hover:text-gray-500 hover:bg-gray-800 p-1'
-                        >
-                           <span className='sr-only'>Close</span>
-                           <svg
-                              className='h-6 w-6'
-                              fill='none'
-                              viewBox='0 0 24 24'
-                              strokeWidth='1.5'
-                              stroke='currentColor'
-                           >
-                              <path
-                                 strokeLinecap='round'
-                                 strokeLinejoin='round'
-                                 d='M6 18L18 6M6 6l12 12'
-                              />
-                           </svg>
-                        </button>
-                     </div>
+         <AnimatePresence>
+            {showModal && (
+               <motion.div
+                  className='fixed inset-0 z-50 overflow-y-auto'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+               >
+                  {/* Overlay */}
+                  <motion.div
+                     className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm'
+                     variants={{
+                        hidden: { opacity: 0 },
+                        visible: { opacity: 1, transition: { duration: 0.3 } },
+                        exit: { opacity: 0, transition: { duration: 0.2 } },
+                     }}
+                  />
 
-                     {/* Dynamic Modal Content */}
-                     <div className='mt-3 text-center sm:mt-0 '>
-                        <h3 className='text-lg font-semibold leading-6 text-gray-50 space-grotesk'>
-                           {modalContent === 'theme' && 'Theme Settings'}
-                           {modalContent === 'feedback' && 'Feedback & Contact'}
-                           {modalContent === 'backup' && 'Tasks Backup'}
-                        </h3>
-                        <div className='mt-4'>
-                           {modalContent === 'theme' && (
-                              <ThemeSettings
-                                 onClose={() => setShowModal(false)}
-                                 isOpen={true}
-                              />
-                           )}
-                           {modalContent === 'feedback' && <ContactForm />}
-                           {modalContent === 'backup' && (
-                              <TaskBackups
-                                 onClose={() => setShowModal(false)}
-                              />
-                           )}
+                  {/* Modal Container */}
+                  <div className='flex min-h-full items-center justify-center p-4'>
+                     <motion.div
+                        variants={{
+                           hidden: { opacity: 0, y: 40, scale: 0.95 },
+                           visible: {
+                              opacity: 1,
+                              y: 0,
+                              scale: 1,
+                              transition: {
+                                 duration: 0.65,
+                                 ease: [0.22, 1, 0.36, 1],
+                              },
+                           },
+                           exit: {
+                              opacity: 0,
+                              y: 20,
+                              scale: 0.95,
+                              transition: { duration: 0.45 },
+                           },
+                        }}
+                        initial='hidden'
+                        animate='visible'
+                        exit='exit'
+                        className={`relative transform overflow-hidden rounded-lg backdrop-blur-lg ${getColorClass(
+                           appTheme.colorTheme,
+                           'modal'
+                        )} px-3 pt-1 pb-3 text-left shadow-xl w-[80vw] sm:w-full sm:max-w-xl sm:p-6`}
+                     >
+                        {/* Close Button */}
+                        <div className='absolute right-0 top-0 pr-4 pt-4'>
+                           <button
+                              onClick={() => setShowModal(false)}
+                              className='rounded-md text-gray-800 dark:text-gray-400 hover:text-gray-500 hover:bg-gray-800 p-1'
+                           >
+                              <span className='sr-only'>Close</span>
+                              <svg
+                                 className='h-6 w-6'
+                                 fill='none'
+                                 viewBox='0 0 24 24'
+                                 strokeWidth='1.5'
+                                 stroke='currentColor'
+                              >
+                                 <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M6 18L18 6M6 6l12 12'
+                                 />
+                              </svg>
+                           </button>
                         </div>
-                     </div>
+
+                        {/* Modal Content */}
+                        <div className='mt-3 text-center sm:mt-0'>
+                           <h3 className='text-lg font-semibold leading-6 text-gray-50 space-grotesk'>
+                              {modalContent === 'theme' && 'Theme Settings'}
+                              {modalContent === 'feedback' &&
+                                 'Feedback & Contact'}
+                              {modalContent === 'backup' && 'Tasks Backup'}
+                           </h3>
+                           <div className='mt-4'>
+                              {modalContent === 'theme' && (
+                                 <ThemeSettings
+                                    onClose={() => setShowModal(false)}
+                                    isOpen={true}
+                                 />
+                              )}
+                              {modalContent === 'feedback' && <ContactForm />}
+                              {modalContent === 'backup' && (
+                                 <TaskBackups
+                                    onClose={() => setShowModal(false)}
+                                 />
+                              )}
+                           </div>
+                        </div>
+                     </motion.div>
                   </div>
-               </div>
-            </div>
-         )}
+               </motion.div>
+            )}
+         </AnimatePresence>
       </>
    )
 }

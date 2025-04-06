@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import RainBackground from './components/backgrounds/RainBackground.jsx'
 import { VscFoldDown, VscFoldUp } from 'react-icons/vsc'
 import { IoIosAdd } from 'react-icons/io'
+import { motion, AnimatePresence } from 'framer-motion'
 
 function App() {
    const todos = useSelector((state) => state.todos.todos)
@@ -91,6 +92,26 @@ function App() {
 
    const todoFormRef = useRef(null)
 
+   const variants = {
+      hidden: {
+         opacity: 0,
+         scale: 0.95,
+         filter: 'blur(4px)',
+      },
+      visible: {
+         opacity: 1,
+         scale: 1,
+         filter: 'blur(0px)',
+         transition: { duration: 0.4 },
+      },
+      exit: {
+         opacity: 0,
+         scale: 0.97,
+         filter: 'blur(2px)',
+         transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+      },
+   }
+
    return (
       <>
          {appTheme.background === 'particle' && (
@@ -139,52 +160,461 @@ function App() {
                            : 'sm:max-w-6xl max-w-sm'
                      } mx-auto space-y-8 transition-all duration-1000 ease-out `}
                   >
-                     <div
-                        className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors duration-300 relative z-10 overflow-hidden border ${getColorClass(
-                           appTheme.colorTheme,
-                           'border'
-                        )}`}
+                     <motion.div
+                        initial={{
+                           opacity: 0,
+                           scale: 0.9,
+                           filter: 'blur(6px)',
+                        }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        transition={{
+                           duration: 0.8,
+                           ease: 'easeOut',
+                        }}
                      >
-                        {/* //* MAXIMAL MODE SPLIT VIEW */}
-                        {appTheme.taskInterface.mode === 'maximal' && (
-                           <>
-                              <div
-                                 className={`relative grid grid-cols-1 ${
-                                    viewMode === 'kanban'
-                                       ? 'lg:grid lg:[grid-template-columns:1fr_4fr]'
-                                       : viewMode === 'calendar'
-                                       ? 'lg:grid-cols-1'
-                                       : 'lg:grid-cols-2'
-                                 } gap-2`}
-                              >
-                                 {/* //?Form grid  */}
-                                 {/* //Collpase extend button for mobile view */}
-                                 <button
-                                    className='sm:hidden block absolute top-5 right-5'
-                                    onClick={handleFormArea}
-                                 >
-                                    {formAreaShow ? (
-                                       <VscFoldUp
-                                          className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 `}
-                                          style={{ strokeWidth: 1 }}
-                                       />
-                                    ) : (
-                                       <VscFoldDown
-                                          className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
-                                          style={{ strokeWidth: 1 }}
-                                       />
-                                    )}
-                                 </button>
-                                 {/* //? Form - Left Side part  */}
+                        <div
+                           className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors duration-300 relative z-10 overflow-hidden border ${getColorClass(
+                              appTheme.colorTheme,
+                              'border'
+                           )}`}
+                        >
+                           {/* //* MAXIMAL MODE SPLIT VIEW */}
+                           {appTheme.taskInterface.mode === 'maximal' && (
+                              <>
                                  <div
-                                    className={`${
+                                    className={`relative grid grid-cols-1 ${
                                        viewMode === 'kanban'
-                                          ? 'lg:w-[300px]'
-                                          : ''
-                                    }`}
+                                          ? 'lg:grid lg:[grid-template-columns:1fr_4fr]'
+                                          : viewMode === 'calendar'
+                                          ? 'lg:grid-cols-1'
+                                          : 'lg:grid-cols-2'
+                                    } gap-2`}
                                  >
-                                    {(!isMobile ||
-                                       (isMobile && formAreaShow)) && (
+                                    {/* //?Form grid  */}
+                                    {/* //Collpase extend button for mobile view */}
+                                    <button
+                                       className='sm:hidden block absolute top-5 right-5'
+                                       onClick={handleFormArea}
+                                    >
+                                       {formAreaShow ? (
+                                          <VscFoldUp
+                                             className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 `}
+                                             style={{ strokeWidth: 1 }}
+                                          />
+                                       ) : (
+                                          <VscFoldDown
+                                             className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
+                                             style={{ strokeWidth: 1 }}
+                                          />
+                                       )}
+                                    </button>
+                                    {/* //? Form - Left Side part  */}
+                                    {/* <motion.div
+                                       initial={{ opacity: 0, x: -30 }}
+                                       animate={{ opacity: 1, x: 0 }}
+                                       transition={{
+                                          duration: 0.6,
+                                          delay: 0.6,
+                                       }}
+                                    > */}
+                                    <div
+                                       className={`${
+                                          viewMode === 'kanban'
+                                             ? 'lg:w-[300px]'
+                                             : ''
+                                       }`}
+                                    >
+                                       {(!isMobile ||
+                                          (isMobile && formAreaShow)) && (
+                                          <>
+                                             <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
+                                                <h2
+                                                   className='text-sm font-medium text-gray-500 dark:text-gray-400 
+                            mb-3 sm:mb-4 space-grotesk'
+                                                >
+                                                   Add New Task
+                                                </h2>
+
+                                                <TodoForm ref={todoFormRef} />
+                                             </div>
+                                          </>
+                                       )}
+                                       <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
+                                          <div className='flex flex-col gap-3 sm:gap-4'>
+                                             {appTheme.taskInterface.features
+                                                .viewModes && (
+                                                <div>
+                                                   <h3
+                                                      className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
+                                                         !formAreaShow &&
+                                                         isMobile
+                                                            ? 'mt-3 mb-3'
+                                                            : 'mt-0 mb-2'
+                                                      }`}
+                                                   >
+                                                      View Mode
+                                                   </h3>
+                                                   <ViewModeSelector
+                                                      viewMode={viewMode}
+                                                      setViewMode={setViewMode}
+                                                   />
+                                                </div>
+                                             )}
+
+                                             {/* //? Visible sorting and Filtering in List mode only  */}
+                                             {viewMode === 'list' && (
+                                                <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
+                                                   <div className='flex flex-wrap gap-2'>
+                                                      <button
+                                                         onClick={() =>
+                                                            setFilter('all')
+                                                         }
+                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                            filter === 'all'
+                                                               ? `${getColorClass(
+                                                                    appTheme.colorTheme,
+                                                                    'buttonbg'
+                                                                 )} text-white`
+                                                               : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                         }`}
+                                                      >
+                                                         All
+                                                      </button>
+                                                      <button
+                                                         onClick={() =>
+                                                            setFilter('active')
+                                                         }
+                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                            filter === 'active'
+                                                               ? `${getColorClass(
+                                                                    appTheme.colorTheme,
+                                                                    'buttonbg'
+                                                                 )} text-white`
+                                                               : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                         }`}
+                                                      >
+                                                         Active
+                                                      </button>
+                                                      <button
+                                                         onClick={() =>
+                                                            setFilter(
+                                                               'completed'
+                                                            )
+                                                         }
+                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                            filter ===
+                                                            'completed'
+                                                               ? `${getColorClass(
+                                                                    appTheme.colorTheme,
+                                                                    'buttonbg'
+                                                                 )} text-white`
+                                                               : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                         }`}
+                                                      >
+                                                         Completed
+                                                      </button>
+                                                   </div>
+                                                   {!allSortHidden && (
+                                                      <select
+                                                         value={sortBy}
+                                                         onChange={(e) =>
+                                                            setSortBy(
+                                                               e.target.value
+                                                            )
+                                                         }
+                                                         className='space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
+                                                      >
+                                                         {!priorityHidden && (
+                                                            <option value='priority'>
+                                                               Sort by Priority
+                                                            </option>
+                                                         )}
+                                                         {!dueDateHidden && (
+                                                            <option value='dueDate'>
+                                                               Sort by Due Date
+                                                            </option>
+                                                         )}
+                                                         {!categoryHidden && (
+                                                            <option value='category'>
+                                                               Sort by Category
+                                                            </option>
+                                                         )}
+                                                      </select>
+                                                   )}
+                                                </div>
+                                             )}
+                                          </div>
+                                       </div>
+                                    </div>
+                                    {/* </motion.div> */}
+
+                                    {/* //Todo Grid  */}
+
+                                    <div
+                                       className={`${
+                                          viewMode === 'kanban'
+                                             ? 'lg:w-[980px]'
+                                             : ''
+                                       }`}
+                                    >
+                                       <div
+                                          className={`p-4 sm:p-4 overflow-y-auto 
+                                       ${
+                                          !formAreaShow && viewMode === 'list'
+                                             ? 'h-[65vh]'
+                                             : !formAreaShow &&
+                                               viewMode !== 'list'
+                                             ? 'h-[68vh]'
+                                             : ''
+                                       } md:h-[55vh] lg:h-[88vh] `}
+                                       >
+                                          <div className='space-y-3 '>
+                                             <AnimatePresence mode='wait'>
+                                                <motion.div
+                                                   key={viewMode}
+                                                   variants={variants}
+                                                   initial='hidden'
+                                                   animate='visible'
+                                                   exit='exit'
+                                                   className='space-y-3'
+                                                >
+                                                   {viewMode === 'list' && (
+                                                      <div className='space-y-4  '>
+                                                         {displayTodos.map(
+                                                            (todo) => (
+                                                               <TodoItem
+                                                                  key={todo.id}
+                                                                  todo={todo}
+                                                               />
+                                                            )
+                                                         )}
+                                                         {displayTodos.length ===
+                                                            0 && (
+                                                            <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
+                                                               No tasks to
+                                                               display
+                                                            </p>
+                                                         )}
+                                                      </div>
+                                                   )}
+                                                   {viewMode === 'kanban' && (
+                                                      <KanbanView />
+                                                   )}
+                                                   {viewMode === 'matrix' && (
+                                                      <MatrixView />
+                                                   )}
+                                                   {viewMode === 'timeline' && (
+                                                      <TimelineView />
+                                                   )}
+                                                   {viewMode === 'calendar' && (
+                                                      <CalendarView />
+                                                   )}
+                                                </motion.div>
+                                             </AnimatePresence>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <button
+                                    onClick={() => {
+                                       setFormAreaShow(true)
+                                       setTimeout(() => {
+                                          todoFormRef.current?.focusInput()
+                                       }, 50) // Short delay, just enough for DOM to render
+                                    }}
+                                    className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'buttonbg'
+                                    )} text-white ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'buttonbghover'
+                                    )} transition-all duration-200 `}
+                                 >
+                                    <IoIosAdd className='size-6' />
+                                 </button>
+                              </>
+                           )}
+
+                           {/* //* MINIMAL MODE */}
+                           {appTheme.taskInterface.mode === 'minimal' && (
+                              <>
+                                 <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
+                                    <h2
+                                       className='text-base font-medium text-gray-800 dark:text-gray-200 
+                            mb-3 sm:mb-4 space-grotesk'
+                                    >
+                                       Add New Task
+                                    </h2>
+                                    <TodoForm ref={todoFormRef} />
+                                 </div>
+
+                                 <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
+                                    <div className='flex flex-col gap-3 sm:gap-4'>
+                                       {appTheme.taskInterface.features
+                                          .viewModes && (
+                                          <div>
+                                             <h3 className='space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
+                                                View Mode
+                                             </h3>
+                                             <ViewModeSelector
+                                                viewMode={viewMode}
+                                                setViewMode={setViewMode}
+                                             />
+                                          </div>
+                                       )}
+
+                                       {/* //? Visible sorting and Filtering in List mode only  */}
+                                       {viewMode === 'list' && (
+                                          <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
+                                             <div className='flex flex-wrap gap-2'>
+                                                <button
+                                                   onClick={() =>
+                                                      setFilter('all')
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                      filter === 'all'
+                                                         ? `${getColorClass(
+                                                              appTheme.colorTheme,
+                                                              'buttonbg'
+                                                           )} text-white`
+                                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                   }`}
+                                                >
+                                                   All
+                                                </button>
+                                                <button
+                                                   onClick={() =>
+                                                      setFilter('active')
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                      filter === 'active'
+                                                         ? `${getColorClass(
+                                                              appTheme.colorTheme,
+                                                              'buttonbg'
+                                                           )} text-white`
+                                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                   }`}
+                                                >
+                                                   Active
+                                                </button>
+                                                <button
+                                                   onClick={() =>
+                                                      setFilter('completed')
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                      filter === 'completed'
+                                                         ? `${getColorClass(
+                                                              appTheme.colorTheme,
+                                                              'buttonbg'
+                                                           )} text-white`
+                                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                   }`}
+                                                >
+                                                   Completed
+                                                </button>
+                                             </div>
+                                             {!allSortHidden && (
+                                                <select
+                                                   value={sortBy}
+                                                   onChange={(e) =>
+                                                      setSortBy(e.target.value)
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
+                                                      appTheme.colorTheme,
+                                                      'ring'
+                                                   )} transition-all duration-200 w-full sm:w-auto`}
+                                                >
+                                                   {!priorityHidden && (
+                                                      <option value='priority'>
+                                                         Sort by Priority
+                                                      </option>
+                                                   )}
+                                                   {!dueDateHidden && (
+                                                      <option value='dueDate'>
+                                                         Sort by Due Date
+                                                      </option>
+                                                   )}
+                                                   {!categoryHidden && (
+                                                      <option value='category'>
+                                                         Sort by Category
+                                                      </option>
+                                                   )}
+                                                </select>
+                                             )}
+                                          </div>
+                                       )}
+                                    </div>
+                                 </div>
+
+                                 <div className='p-2 sm:p-6'>
+                                    <div className='space-y-3'>
+                                       {viewMode === 'list' && (
+                                          <div className='space-y-4 p-2 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
+                                             {displayTodos.map((todo) => (
+                                                <TodoItem
+                                                   key={todo.id}
+                                                   todo={todo}
+                                                />
+                                             ))}
+                                             {displayTodos.length === 0 && (
+                                                <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
+                                                   No tasks to display
+                                                </p>
+                                             )}
+                                          </div>
+                                       )}
+                                       {viewMode === 'kanban' && <KanbanView />}
+                                       {viewMode === 'matrix' && <MatrixView />}
+                                       {viewMode === 'timeline' && (
+                                          <TimelineView />
+                                       )}
+                                       {viewMode === 'calendar' && (
+                                          <CalendarView />
+                                       )}
+                                    </div>
+                                 </div>
+                                 <button
+                                    onClick={() => {
+                                       setFormAreaShow(true)
+                                       setTimeout(() => {
+                                          todoFormRef.current?.focusInput()
+                                       }, 0) // Short delay, just enough for DOM to render
+                                    }}
+                                    className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'buttonbg'
+                                    )} text-white ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'buttonbghover'
+                                    )} transition-all duration-200 `}
+                                 >
+                                    <IoIosAdd className='size-6' />
+                                 </button>
+                              </>
+                           )}
+
+                           {/* //* CUSTOM MODE */}
+                           {appTheme.taskInterface.mode === 'custom' && (
+                              <>
+                                 <div className='relative'>
+                                    <button
+                                       className=' absolute top-5 right-5 sm:right-7'
+                                       onClick={handleFormArea}
+                                    >
+                                       {formAreaShow ? (
+                                          <VscFoldUp
+                                             className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 `}
+                                             style={{ strokeWidth: 1 }}
+                                          />
+                                       ) : (
+                                          <VscFoldDown
+                                             className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
+                                             style={{ strokeWidth: 1 }}
+                                          />
+                                       )}
+                                    </button>
+
+                                    {formAreaShow && (
                                        <>
                                           <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
                                              <h2
@@ -198,532 +628,185 @@ function App() {
                                           </div>
                                        </>
                                     )}
-                                    <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
-                                       <div className='flex flex-col gap-3 sm:gap-4'>
-                                          {appTheme.taskInterface.features
-                                             .viewModes && (
-                                             <div>
-                                                <h3
-                                                   className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
-                                                      !formAreaShow && isMobile
-                                                         ? 'mt-3 mb-3'
-                                                         : 'mt-0 mb-2'
+                                 </div>
+
+                                 <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
+                                    <div className='flex flex-col gap-3 sm:gap-4'>
+                                       {appTheme.taskInterface.features
+                                          .viewModes && (
+                                          <div>
+                                             <h3
+                                                className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
+                                                   !formAreaShow && isMobile
+                                                      ? 'mt-3 mb-3'
+                                                      : 'mt-0 mb-2'
+                                                }`}
+                                             >
+                                                View Mode
+                                             </h3>
+                                             <ViewModeSelector
+                                                viewMode={viewMode}
+                                                setViewMode={setViewMode}
+                                             />
+                                          </div>
+                                       )}
+
+                                       {/* //? Visible sorting and Filtering in List mode only  */}
+                                       {viewMode === 'list' && (
+                                          <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
+                                             <div className='flex flex-wrap gap-2'>
+                                                <button
+                                                   onClick={() =>
+                                                      setFilter('all')
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                      filter === 'all'
+                                                         ? `${getColorClass(
+                                                              appTheme.colorTheme,
+                                                              'buttonbg'
+                                                           )} text-white`
+                                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                                    }`}
                                                 >
-                                                   View Mode
-                                                </h3>
-                                                <ViewModeSelector
-                                                   viewMode={viewMode}
-                                                   setViewMode={setViewMode}
-                                                />
+                                                   All
+                                                </button>
+                                                <button
+                                                   onClick={() =>
+                                                      setFilter('active')
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                      filter === 'active'
+                                                         ? `${getColorClass(
+                                                              appTheme.colorTheme,
+                                                              'buttonbg'
+                                                           )} text-white`
+                                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                   }`}
+                                                >
+                                                   Active
+                                                </button>
+                                                <button
+                                                   onClick={() =>
+                                                      setFilter('completed')
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                      filter === 'completed'
+                                                         ? `${getColorClass(
+                                                              appTheme.colorTheme,
+                                                              'buttonbg'
+                                                           )} text-white`
+                                                         : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                   }`}
+                                                >
+                                                   Completed
+                                                </button>
                                              </div>
-                                          )}
-
-                                          {/* //? Visible sorting and Filtering in List mode only  */}
-                                          {viewMode === 'list' && (
-                                             <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
-                                                <div className='flex flex-wrap gap-2'>
-                                                   <button
-                                                      onClick={() =>
-                                                         setFilter('all')
-                                                      }
-                                                      className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                         filter === 'all'
-                                                            ? `${getColorClass(
-                                                                 appTheme.colorTheme,
-                                                                 'buttonbg'
-                                                              )} text-white`
-                                                            : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                      }`}
-                                                   >
-                                                      All
-                                                   </button>
-                                                   <button
-                                                      onClick={() =>
-                                                         setFilter('active')
-                                                      }
-                                                      className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                         filter === 'active'
-                                                            ? `${getColorClass(
-                                                                 appTheme.colorTheme,
-                                                                 'buttonbg'
-                                                              )} text-white`
-                                                            : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                      }`}
-                                                   >
-                                                      Active
-                                                   </button>
-                                                   <button
-                                                      onClick={() =>
-                                                         setFilter('completed')
-                                                      }
-                                                      className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                         filter === 'completed'
-                                                            ? `${getColorClass(
-                                                                 appTheme.colorTheme,
-                                                                 'buttonbg'
-                                                              )} text-white`
-                                                            : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                      }`}
-                                                   >
-                                                      Completed
-                                                   </button>
-                                                </div>
-                                                {!allSortHidden && (
-                                                   <select
-                                                      value={sortBy}
-                                                      onChange={(e) =>
-                                                         setSortBy(
-                                                            e.target.value
-                                                         )
-                                                      }
-                                                      className='space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
-                                                   >
-                                                      {!priorityHidden && (
-                                                         <option value='priority'>
-                                                            Sort by Priority
-                                                         </option>
-                                                      )}
-                                                      {!dueDateHidden && (
-                                                         <option value='dueDate'>
-                                                            Sort by Due Date
-                                                         </option>
-                                                      )}
-                                                      {!categoryHidden && (
-                                                         <option value='category'>
-                                                            Sort by Category
-                                                         </option>
-                                                      )}
-                                                   </select>
-                                                )}
-                                             </div>
-                                          )}
-                                       </div>
+                                             {!allSortHidden && (
+                                                <select
+                                                   value={sortBy}
+                                                   onChange={(e) =>
+                                                      setSortBy(e.target.value)
+                                                   }
+                                                   className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
+                                                      appTheme.colorTheme,
+                                                      'ring'
+                                                   )} transition-all duration-200 w-full sm:w-auto`}
+                                                >
+                                                   {!priorityHidden && (
+                                                      <option value='priority'>
+                                                         Sort by Priority
+                                                      </option>
+                                                   )}
+                                                   {!dueDateHidden && (
+                                                      <option value='dueDate'>
+                                                         Sort by Due Date
+                                                      </option>
+                                                   )}
+                                                   {!categoryHidden && (
+                                                      <option value='category'>
+                                                         Sort by Category
+                                                      </option>
+                                                   )}
+                                                </select>
+                                             )}
+                                          </div>
+                                       )}
                                     </div>
                                  </div>
 
-                                 {/* //Todo Grid  */}
                                  <div
-                                    className={`${
-                                       viewMode === 'kanban'
-                                          ? 'lg:w-[980px]'
+                                    className={`p-4 sm:p-6 overflow-y-auto ${
+                                       !formAreaShow && viewMode === 'list'
+                                          ? 'h-[65vh] '
+                                          : !formAreaShow && viewMode !== 'list'
+                                          ? 'h-[68vh]'
                                           : ''
-                                    }`}
+                                    } `}
                                  >
-                                    <div
-                                       className={`p-4 sm:p-4 overflow-y-auto 
-                                       ${
-                                          !formAreaShow && viewMode === 'list'
-                                             ? 'h-[65vh]'
-                                             : !formAreaShow &&
-                                               viewMode !== 'list'
-                                             ? 'h-[68vh]'
-                                             : ''
-                                       } md:h-[55vh] lg:h-[88vh] `}
-                                    >
-                                       <div className='space-y-3 '>
-                                          {viewMode === 'list' && (
-                                             <div className='space-y-4  '>
-                                                {displayTodos.map((todo) => (
-                                                   <TodoItem
-                                                      key={todo.id}
-                                                      todo={todo}
-                                                   />
-                                                ))}
-                                                {displayTodos.length === 0 && (
-                                                   <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
-                                                      No tasks to display
-                                                   </p>
-                                                )}
-                                             </div>
-                                          )}
-                                          {viewMode === 'kanban' && (
-                                             <KanbanView />
-                                          )}
-                                          {viewMode === 'matrix' && (
-                                             <MatrixView />
-                                          )}
-                                          {viewMode === 'timeline' && (
-                                             <TimelineView />
-                                          )}
-                                          {viewMode === 'calendar' && (
-                                             <CalendarView />
-                                          )}
-                                       </div>
+                                    <div className='space-y-3'>
+                                       <AnimatePresence mode='wait'>
+                                          <motion.div
+                                             key={viewMode}
+                                             variants={variants}
+                                             initial='hidden'
+                                             animate='visible'
+                                             exit='exit'
+                                             className='space-y-3'
+                                          >
+                                             {viewMode === 'list' && (
+                                                <div className='space-y-4'>
+                                                   {displayTodos.map((todo) => (
+                                                      <TodoItem
+                                                         key={todo.id}
+                                                         todo={todo}
+                                                      />
+                                                   ))}
+                                                   {displayTodos.length ===
+                                                      0 && (
+                                                      <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
+                                                         No tasks to display
+                                                      </p>
+                                                   )}
+                                                </div>
+                                             )}
+                                             {viewMode === 'kanban' && (
+                                                <KanbanView />
+                                             )}
+                                             {viewMode === 'matrix' && (
+                                                <MatrixView />
+                                             )}
+                                             {viewMode === 'timeline' && (
+                                                <TimelineView />
+                                             )}
+                                             {viewMode === 'calendar' && (
+                                                <CalendarView />
+                                             )}
+                                          </motion.div>
+                                       </AnimatePresence>
                                     </div>
                                  </div>
-                              </div>
-                              <button
-                                 onClick={() => {
-                                    setFormAreaShow(true)
-                                    setTimeout(() => {
-                                       todoFormRef.current?.focusInput()
-                                    }, 50) // Short delay, just enough for DOM to render
-                                 }}
-                                 className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
-                                    appTheme.colorTheme,
-                                    'buttonbg'
-                                 )} text-white ${getColorClass(
-                                    appTheme.colorTheme,
-                                    'buttonbghover'
-                                 )} transition-all duration-200 `}
-                              >
-                                 <IoIosAdd className='size-6' />
-                              </button>
-                           </>
-                        )}
-
-                        {/* //* MINIMAL MODE */}
-                        {appTheme.taskInterface.mode === 'minimal' && (
-                           <>
-                              <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700'>
-                                 <h2
-                                    className='text-base font-medium text-gray-800 dark:text-gray-200 
-                            mb-3 sm:mb-4 space-grotesk'
-                                 >
-                                    Add New Task
-                                 </h2>
-                                 <TodoForm ref={todoFormRef} />
-                              </div>
-
-                              <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
-                                 <div className='flex flex-col gap-3 sm:gap-4'>
-                                    {appTheme.taskInterface.features
-                                       .viewModes && (
-                                       <div>
-                                          <h3 className='space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 mb-2'>
-                                             View Mode
-                                          </h3>
-                                          <ViewModeSelector
-                                             viewMode={viewMode}
-                                             setViewMode={setViewMode}
-                                          />
-                                       </div>
-                                    )}
-
-                                    {/* //? Visible sorting and Filtering in List mode only  */}
-                                    {viewMode === 'list' && (
-                                       <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
-                                          <div className='flex flex-wrap gap-2'>
-                                             <button
-                                                onClick={() => setFilter('all')}
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                   filter === 'all'
-                                                      ? `${getColorClass(
-                                                           appTheme.colorTheme,
-                                                           'buttonbg'
-                                                        )} text-white`
-                                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                }`}
-                                             >
-                                                All
-                                             </button>
-                                             <button
-                                                onClick={() =>
-                                                   setFilter('active')
-                                                }
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                   filter === 'active'
-                                                      ? `${getColorClass(
-                                                           appTheme.colorTheme,
-                                                           'buttonbg'
-                                                        )} text-white`
-                                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                }`}
-                                             >
-                                                Active
-                                             </button>
-                                             <button
-                                                onClick={() =>
-                                                   setFilter('completed')
-                                                }
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                   filter === 'completed'
-                                                      ? `${getColorClass(
-                                                           appTheme.colorTheme,
-                                                           'buttonbg'
-                                                        )} text-white`
-                                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                }`}
-                                             >
-                                                Completed
-                                             </button>
-                                          </div>
-                                          {!allSortHidden && (
-                                             <select
-                                                value={sortBy}
-                                                onChange={(e) =>
-                                                   setSortBy(e.target.value)
-                                                }
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
-                                                   appTheme.colorTheme,
-                                                   'ring'
-                                                )} transition-all duration-200 w-full sm:w-auto`}
-                                             >
-                                                {!priorityHidden && (
-                                                   <option value='priority'>
-                                                      Sort by Priority
-                                                   </option>
-                                                )}
-                                                {!dueDateHidden && (
-                                                   <option value='dueDate'>
-                                                      Sort by Due Date
-                                                   </option>
-                                                )}
-                                                {!categoryHidden && (
-                                                   <option value='category'>
-                                                      Sort by Category
-                                                   </option>
-                                                )}
-                                             </select>
-                                          )}
-                                       </div>
-                                    )}
-                                 </div>
-                              </div>
-
-                              <div className='p-2 sm:p-6'>
-                                 <div className='space-y-3'>
-                                    {viewMode === 'list' && (
-                                       <div className='space-y-4 p-2 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
-                                          {displayTodos.map((todo) => (
-                                             <TodoItem
-                                                key={todo.id}
-                                                todo={todo}
-                                             />
-                                          ))}
-                                          {displayTodos.length === 0 && (
-                                             <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
-                                                No tasks to display
-                                             </p>
-                                          )}
-                                       </div>
-                                    )}
-                                    {viewMode === 'kanban' && <KanbanView />}
-                                    {viewMode === 'matrix' && <MatrixView />}
-                                    {viewMode === 'timeline' && (
-                                       <TimelineView />
-                                    )}
-                                    {viewMode === 'calendar' && (
-                                       <CalendarView />
-                                    )}
-                                 </div>
-                              </div>
-                              <button
-                                 onClick={() => {
-                                    setFormAreaShow(true)
-                                    setTimeout(() => {
-                                       todoFormRef.current?.focusInput()
-                                    }, 0) // Short delay, just enough for DOM to render
-                                 }}
-                                 className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
-                                    appTheme.colorTheme,
-                                    'buttonbg'
-                                 )} text-white ${getColorClass(
-                                    appTheme.colorTheme,
-                                    'buttonbghover'
-                                 )} transition-all duration-200 `}
-                              >
-                                 <IoIosAdd className='size-6' />
-                              </button>
-                           </>
-                        )}
-
-                        {/* //* CUSTOM MODE */}
-                        {appTheme.taskInterface.mode === 'custom' && (
-                           <>
-                              <div className='relative'>
                                  <button
-                                    className=' absolute top-5 right-5 sm:right-7'
-                                    onClick={handleFormArea}
+                                    onClick={() => {
+                                       setFormAreaShow(true)
+                                       setTimeout(() => {
+                                          todoFormRef.current?.focusInput()
+                                       }, 30) // Short delay, just enough for DOM to render
+                                    }}
+                                    className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'buttonbg'
+                                    )} text-white ${getColorClass(
+                                       appTheme.colorTheme,
+                                       'buttonbghover'
+                                    )} transition-all duration-200 `}
                                  >
-                                    {formAreaShow ? (
-                                       <VscFoldUp
-                                          className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 `}
-                                          style={{ strokeWidth: 1 }}
-                                       />
-                                    ) : (
-                                       <VscFoldDown
-                                          className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
-                                          style={{ strokeWidth: 1 }}
-                                       />
-                                    )}
+                                    <IoIosAdd className='size-6' />
                                  </button>
-
-                                 {formAreaShow && (
-                                    <>
-                                       <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
-                                          <h2
-                                             className='text-sm font-medium text-gray-500 dark:text-gray-400 
-                            mb-3 sm:mb-4 space-grotesk'
-                                          >
-                                             Add New Task
-                                          </h2>
-
-                                          <TodoForm ref={todoFormRef} />
-                                       </div>
-                                    </>
-                                 )}
-                              </div>
-
-                              <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
-                                 <div className='flex flex-col gap-3 sm:gap-4'>
-                                    {appTheme.taskInterface.features
-                                       .viewModes && (
-                                       <div>
-                                          <h3
-                                             className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
-                                                !formAreaShow && isMobile
-                                                   ? 'mt-3 mb-3'
-                                                   : 'mt-0 mb-2'
-                                             }`}
-                                          >
-                                             View Mode
-                                          </h3>
-                                          <ViewModeSelector
-                                             viewMode={viewMode}
-                                             setViewMode={setViewMode}
-                                          />
-                                       </div>
-                                    )}
-
-                                    {/* //? Visible sorting and Filtering in List mode only  */}
-                                    {viewMode === 'list' && (
-                                       <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
-                                          <div className='flex flex-wrap gap-2'>
-                                             <button
-                                                onClick={() => setFilter('all')}
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                   filter === 'all'
-                                                      ? `${getColorClass(
-                                                           appTheme.colorTheme,
-                                                           'buttonbg'
-                                                        )} text-white`
-                                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                }`}
-                                             >
-                                                All
-                                             </button>
-                                             <button
-                                                onClick={() =>
-                                                   setFilter('active')
-                                                }
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                   filter === 'active'
-                                                      ? `${getColorClass(
-                                                           appTheme.colorTheme,
-                                                           'buttonbg'
-                                                        )} text-white`
-                                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                }`}
-                                             >
-                                                Active
-                                             </button>
-                                             <button
-                                                onClick={() =>
-                                                   setFilter('completed')
-                                                }
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                   filter === 'completed'
-                                                      ? `${getColorClass(
-                                                           appTheme.colorTheme,
-                                                           'buttonbg'
-                                                        )} text-white`
-                                                      : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                }`}
-                                             >
-                                                Completed
-                                             </button>
-                                          </div>
-                                          {!allSortHidden && (
-                                             <select
-                                                value={sortBy}
-                                                onChange={(e) =>
-                                                   setSortBy(e.target.value)
-                                                }
-                                                className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
-                                                   appTheme.colorTheme,
-                                                   'ring'
-                                                )} transition-all duration-200 w-full sm:w-auto`}
-                                             >
-                                                {!priorityHidden && (
-                                                   <option value='priority'>
-                                                      Sort by Priority
-                                                   </option>
-                                                )}
-                                                {!dueDateHidden && (
-                                                   <option value='dueDate'>
-                                                      Sort by Due Date
-                                                   </option>
-                                                )}
-                                                {!categoryHidden && (
-                                                   <option value='category'>
-                                                      Sort by Category
-                                                   </option>
-                                                )}
-                                             </select>
-                                          )}
-                                       </div>
-                                    )}
-                                 </div>
-                              </div>
-
-                              <div
-                                 className={`p-4 sm:p-6 overflow-y-auto ${
-                                    !formAreaShow && viewMode === 'list'
-                                       ? 'h-[65vh] '
-                                       : !formAreaShow && viewMode !== 'list'
-                                       ? 'h-[68vh]'
-                                       : ''
-                                 } `}
-                              >
-                                 <div className='space-y-3'>
-                                    {viewMode === 'list' && (
-                                       <div className='space-y-4'>
-                                          {displayTodos.map((todo) => (
-                                             <TodoItem
-                                                key={todo.id}
-                                                todo={todo}
-                                             />
-                                          ))}
-                                          {displayTodos.length === 0 && (
-                                             <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
-                                                No tasks to display
-                                             </p>
-                                          )}
-                                       </div>
-                                    )}
-                                    {viewMode === 'kanban' && <KanbanView />}
-                                    {viewMode === 'matrix' && <MatrixView />}
-                                    {viewMode === 'timeline' && (
-                                       <TimelineView />
-                                    )}
-                                    {viewMode === 'calendar' && (
-                                       <CalendarView />
-                                    )}
-                                 </div>
-                              </div>
-                              <button
-                                 onClick={() => {
-                                    setFormAreaShow(true)
-                                    setTimeout(() => {
-                                       todoFormRef.current?.focusInput()
-                                    }, 30) // Short delay, just enough for DOM to render
-                                 }}
-                                 className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
-                                    appTheme.colorTheme,
-                                    'buttonbg'
-                                 )} text-white ${getColorClass(
-                                    appTheme.colorTheme,
-                                    'buttonbghover'
-                                 )} transition-all duration-200 `}
-                              >
-                                 <IoIosAdd className='size-6' />
-                              </button>
-                           </>
-                        )}
-                        {/* //? Custom Mode Ends Here  */}
-                     </div>
+                              </>
+                           )}
+                           {/* //? Custom Mode Ends Here  */}
+                        </div>
+                     </motion.div>
 
                      {/* <div className='bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 sm:p-6 transition-colors duration-300 relative z-10'>
                      <h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4'>

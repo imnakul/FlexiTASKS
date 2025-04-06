@@ -62,7 +62,7 @@ function ThemeSettings({ onClose }) {
    return (
       <div className='bg-white/30 dark:bg-black/30 p-2 sm:p-4 rounded-lg'>
          {/* Settings Grid */}
-         <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             {/* Left Column */}
             <div
                className={`sm:space-y-6 space-y-4 border ${getColorClass(
