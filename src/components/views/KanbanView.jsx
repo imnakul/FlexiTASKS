@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useAppTheme } from '../../contexts/AppThemeContext'
 function KanbanView() {
    const todos = useSelector((state) => state.todos.todos)
-   const { appTheme, getColorClass } = useAppTheme()
+   // const { appTheme, getColorClass } = useAppTheme()
    const columns = {
       notStarted: todos.filter((todo) => todo.stage === 'notStarted'),
       inProgress: todos.filter((todo) => todo.stage === 'inProgress'),
@@ -23,7 +23,7 @@ function KanbanView() {
          </div>
 
          {/* //? Desktop Kanban View */}
-         <div className='sm:visible invisible grid grid-cols-2 gap-4 p-4 max-w-[1400px] mx-auto'>
+         <div className='sm:visible invisible grid grid-cols-2 gap-4 p-4 pt-0 max-w-[1400px] mx-auto '>
             {/* Not Started Column */}
             <div
                className={`bg-sky-100 dark:bg-sky-800/20 rounded-xl p-6 min-h-[600px] flex flex-col border-2 border-sky-300 dark:border-sky-700 `}

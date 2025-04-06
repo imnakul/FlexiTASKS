@@ -118,7 +118,7 @@ function App() {
 
          {appTheme.background === 'none' && <></>}
 
-         <div className='min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
+         <div className='min-h-screen min-w-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
             <Navbar />
 
             <div
@@ -127,11 +127,13 @@ function App() {
                   'background'
                )}`}
             >
-               <div className='container mx-auto pb-4 pt-20'>
+               <div className='container mx-auto pb-4 pt-20 '>
                   <div
                      className={`${
                         appTheme.taskInterface.mode === 'minimal'
                            ? 'sm:max-w-2xl max-w-sm'
+                           : appTheme.taskInterface.mode === 'custom'
+                           ? 'max-w-5xl'
                            : viewMode === 'kanban'
                            ? 'max-w-7xl'
                            : 'sm:max-w-6xl max-w-sm'
@@ -146,7 +148,15 @@ function App() {
                         {/* //* MAXIMAL MODE SPLIT VIEW */}
                         {appTheme.taskInterface.mode === 'maximal' && (
                            <>
-                              <div className='relative grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                              <div
+                                 className={`relative grid grid-cols-1 ${
+                                    viewMode === 'kanban'
+                                       ? 'lg:grid lg:[grid-template-columns:1fr_4fr]'
+                                       : viewMode === 'calendar'
+                                       ? 'lg:grid-cols-1'
+                                       : 'lg:grid-cols-2'
+                                 } gap-2`}
+                              >
                                  {/* //?Form grid  */}
                                  {/* //Collpase extend button for mobile view */}
                                  <button
@@ -165,8 +175,14 @@ function App() {
                                        />
                                     )}
                                  </button>
-
-                                 <div>
+                                 {/* //? Form - Left Side part  */}
+                                 <div
+                                    className={`${
+                                       viewMode === 'kanban'
+                                          ? 'lg:w-[300px]'
+                                          : ''
+                                    }`}
+                                 >
                                     {(!isMobile ||
                                        (isMobile && formAreaShow)) && (
                                        <>
@@ -287,7 +303,13 @@ function App() {
                                  </div>
 
                                  {/* //Todo Grid  */}
-                                 <div>
+                                 <div
+                                    className={`${
+                                       viewMode === 'kanban'
+                                          ? 'lg:w-[980px]'
+                                          : ''
+                                    }`}
+                                 >
                                     <div
                                        className={`p-4 sm:p-4 overflow-y-auto 
                                        ${
