@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import Navbar from './components/Navbar'
 import { TodoForm, TodoItem, Achievements } from './components/index'
 import ViewModeSelector from './components/ViewModeSelector'
@@ -19,13 +19,14 @@ import { useTheme } from './contexts/ThemeContext.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import RainBackground from './components/backgrounds/RainBackground.jsx'
 import { VscFoldDown, VscFoldUp } from 'react-icons/vsc'
+import { IoIosAdd } from 'react-icons/io'
 
 function App() {
    const todos = useSelector((state) => state.todos.todos)
    const [filter, setFilter] = useState('all')
    const [sortBy, setSortBy] = useState('priority')
    const [viewMode, setViewMode] = useState('list')
-   const [formAreaShow, setFormAreaShow] = useState(true)
+   const [formAreaShow, setFormAreaShow] = useState(false)
    const [isMobile, setIsMobile] = useState(false)
    const { appTheme, getColorClass } = useAppTheme()
    let priorityHidden = !appTheme.taskInterface.features.priority
@@ -87,6 +88,8 @@ function App() {
    const handleFormArea = () => {
       setFormAreaShow(!formAreaShow)
    }
+
+   const todoFormRef = useRef(null)
 
    return (
       <>
@@ -174,7 +177,7 @@ function App() {
                                                 Add New Task
                                              </h2>
 
-                                             <TodoForm />
+                                             <TodoForm ref={todoFormRef} />
                                           </div>
                                        </>
                                     )}
@@ -327,6 +330,23 @@ function App() {
                                     </div>
                                  </div>
                               </div>
+                              <button
+                                 onClick={() => {
+                                    setFormAreaShow(true)
+                                    setTimeout(() => {
+                                       todoFormRef.current?.focusInput()
+                                    }, 50) // Short delay, just enough for DOM to render
+                                 }}
+                                 className={`lg:hidden flex fixed right-8 bottom-16 space-grotesk px-4 py-4 rounded-xl text-sm font-medium ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'buttonbg'
+                                 )} text-white ${getColorClass(
+                                    appTheme.colorTheme,
+                                    'buttonbghover'
+                                 )} transition-all duration-200 `}
+                              >
+                                 <IoIosAdd className='size-6' />
+                              </button>
                            </>
                         )}
 

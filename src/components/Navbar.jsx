@@ -86,10 +86,14 @@ function Navbar() {
                      <div className='relative' ref={dropdownRef}>
                         <button
                            onClick={() => setShowDropdown(!showDropdown)}
+                           // ${getColorClass(
+                           //    appTheme.colorTheme,
+                           //    'hovertext'
+                           // )}
                            className={`
                               flex items-center gap-2 px-3 py-2 rounded-lg
                               dark:text-white/80 text-gray-800/80
-                              ${getColorClass(appTheme.colorTheme, 'hovertext')}
+                              
                               ${getColorClass(appTheme.colorTheme)}
                               transition-all duration-200
                               ${
@@ -159,10 +163,11 @@ function Navbar() {
                         <button
                            onClick={handleThemeToggle}
                            type='button'
-                           className={`p-2 rounded-lg dark:text-white/80 text-gray-800/80 ${getColorClass(
-                              appTheme.colorTheme,
-                              'hovertext'
-                           )}
+                           // ${getColorClass(
+                           //    appTheme.colorTheme,
+                           //    'hovertext'
+                           // )}
+                           className={`p-2 rounded-lg dark:text-white/80 text-gray-800/80 
                               ${getColorClass(
                                  appTheme.colorTheme
                               )} transition-colors duration-200 cursor-pointer`}

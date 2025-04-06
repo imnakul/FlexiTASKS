@@ -1,11 +1,27 @@
-import { useState, useRef, useEffect } from 'react'
+import {
+   useState,
+   useRef,
+   useEffect,
+   useImperativeHandle,
+   forwardRef,
+} from 'react'
 import TaskSuggestions from './TaskSuggestions'
 // import { FaStickyNote } from 'react-icons/fa'
 import { useAppTheme } from '../contexts/AppThemeContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTodo, updateTodo } from '../store/TodoSlice.js'
 
-function TodoForm({ editingTodo = null, onCancelEdit }) {
+const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
+   const inputRef = useRef(null)
+   // Expose focus method to parent
+   useImperativeHandle(ref, () => ({
+      focusInput: () => {
+         console.log('Trying to focus:', inputRef.current) // <== LOG THIS
+         inputRef.current?.focus()
+      },
+   }))
+
+   // function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [todo, setTodo] = useState('')
    const [dueDate, setDueDate] = useState('')
    const [priority, setPriority] = useState('medium')
@@ -18,7 +34,7 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    const [showSubtaskInput, setShowSubtaskInput] = useState(false)
    const [note, setNote] = useState('')
    const [showNoteInput, setShowNoteInput] = useState(false)
-   const inputRef = useRef(null)
+   const wrapperRef = useRef(null)
    const dispatch = useDispatch()
    const todos = useSelector((state) => state.todos.todos)
    const { appTheme, getColorClass } = useAppTheme()
@@ -40,9 +56,9 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    // Handle click outside for edit mode
    useEffect(() => {
       const handleClickOutside = (e) => {
-         if (inputRef.current && !inputRef.current.contains(e.target)) {
+         if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
             // Only close if clicking outside the entire form
-            const form = inputRef.current.closest('form')
+            const form = wrapperRef.current.closest('form')
             if (form && !form.contains(e.target)) {
                if (editingTodo) {
                   onCancelEdit()
@@ -159,14 +175,15 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
    return (
       <form onSubmit={handleSubmit} className='sm:space-y-5 space-y-3'>
          {/* Main Task Input Row */}
-         <div className='sm:flex hidden flex-wrap gap-3 items-center'>
+         <div className='lg:flex hidden flex-wrap gap-3 items-center'>
             <div
                className='relative flex-1 min-w-[200px] max-w-xl'
-               ref={inputRef}
+               ref={wrapperRef}
             >
                <input
                   type='text'
                   placeholder='What needs to be done?'
+                  // ref={inputRef}
                   value={todo}
                   onChange={handleInputChange}
                   onFocus={() => !editingTodo && setShowSuggestions(true)}
@@ -245,14 +262,15 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
          </div>
 
          {/* //? Mobile View  */}
-         <div className='sm:hidden flex flex-wrap gap-1.5 items-center'>
+         <div className='lg:hidden flex flex-wrap gap-1.5 items-center'>
             <div
                className='relative flex-1 min-w-[250px] max-w-2xl'
-               ref={inputRef}
+               ref={wrapperRef}
             >
                <input
                   type='text'
                   placeholder='What needs to be done?'
+                  ref={inputRef}
                   value={todo}
                   onChange={handleInputChange}
                   onFocus={() => !editingTodo && setShowSuggestions(true)}
@@ -486,6 +504,6 @@ function TodoForm({ editingTodo = null, onCancelEdit }) {
          </div>
       </form>
    )
-}
+})
 
 export default TodoForm
