@@ -296,55 +296,52 @@ function App() {
                                              {/* //? Visible sorting and Filtering in List mode only  */}
                                              {viewMode === 'list' && (
                                                 <div className='flex flex-col sm:flex-row sm:gap-4 gap-3 justify-between '>
-                                                   <div className='flex flex-wrap gap-2'>
-                                                      <button
-                                                         onClick={() =>
-                                                            setFilter('all')
-                                                         }
-                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                            filter === 'all'
-                                                               ? `${getColorClass(
-                                                                    appTheme.colorTheme,
-                                                                    'buttonbg'
-                                                                 )} text-white`
-                                                               : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                         }`}
-                                                      >
-                                                         All
-                                                      </button>
-                                                      <button
-                                                         onClick={() =>
-                                                            setFilter('active')
-                                                         }
-                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                            filter === 'active'
-                                                               ? `${getColorClass(
-                                                                    appTheme.colorTheme,
-                                                                    'buttonbg'
-                                                                 )} text-white`
-                                                               : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                         }`}
-                                                      >
-                                                         Active
-                                                      </button>
-                                                      <button
-                                                         onClick={() =>
-                                                            setFilter(
-                                                               'completed'
-                                                            )
-                                                         }
-                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-                                                            filter ===
-                                                            'completed'
-                                                               ? `${getColorClass(
-                                                                    appTheme.colorTheme,
-                                                                    'buttonbg'
-                                                                 )} text-white`
-                                                               : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                                                         }`}
-                                                      >
-                                                         Completed
-                                                      </button>
+                                                   <div className='relative flex flex-wrap gap-2'>
+                                                      {[
+                                                         'all',
+                                                         'active',
+                                                         'completed',
+                                                      ].map((item) => (
+                                                         <div
+                                                            key={item}
+                                                            className='relative'
+                                                         >
+                                                            {filter ===
+                                                               item && (
+                                                               <motion.div
+                                                                  layoutId='filterHighlight'
+                                                                  className={`absolute inset-0 z-0 rounded-lg ${getColorClass(
+                                                                     appTheme.colorTheme,
+                                                                     'buttonbg'
+                                                                  )}`}
+                                                                  transition={{
+                                                                     type: 'spring',
+                                                                     stiffness: 200,
+                                                                     damping: 30,
+                                                                  }}
+                                                               />
+                                                            )}
+
+                                                            <button
+                                                               onClick={() =>
+                                                                  setFilter(
+                                                                     item
+                                                                  )
+                                                               }
+                                                               className={`relative z-10 space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                                                                  filter ===
+                                                                  item
+                                                                     ? 'text-white'
+                                                                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                                               }`}
+                                                            >
+                                                               {item
+                                                                  .charAt(0)
+                                                                  .toUpperCase() +
+                                                                  item.slice(1)}
+                                                            </button>
+                                                         </div>
+                                                      ))}
                                                    </div>
                                                    {!allSortHidden && (
                                                       <select
@@ -354,7 +351,10 @@ function App() {
                                                                e.target.value
                                                             )
                                                          }
-                                                         className='space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 w-full sm:w-auto'
+                                                         className={`space-grotesk px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 ${getColorClass(
+                                                            appTheme.colorTheme,
+                                                            'ring'
+                                                         )} transition-all duration-200 w-full sm:w-auto`}
                                                       >
                                                          {!priorityHidden && (
                                                             <option value='priority'>

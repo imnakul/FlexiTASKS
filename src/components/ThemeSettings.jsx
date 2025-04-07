@@ -96,21 +96,30 @@ function ThemeSettings({ onClose }) {
                               }`}
                         >
                            {option === 'minimal' && (
-                              <FaMobileAlt
-                                 className='w-3.5 h-3.5'
-                                 title='Advanced Features Hidden'
-                              />
+                              <>
+                                 <FaMobileAlt
+                                    className='w-3.5 h-3.5'
+                                    title='Advanced Features Hidden'
+                                 />
+                                 <span>Compact</span>
+                              </>
                            )}
                            {option === 'maximal' && (
-                              <FaDesktop
-                                 className='w-3.5 h-3.5'
-                                 title='Displaying All Features'
-                              />
+                              <>
+                                 <FaDesktop
+                                    className='w-3.5 h-3.5'
+                                    title='Displaying All Features'
+                                 />
+                                 <span>Detailed</span>
+                              </>
                            )}
                            {option === 'custom' && (
-                              <FaTabletAlt className='w-3.5 h-3.5' />
+                              <>
+                                 <FaTabletAlt className='w-3.5 h-3.5' />
+                                 <span>Custom</span>
+                              </>
                            )}
-                           {option.charAt(0).toUpperCase() + option.slice(1)}
+                           {/* {option.charAt(0).toUpperCase() + option.slice(1)} */}
                         </button>
                      ))}
                   </div>
