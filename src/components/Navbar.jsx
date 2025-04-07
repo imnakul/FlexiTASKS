@@ -80,7 +80,7 @@ function Navbar() {
 
       setTimeout(() => {
          setIsAnimating(false)
-      }, 400) // After animation ends
+      }, 500) // After animation ends
    }
 
    const handleOpenModal = (content) => {

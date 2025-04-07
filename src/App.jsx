@@ -143,7 +143,7 @@ function App() {
             <Navbar />
 
             <div
-               className={`flex w-screen min-h-screen ${getColorClass(
+               className={`flex w-screen min-h-screen transition-colors duration-1000 ease-in-out ${getColorClass(
                   appTheme.colorTheme,
                   'background'
                )}`}
@@ -224,21 +224,53 @@ function App() {
                                              : ''
                                        }`}
                                     >
-                                       {(!isMobile ||
-                                          (isMobile && formAreaShow)) && (
-                                          <>
-                                             <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
-                                                <h2
-                                                   className='text-sm font-medium text-gray-500 dark:text-gray-400 
-                            mb-3 sm:mb-4 space-grotesk'
+                                       <AnimatePresence>
+                                          {(!isMobile ||
+                                             (isMobile && formAreaShow)) && (
+                                             <>
+                                                <motion.div
+                                                   key='form-slide'
+                                                   initial={{
+                                                      height: 0,
+                                                      opacity: 0,
+                                                      y: -20,
+                                                   }}
+                                                   animate={{
+                                                      height: 'auto',
+                                                      opacity: 1,
+                                                      y: 0,
+                                                   }}
+                                                   exit={{
+                                                      height: 0,
+                                                      opacity: 0,
+                                                      y: -20,
+                                                   }}
+                                                   transition={{
+                                                      duration: 0.5,
+                                                      ease: 'easeInOut',
+                                                   }}
+                                                   className={`overflow-hidden ${
+                                                      viewMode === 'kanban'
+                                                         ? 'lg:w-[300px]'
+                                                         : ''
+                                                   }`}
                                                 >
-                                                   Add New Task
-                                                </h2>
+                                                   <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
+                                                      <h2
+                                                         className='text-sm font-medium text-gray-500 dark:text-gray-400 
+                            mb-3 sm:mb-4 space-grotesk'
+                                                      >
+                                                         Add New Task
+                                                      </h2>
 
-                                                <TodoForm ref={todoFormRef} />
-                                             </div>
-                                          </>
-                                       )}
+                                                      <TodoForm
+                                                         ref={todoFormRef}
+                                                      />
+                                                   </div>
+                                                </motion.div>
+                                             </>
+                                          )}
+                                       </AnimatePresence>
                                        <div className='px-4 py-2 sm:px-6 sm:py-4  bg-gray-50 dark:bg-gray-800/50 border-b border-gray-400 dark:border-gray-700 '>
                                           <div className='flex flex-col gap-3 sm:gap-4'>
                                              {appTheme.taskInterface.features

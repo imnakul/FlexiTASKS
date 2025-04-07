@@ -48,6 +48,13 @@ html, body {
 }
 }
 
+html {
+  transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
+
+body {
+  transition: background-color 1s ease-in-out, color 1s ease-in-out;
+}
 
 
   

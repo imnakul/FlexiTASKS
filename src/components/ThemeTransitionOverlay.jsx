@@ -107,7 +107,7 @@ const ThemeWipeTransition = ({ isAnimating, direction }) => {
                initial={{ x: direction ? '-100%' : '100%' }}
                animate={{ x: direction ? '100%' : '-100%' }}
                exit={{ opacity: 0 }}
-               transition={{ duration: 0.8, ease: 'easeInOut' }}
+               transition={{ duration: 1, ease: 'easeInOut' }}
                style={{
                   background: 'rgba(255,255,255,0.3)',
                   mixBlendMode: 'color',
