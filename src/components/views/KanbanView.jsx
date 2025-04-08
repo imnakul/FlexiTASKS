@@ -32,9 +32,32 @@ function KanbanView() {
                   Not Started
                </h3>
                <div className='space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-2'>
-                  {columns.notStarted.map((todo) => (
-                     <TodoItem key={todo.id} todo={todo} />
-                  ))}
+                  <AnimatePresence>
+                     {columns.notStarted.map((todo) => (
+                        <motion.div
+                           key={todo.id}
+                           layout
+                           initial={{
+                              opacity: 0,
+                              y: 10,
+                           }}
+                           animate={{
+                              opacity: 1,
+                              y: 0,
+                           }}
+                           exit={{
+                              opacity: 0,
+                              scale: 0.9,
+                           }}
+                           transition={{
+                              duration: 0.25,
+                              ease: 'easeInOut',
+                           }}
+                        >
+                           <TodoItem key={todo.id} todo={todo} />
+                        </motion.div>
+                     ))}
+                  </AnimatePresence>
                   {columns.notStarted.length === 0 && (
                      <p className='text-gray-500 dark:text-gray-400 text-center py-4'>
                         No tasks to show
@@ -49,9 +72,32 @@ function KanbanView() {
                   In Progress
                </h3>
                <div className='space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-2'>
-                  {columns.inProgress.map((todo) => (
-                     <TodoItem key={todo.id} todo={todo} />
-                  ))}
+                  <AnimatePresence>
+                     {columns.inProgress.map((todo) => (
+                        <motion.div
+                           key={todo.id}
+                           layout
+                           initial={{
+                              opacity: 0,
+                              y: 10,
+                           }}
+                           animate={{
+                              opacity: 1,
+                              y: 0,
+                           }}
+                           exit={{
+                              opacity: 0,
+                              scale: 0.9,
+                           }}
+                           transition={{
+                              duration: 0.25,
+                              ease: 'easeInOut',
+                           }}
+                        >
+                           <TodoItem key={todo.id} todo={todo} />
+                        </motion.div>
+                     ))}
+                  </AnimatePresence>
                   {columns.inProgress.length === 0 && (
                      <p className='text-gray-500 dark:text-gray-400 text-center py-4'>
                         No tasks in progress

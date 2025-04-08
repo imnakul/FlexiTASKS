@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 function MatrixView() {
    const todos = useSelector((state) => state.todos.todos)
@@ -102,24 +103,47 @@ function MatrixView() {
 
                   {activeSection === section.id && (
                      <div className='p-4 pt-0 space-y-2'>
-                        {section.todos.map((todo) => (
-                           <div
-                              key={todo.id}
-                              className='bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm'
-                           >
-                              <p className='inter font-medium text-gray-900 dark:text-gray-100'>
-                                 {todo.todo}
-                              </p>
-                              {todo.dueDate && (
-                                 <p className='space-grotesk text-sm text-gray-500 dark:text-gray-400'>
-                                    Due:{' '}
-                                    {new Date(
-                                       todo.dueDate
-                                    ).toLocaleDateString()}
-                                 </p>
-                              )}
-                           </div>
-                        ))}
+                        <AnimatePresence>
+                           {section.todos.map((todo) => (
+                              <motion.div
+                                 key={todo.id}
+                                 layout
+                                 initial={{
+                                    opacity: 0,
+                                    y: 10,
+                                 }}
+                                 animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                 }}
+                                 exit={{
+                                    opacity: 0,
+                                    scale: 0.9,
+                                 }}
+                                 transition={{
+                                    duration: 0.25,
+                                    ease: 'easeInOut',
+                                 }}
+                              >
+                                 <div
+                                    key={todo.id}
+                                    className='bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm'
+                                 >
+                                    <p className='inter font-medium text-gray-900 dark:text-gray-100'>
+                                       {todo.todo}
+                                    </p>
+                                    {todo.dueDate && (
+                                       <p className='space-grotesk text-sm text-gray-500 dark:text-gray-400'>
+                                          Due:{' '}
+                                          {new Date(
+                                             todo.dueDate
+                                          ).toLocaleDateString()}
+                                       </p>
+                                    )}
+                                 </div>
+                              </motion.div>
+                           ))}
+                        </AnimatePresence>
                         {section.todos.length === 0 && (
                            <p className='inter text-gray-500 dark:text-gray-400 text-sm'>
                               No tasks in this category
@@ -185,24 +209,47 @@ function MatrixView() {
                         {section.title}
                      </h3>
                      <div className='space-y-2'>
-                        {section.todos.map((todo) => (
-                           <div
-                              key={todo.id}
-                              className='bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm'
-                           >
-                              <p className='font-medium text-gray-900 dark:text-gray-100'>
-                                 {todo.todo}
-                              </p>
-                              {todo.dueDate && (
-                                 <p className='text-sm text-gray-500 dark:text-gray-400'>
-                                    Due:{' '}
-                                    {new Date(
-                                       todo.dueDate
-                                    ).toLocaleDateString()}
-                                 </p>
-                              )}
-                           </div>
-                        ))}
+                        <AnimatePresence>
+                           {section.todos.map((todo) => (
+                              <motion.div
+                                 key={todo.id}
+                                 layout
+                                 initial={{
+                                    opacity: 0,
+                                    y: 10,
+                                 }}
+                                 animate={{
+                                    opacity: 1,
+                                    y: 0,
+                                 }}
+                                 exit={{
+                                    opacity: 0,
+                                    scale: 0.9,
+                                 }}
+                                 transition={{
+                                    duration: 0.25,
+                                    ease: 'easeInOut',
+                                 }}
+                              >
+                                 <div
+                                    key={todo.id}
+                                    className='bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm'
+                                 >
+                                    <p className='font-medium text-gray-900 dark:text-gray-100'>
+                                       {todo.todo}
+                                    </p>
+                                    {todo.dueDate && (
+                                       <p className='text-sm text-gray-500 dark:text-gray-400'>
+                                          Due:{' '}
+                                          {new Date(
+                                             todo.dueDate
+                                          ).toLocaleDateString()}
+                                       </p>
+                                    )}
+                                 </div>
+                              </motion.div>
+                           ))}
+                        </AnimatePresence>
                         {section.todos.length === 0 && (
                            <p className='text-gray-500 dark:text-gray-400 text-sm'>
                               No tasks in this category

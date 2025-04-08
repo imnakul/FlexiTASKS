@@ -412,14 +412,43 @@ function App() {
                                                 >
                                                    {viewMode === 'list' && (
                                                       <div className='space-y-4  '>
-                                                         {displayTodos.map(
-                                                            (todo) => (
-                                                               <TodoItem
-                                                                  key={todo.id}
-                                                                  todo={todo}
-                                                               />
-                                                            )
-                                                         )}
+                                                         <AnimatePresence>
+                                                            {displayTodos.map(
+                                                               (todo) => (
+                                                                  <motion.div
+                                                                     key={
+                                                                        todo.id
+                                                                     }
+                                                                     layout
+                                                                     initial={{
+                                                                        opacity: 0,
+                                                                        y: 10,
+                                                                     }}
+                                                                     animate={{
+                                                                        opacity: 1,
+                                                                        y: 0,
+                                                                     }}
+                                                                     exit={{
+                                                                        opacity: 0,
+                                                                        scale: 0.9,
+                                                                     }}
+                                                                     transition={{
+                                                                        duration: 0.25,
+                                                                        ease: 'easeInOut',
+                                                                     }}
+                                                                  >
+                                                                     <TodoItem
+                                                                        key={
+                                                                           todo.id
+                                                                        }
+                                                                        todo={
+                                                                           todo
+                                                                        }
+                                                                     />
+                                                                  </motion.div>
+                                                               )
+                                                            )}
+                                                         </AnimatePresence>
                                                          {displayTodos.length ===
                                                             0 && (
                                                             <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
@@ -582,12 +611,35 @@ function App() {
                                     <div className='space-y-3'>
                                        {viewMode === 'list' && (
                                           <div className='space-y-4 p-2 sm:p-4 overflow-y-auto sm:h-[45vh] h-[52vh]'>
-                                             {displayTodos.map((todo) => (
-                                                <TodoItem
-                                                   key={todo.id}
-                                                   todo={todo}
-                                                />
-                                             ))}
+                                             <AnimatePresence>
+                                                {displayTodos.map((todo) => (
+                                                   <motion.div
+                                                      key={todo.id}
+                                                      layout
+                                                      initial={{
+                                                         opacity: 0,
+                                                         y: 10,
+                                                      }}
+                                                      animate={{
+                                                         opacity: 1,
+                                                         y: 0,
+                                                      }}
+                                                      exit={{
+                                                         opacity: 0,
+                                                         scale: 0.9,
+                                                      }}
+                                                      transition={{
+                                                         duration: 0.25,
+                                                         ease: 'easeInOut',
+                                                      }}
+                                                   >
+                                                      <TodoItem
+                                                         key={todo.id}
+                                                         todo={todo}
+                                                      />
+                                                   </motion.div>
+                                                ))}
+                                             </AnimatePresence>
                                              {displayTodos.length === 0 && (
                                                 <p className='text-center text-gray-500 dark:text-gray-400 py-4'>
                                                    No tasks to display
@@ -787,12 +839,37 @@ function App() {
                                           >
                                              {viewMode === 'list' && (
                                                 <div className='space-y-4'>
-                                                   {displayTodos.map((todo) => (
-                                                      <TodoItem
-                                                         key={todo.id}
-                                                         todo={todo}
-                                                      />
-                                                   ))}
+                                                   <AnimatePresence>
+                                                      {displayTodos.map(
+                                                         (todo) => (
+                                                            <motion.div
+                                                               key={todo.id}
+                                                               layout
+                                                               initial={{
+                                                                  opacity: 0,
+                                                                  y: 10,
+                                                               }}
+                                                               animate={{
+                                                                  opacity: 1,
+                                                                  y: 0,
+                                                               }}
+                                                               exit={{
+                                                                  opacity: 0,
+                                                                  scale: 0.9,
+                                                               }}
+                                                               transition={{
+                                                                  duration: 0.25,
+                                                                  ease: 'easeInOut',
+                                                               }}
+                                                            >
+                                                               <TodoItem
+                                                                  key={todo.id}
+                                                                  todo={todo}
+                                                               />
+                                                            </motion.div>
+                                                         )
+                                                      )}
+                                                   </AnimatePresence>
                                                    {displayTodos.length ===
                                                       0 && (
                                                       <p className='text-center text-gray-500 dark:text-gray-400 py-4'>

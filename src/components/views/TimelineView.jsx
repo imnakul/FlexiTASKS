@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import TodoItem from '../TodoItem'
+import { AnimatePresence, motion } from 'framer-motion'
 
 function TimelineView() {
    const todos = useSelector((state) => state.todos.todos)
@@ -83,9 +84,32 @@ function TimelineView() {
                   {section.label}
                </h3>
                <div className='inter space-y-3'>
-                  {todosByDate[section.id].map((todo) => (
-                     <TodoItem key={todo.id} todo={todo} />
-                  ))}
+                  <AnimatePresence>
+                     {todosByDate[section.id].map((todo) => (
+                        <motion.div
+                           key={todo.id}
+                           layout
+                           initial={{
+                              opacity: 0,
+                              y: 10,
+                           }}
+                           animate={{
+                              opacity: 1,
+                              y: 0,
+                           }}
+                           exit={{
+                              opacity: 0,
+                              scale: 0.9,
+                           }}
+                           transition={{
+                              duration: 0.25,
+                              ease: 'easeInOut',
+                           }}
+                        >
+                           <TodoItem key={todo.id} todo={todo} />
+                        </motion.div>
+                     ))}
+                  </AnimatePresence>
                </div>
             </div>
          ))}
