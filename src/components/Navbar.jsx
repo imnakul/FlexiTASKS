@@ -8,7 +8,7 @@ import {
    FaChevronDown,
    FaPalette,
 } from 'react-icons/fa'
-import { SiFirebase } from 'react-icons/si'
+import { IoSyncCircleSharp } from 'react-icons/io5'
 import { MdOutlineBackup, MdOutlineContactPage } from 'react-icons/md'
 import { useAppTheme } from '../contexts/AppThemeContext'
 import ContactForm from './ContactForm'
@@ -202,7 +202,7 @@ function Navbar() {
                                  onClick={() => handleOpenModal('sync')}
                                  className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
                               >
-                                 <SiFirebase className='size-8  dark:text-yellow-500' />
+                                 <IoSyncCircleSharp className='size-9 text-orange-600 dark:text-orange-400' />
                                  <span className='space-grotesk text-sm text-gray-700 dark:text-gray-300 animate-pulse'>
                                     Cross Device Sync (Coming Soon)
                                  </span>
@@ -319,6 +319,11 @@ function Navbar() {
                               {modalContent === 'contact' && (
                                  <h3 className={`text-xl font-bold  `}>
                                     Contact Me
+                                 </h3>
+                              )}
+                              {modalContent === 'sync' && (
+                                 <h3 className={`text-xl font-bold  `}>
+                                    Cloud Backup + Cross Device Sync
                                  </h3>
                               )}
                            </h3>
