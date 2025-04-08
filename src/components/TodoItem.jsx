@@ -16,6 +16,7 @@ import { useAppTheme } from '../contexts/AppThemeContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateTodo, deleteTodo } from '../store/TodoSlice.js' // Import Redux actions
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from 'react-icons/fc'
+import { motion } from 'framer-motion'
 
 function TodoItem({ todo }) {
    const dispatch = useDispatch() // Redux Dispatch
@@ -352,7 +353,7 @@ function TodoItem({ todo }) {
                   <>
                      {todo.note && (
                         <div className='relative' ref={noteRef}>
-                           <button
+                           {/* <button
                               onClick={() => {
                                  setShowNote(!showNote)
                               }}
@@ -372,9 +373,32 @@ function TodoItem({ todo }) {
                                     ? 'Hide Note'
                                     : 'Show Note'
                               }
+
+                           > */}
+                           <motion.button
+                              whileHover={{ y: -2, rotate: -5 }}
+                              whileTap={{ scale: 0.9 }}
+                              transition={{ duration: 0.2 }}
+                              onClick={() => {
+                                 setShowNote(!showNote)
+                              }}
+                              className={`p-2 rounded-lg text-gray-500 ${getColorClass(
+                                 appTheme.colorTheme,
+                                 'hovertext'
+                              )}  dark:text-gray-400 ${
+                                 notesHidden && 'cursor-not-allowed'
+                              }`}
+                              title={
+                                 notesHidden
+                                    ? 'Notes Feature Hidden'
+                                    : showNote
+                                    ? 'Hide Note'
+                                    : 'Show Note'
+                              }
                            >
                               <FaStickyNote className='w-4 h-4' />
-                           </button>
+                           </motion.button>
+                           {/* </button> */}
                            {showNote && (
                               <div className='absolute right-0 mt-2 w-64 p-2 bg-white dark:bg-gray-700 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-10'>
                                  <p className='inter text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap'>
@@ -385,7 +409,7 @@ function TodoItem({ todo }) {
                         </div>
                      )}
 
-                     <button
+                     {/* <button
                         onClick={() => setIsEditing(true)}
                         className={`p-2 rounded-lg text-gray-500 ${getColorClass(
                            appTheme.colorTheme,
@@ -394,18 +418,37 @@ function TodoItem({ todo }) {
                            appTheme.colorTheme,
                            'buttonbghover'
                         )}  dark:text-gray-400 `}
+                     > */}
+                     <motion.button
+                        whileHover={{ y: -2, rotate: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        transition={{ duration: 0.2 }}
+                        onClick={() => setIsEditing(true)}
+                        className={`p-2 rounded-lg text-gray-500 ${getColorClass(
+                           appTheme.colorTheme,
+                           'hovertext'
+                        )}    dark:text-gray-400 `}
                      >
                         <FaEdit className='w-4 h-4' />
-                     </button>
+                     </motion.button>
+                     {/* </button> */}
                   </>
                )}
 
-               <button
+               {/* <button
                   onClick={handleDelete}
                   className='p-2 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-red-900/30'
+               > */}
+               <motion.button
+                  whileHover={{ y: -2, rotate: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setIsEditing(true)}
+                  className={`p-2 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-red-900/30 `}
                >
                   <FaTrash className='w-4 h-4' />
-               </button>
+               </motion.button>
+               {/* </button> */}
             </div>
          </div>
 

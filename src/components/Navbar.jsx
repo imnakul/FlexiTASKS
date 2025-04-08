@@ -6,17 +6,17 @@ import {
    FaCog,
    FaComments,
    FaChevronDown,
-   FaTasks,
-   FaEllipsisV,
    FaPalette,
 } from 'react-icons/fa'
-import { MdOutlineBackup } from 'react-icons/md'
+import { SiFirebase } from 'react-icons/si'
+import { MdOutlineBackup, MdOutlineContactPage } from 'react-icons/md'
 import { useAppTheme } from '../contexts/AppThemeContext'
 import ContactForm from './ContactForm'
 import TaskBackups from './TaskBackups'
 import ThemeSettings from './ThemeSettings'
 import { motion, AnimatePresence } from 'framer-motion'
 import ThemeWipeTransition from './ThemeTransitionOverlay'
+import ContactDetails from './ContactDetails'
 
 function Navbar() {
    const { isDarkMode, toggleTheme } = useTheme()
@@ -168,6 +168,16 @@ function Navbar() {
                                  </span>
                               </button>
 
+                              <button
+                                 onClick={() => handleOpenModal('backup')}
+                                 className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
+                              >
+                                 <MdOutlineBackup className='w-5 h-5  dark:text-white' />
+                                 <span className='space-grotesk text-sm text-gray-700 dark:text-gray-300'>
+                                    Tasks Backup
+                                 </span>
+                              </button>
+
                               {/* Feedback & Contact */}
                               <button
                                  onClick={() => handleOpenModal('feedback')}
@@ -180,12 +190,21 @@ function Navbar() {
                               </button>
 
                               <button
-                                 onClick={() => handleOpenModal('backup')}
+                                 onClick={() => handleOpenModal('contact')}
                                  className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
                               >
-                                 <MdOutlineBackup className='w-5 h-5  dark:text-white' />
+                                 <MdOutlineContactPage className='w-5 h-5  dark:text-white' />
                                  <span className='space-grotesk text-sm text-gray-700 dark:text-gray-300'>
-                                    Tasks Backup
+                                    Contact
+                                 </span>
+                              </button>
+                              <button
+                                 onClick={() => handleOpenModal('sync')}
+                                 className='w-full px-4 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors duration-150'
+                              >
+                                 <SiFirebase className='size-8  dark:text-yellow-500' />
+                                 <span className='space-grotesk text-sm text-gray-700 dark:text-gray-300 animate-pulse'>
+                                    Cross Device Sync (Coming Soon)
                                  </span>
                               </button>
                            </div>
@@ -295,9 +314,13 @@ function Navbar() {
                         <div className='mt-3 text-center sm:mt-0'>
                            <h3 className='text-lg font-semibold leading-6 text-gray-50 space-grotesk'>
                               {modalContent === 'theme' && 'Theme Settings'}
-                              {modalContent === 'feedback' &&
-                                 'Feedback & Contact'}
+                              {modalContent === 'feedback' && 'Feedback'}
                               {modalContent === 'backup' && 'Tasks Backup'}
+                              {modalContent === 'contact' && (
+                                 <h3 className={`text-xl font-bold  `}>
+                                    Contact Me
+                                 </h3>
+                              )}
                            </h3>
                            <div className='mt-4'>
                               {modalContent === 'theme' && (
@@ -311,6 +334,33 @@ function Navbar() {
                                  <TaskBackups
                                     onClose={() => setShowModal(false)}
                                  />
+                              )}
+                              {modalContent === 'contact' && (
+                                 <ContactDetails
+                                    onClose={() => setShowModal(false)}
+                                 />
+                              )}
+                              {modalContent === 'sync' && (
+                                 <>
+                                    <div className='flex items-center justify-center'>
+                                       <img
+                                          src='/coming-soon.png'
+                                          className='size-52 md:size-full rounded-lg animate-pulse'
+                                       ></img>
+                                    </div>
+                                    {/* <div className='flex flex-col items-center gap-2'>
+                                       <span className='font-bold pace-grotesk text-lg text-gray-900 dark:text-gray-300'>
+                                          Cross Device Sync
+                                       </span>
+                                       <span className='font-bold pace-grotesk text-lg text-gray-900 dark:text-gray-300'>
+                                          {' '}
+                                          Data backup{' '}
+                                       </span>
+                                       <span className='font-bold pace-grotesk text-lg text-gray-900 dark:text-gray-300'>
+                                          Offline First
+                                       </span>
+                                    </div> */}
+                                 </>
                               )}
                            </div>
                         </div>

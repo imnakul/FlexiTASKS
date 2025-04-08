@@ -161,6 +161,12 @@ function ContactForm() {
                </button>
             </div>
          </form>
+         <p className=' flex-col flex text-gray-900 dark:text-gray-300 mt-3 inter text-sm'>
+            "Did you like the project? Then say with love:"
+         </p>
+         <span className='font-bold pace-grotesk text-lg text-gray-900 dark:text-gray-300'>
+            Jai Shree Krishna! 🙏
+         </span>{' '}
       </div>
    )
 }
