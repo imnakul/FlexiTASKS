@@ -443,7 +443,7 @@ function TodoItem({ todo }) {
                   whileHover={{ y: -2, rotate: -5 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.2 }}
-                  onClick={() => setIsEditing(true)}
+                  onClick={handleDelete}
                   className={`p-2 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-red-900/30 `}
                >
                   <FaTrash className='w-4 h-4' />
