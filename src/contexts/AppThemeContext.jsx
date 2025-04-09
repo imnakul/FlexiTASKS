@@ -242,7 +242,7 @@ const colorOptions = {
       bg: '',
       hover: '',
       shadow: '',
-      buttonbg: '',
+      buttonbg: 'bg-gray-500 dark:bg-gray-800',
       buttonbghover: '',
       ring: '',
       text: '',

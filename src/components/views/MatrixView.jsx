@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import MatrixHelpTooltip from '../MatrixHelpToolkit'
 
 function MatrixView() {
    const todos = useSelector((state) => state.todos.todos)
@@ -74,6 +75,7 @@ function MatrixView() {
 
    return (
       <div className='sm:p-4 pt-0 p-0'>
+         {/* <MatrixHelpTooltip /> */}
          {/* Mobile View */}
          <div className='sm:hidden space-y-4'>
             {sections.map((section) => (
@@ -156,7 +158,8 @@ function MatrixView() {
          </div>
 
          {/* Desktop View */}
-         <div className='hidden sm:grid grid-cols-2 gap-4'>
+         <div className=' hidden sm:grid grid-cols-2 gap-4'>
+            {/* <MatrixHelpTooltip /> */}
             <div className='space-y-4'>
                {sections.slice(0, 2).map((section) => (
                   <div

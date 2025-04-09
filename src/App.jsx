@@ -21,6 +21,7 @@ import RainBackground from './components/backgrounds/RainBackground.jsx'
 import { VscFoldDown, VscFoldUp } from 'react-icons/vsc'
 import { IoIosAdd } from 'react-icons/io'
 import { motion, AnimatePresence } from 'framer-motion'
+import MatrixHelpTooltip from './components/MatrixHelpToolkit.jsx'
 
 function App() {
    const todos = useSelector((state) => state.todos.todos)
@@ -139,11 +140,11 @@ function App() {
 
          {appTheme.background === 'none' && <></>}
 
-         <div className='min-h-screen min-w-screen bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
+         <div className='min-h-screen min-w-screen overflow-x-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300'>
             <Navbar />
 
             <div
-               className={`flex w-screen min-h-screen transition-colors duration-1000 ease-in-out ${getColorClass(
+               className={`flex w-full min-h-screen transition-colors duration-1000 ease-in-out ${getColorClass(
                   appTheme.colorTheme,
                   'background'
                )}`}
@@ -157,7 +158,7 @@ function App() {
                            ? 'max-w-5xl'
                            : viewMode === 'kanban'
                            ? 'max-w-7xl'
-                           : 'sm:max-w-6xl max-w-sm'
+                           : 'sm:max-w-7xl max-w-sm'
                      } mx-auto space-y-8 transition-all duration-1000 ease-out `}
                   >
                      <motion.div
@@ -183,9 +184,10 @@ function App() {
                               <>
                                  <div
                                     className={`relative grid grid-cols-1 ${
-                                       viewMode === 'kanban'
-                                          ? 'lg:grid lg:[grid-template-columns:1fr_4fr]'
-                                          : viewMode === 'calendar'
+                                       viewMode === 'timeline'
+                                          ? 'lg:grid lg:grid-cols-2'
+                                          : viewMode === 'calendar' ||
+                                            viewMode === 'kanban'
                                           ? 'lg:grid-cols-1'
                                           : 'lg:grid-cols-2'
                                     } gap-2`}
@@ -217,13 +219,7 @@ function App() {
                                           delay: 0.6,
                                        }}
                                     > */}
-                                    <div
-                                       className={`${
-                                          viewMode === 'kanban'
-                                             ? 'lg:w-[300px]'
-                                             : ''
-                                       }`}
-                                    >
+                                    <div>
                                        <AnimatePresence>
                                           {(!isMobile ||
                                              (isMobile && formAreaShow)) && (
@@ -250,15 +246,15 @@ function App() {
                                                       ease: 'easeInOut',
                                                    }}
                                                    className={`overflow-hidden ${
-                                                      viewMode === 'kanban'
-                                                         ? 'lg:w-[300px]'
+                                                      viewMode === 'timeline'
+                                                         ? 'lg:w-[500px]'
                                                          : ''
                                                    }`}
                                                 >
                                                    <div className='px-3.5 pt-4 pb-2 sm:px-6 sm:pt-5 sm:pb-3 border-b border-gray-200 dark:border-gray-700 transition-all ease-in-out duration-800'>
                                                       <h2
                                                          className='text-sm font-medium text-gray-500 dark:text-gray-400 
-                            mb-3 sm:mb-4 space-grotesk'
+                            mb-3 space-grotesk'
                                                       >
                                                          Add New Task
                                                       </h2>
@@ -276,16 +272,22 @@ function App() {
                                              {appTheme.taskInterface.features
                                                 .viewModes && (
                                                 <div>
-                                                   <h3
-                                                      className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
-                                                         !formAreaShow &&
-                                                         isMobile
-                                                            ? 'mt-3 mb-3'
-                                                            : 'mt-0 mb-2'
-                                                      }`}
-                                                   >
-                                                      View Mode
-                                                   </h3>
+                                                   <div className='flex items-center relative'>
+                                                      <h3
+                                                         className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
+                                                            !formAreaShow &&
+                                                            isMobile
+                                                               ? 'mt-3 mb-3'
+                                                               : 'mt-0 mb-2'
+                                                         }`}
+                                                      >
+                                                         View Mode
+                                                      </h3>
+                                                      {viewMode ===
+                                                         'matrix' && (
+                                                         <MatrixHelpTooltip />
+                                                      )}
+                                                   </div>
                                                    <ViewModeSelector
                                                       viewMode={viewMode}
                                                       setViewMode={setViewMode}
@@ -382,13 +384,7 @@ function App() {
 
                                     {/* //Todo Grid  */}
 
-                                    <div
-                                       className={`${
-                                          viewMode === 'kanban'
-                                             ? 'lg:w-[980px]'
-                                             : ''
-                                       }`}
-                                    >
+                                    <div>
                                        <div
                                           className={`p-4 sm:p-4 overflow-y-auto 
                                        ${
@@ -719,15 +715,20 @@ function App() {
                                        {appTheme.taskInterface.features
                                           .viewModes && (
                                           <div>
-                                             <h3
-                                                className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
-                                                   !formAreaShow && isMobile
-                                                      ? 'mt-3 mb-3'
-                                                      : 'mt-0 mb-2'
-                                                }`}
-                                             >
-                                                View Mode
-                                             </h3>
+                                             <div className='flex items-center relative'>
+                                                <h3
+                                                   className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
+                                                      !formAreaShow && isMobile
+                                                         ? 'mt-3 mb-3'
+                                                         : 'mt-0 mb-2'
+                                                   }`}
+                                                >
+                                                   View Mode
+                                                </h3>
+                                                {viewMode === 'matrix' && (
+                                                   <MatrixHelpTooltip />
+                                                )}
+                                             </div>
                                              <ViewModeSelector
                                                 viewMode={viewMode}
                                                 setViewMode={setViewMode}

@@ -1,6 +1,7 @@
 import TodoItem from '../TodoItem'
 import { useSelector } from 'react-redux'
 import { useAppTheme } from '../../contexts/AppThemeContext'
+import { AnimatePresence, motion } from 'framer-motion'
 function KanbanView() {
    const todos = useSelector((state) => state.todos.todos)
    // const { appTheme, getColorClass } = useAppTheme()

@@ -95,7 +95,7 @@ function Navbar() {
             className={` ${getColorClass(
                appTheme.colorTheme,
                'navbar'
-            )}  shadow-sm border-b border-gray-200 dark:border-gray-700 fixed top-0 w-full z-20 transition-all duration-200`}
+            )}  shadow-sm border-b border-gray-200 dark:border-gray-700 fixed top-0 w-screen z-20 transition-all duration-200`}
          >
             <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                <div className='flex items-center justify-between h-14 sm:h-15'>
