@@ -17,7 +17,7 @@ const TodoForm = forwardRef(({ editingTodo = null, onCancelEdit }, ref) => {
    // Expose focus method to parent
    useImperativeHandle(ref, () => ({
       focusInput: () => {
-         console.log('Trying to focus:', inputRef.current) // <== LOG THIS
+         // console.log('Trying to focus:', inputRef.current)
          inputRef.current?.focus()
       },
    }))

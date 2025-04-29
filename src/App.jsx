@@ -149,13 +149,13 @@ function App() {
                   'background'
                )}`}
             >
-               <div className='container mx-auto pb-4 pt-20 '>
+               <div className='container lg:mx-auto mx-2 pb-4 pt-20 '>
                   <div
                      className={`${
                         appTheme.taskInterface.mode === 'minimal'
                            ? 'sm:max-w-2xl max-w-sm'
                            : appTheme.taskInterface.mode === 'custom'
-                           ? 'max-w-5xl'
+                           ? 'sm:max-w-5xl max-w-sm'
                            : viewMode === 'kanban'
                            ? 'max-w-7xl'
                            : 'sm:max-w-7xl max-w-sm'
@@ -272,7 +272,7 @@ function App() {
                                              {appTheme.taskInterface.features
                                                 .viewModes && (
                                                 <div>
-                                                   <div className='flex items-center relative'>
+                                                   <div className='flex items-center relative mr-10'>
                                                       <h3
                                                          className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
                                                             !formAreaShow &&
@@ -673,10 +673,10 @@ function App() {
                               </>
                            )}
 
-                           {/* //* CUSTOM MODE */}
+                           {/* //?? CUSTOM MODE */}
                            {appTheme.taskInterface.mode === 'custom' && (
                               <>
-                                 <div className='relative'>
+                                 <div className='relative '>
                                     <button
                                        className=' absolute top-5 right-5 sm:right-7'
                                        onClick={handleFormArea}
@@ -688,7 +688,7 @@ function App() {
                                           />
                                        ) : (
                                           <VscFoldDown
-                                             className={`size-4 text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
+                                             className={`size-4 font-bold text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200`}
                                              style={{ strokeWidth: 1 }}
                                           />
                                        )}
@@ -715,7 +715,7 @@ function App() {
                                        {appTheme.taskInterface.features
                                           .viewModes && (
                                           <div>
-                                             <div className='flex items-center relative'>
+                                             <div className='flex items-center relative mr-10'>
                                                 <h3
                                                    className={`space-grotesk text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-4 ${
                                                       !formAreaShow && isMobile
